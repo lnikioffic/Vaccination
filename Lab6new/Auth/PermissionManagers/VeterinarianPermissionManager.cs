@@ -8,5 +8,7 @@ namespace Lab6new.Auth.PermissionManagers
 {
     internal class VeterinarianPermissionManager
     {
+        //Ветврач, Ветврач приюта, Оператор приюта
+
     }
 }

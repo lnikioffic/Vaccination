@@ -1,4 +1,5 @@
-﻿using Lab6new.Models.Interface;
+﻿using Lab6new.Models;
+using Lab6new.Models.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,21 @@ namespace Lab6new.Auth.PermissionManagers
     internal interface IPermissionManager
     {
         User User { get; }
-        Predicate<ICard> ReadFilter {  get; }
 
-        bool CanEdit();
-        //кому-то говорят создай permMan он смотрит роль создает нужгный объект
+        Predicate<Animal> AnimalReadFilter {  get; }
+
+        Predicate<Act> ActReadFilter { get; }
+
+        Predicate<Contract> ContractReadFilter { get; }
+
+        Predicate<Organisation> OrganisationReadFilter { get; }
+
+        bool CanEditAnimal();
+
+        bool CanEditAct();
+
+        bool CanEditContract();
+
+        bool CanEditOrganisation();
     }
 }

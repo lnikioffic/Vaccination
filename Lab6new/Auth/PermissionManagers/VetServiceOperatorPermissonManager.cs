@@ -8,5 +8,12 @@ namespace Lab6new.Auth.PermissionManagers
 {
     internal class VetServiceOperatorPermissonManager
     {
+        private List<string> accessOrganisationType
+            = new List<string>()
+        {
+            "Исполнительный орган государственной власти",
+            "Орган местного самоуправления",
+            "Ветеринарная клиника: государственная"
+        };
     }
 }

@@ -10,7 +10,7 @@ namespace Lab6new.Auth.PermissionManagers
     {
         internal IPermissionManager CreatePermissonManager(User user)
         {
-            return 
+            return new OMSUOperatorPermissionManager(user);
         }
     }
 }

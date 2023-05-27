@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Auth.PermissionManagers
 {
-    internal class TutorOMSUPermissonManager
+    internal class OMSUTutorPermissonManager
     {
+        //Куратор ОМСУ, Подписант ОМСУ
     }
 }
