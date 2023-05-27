@@ -16,23 +16,25 @@ namespace Lab6new
 
         private void Add(object sender, EventArgs e)
         {
-            /*Locality locality = new Locality { Locality1 = textBox1.Text };
-            localityController.Add(locality);*/
-            Predicate<Locality> h = (x) => x.Locality1 == "";
-            var locality = localityController.GetData(h).First();
+
+            Locality locality = new Locality { Locality1 = "Тюмень" };
             var animal = new Animal
             {
-                RegistrationNumber = "123",
+                RegistrationNumber = "123645",
                 Category = true,
                 Sex = true,
-                BirthYear = 1000,
-                ChipNumber = "qwe",
-                Name = "qwe",
-                SpecialSigns = "qwe",
-                Photo = "qwe",
+                BirthYear = 2018,
+                ChipNumber = "156F-253B-12",
+                Name = "Шарик",
+                SpecialSigns = "Белая собака ухо черное, похожа на Макса Потапова",
+                Photo = "static/images/animals/dog/1.jpg",
                 Locality = locality,
             };
             animalController.Add(animal);
+            /*localityController.Add(locality);
+            Predicate<Locality> h = (x) => x.Locality1 == "";
+            var locality = localityController.GetData(h).First();*/
+
             //animalController.Add(animal);
             /*Organisation organisation = new Organisation
             {
@@ -61,7 +63,7 @@ namespace Lab6new
             userController.Add(user);*/
         }
 
-        private void Print(object sender, EventArgs e)
+        /*private void Print(object sender, EventArgs e)
         {
 
             Predicate<Locality> h = (x) => true;
@@ -86,6 +88,6 @@ namespace Lab6new
             var data = localityController.GetData(h).First();
             data.Locality1 = textBox4.Text;
             localityController.Update(data);
-        }
+        }*/
     }
 }

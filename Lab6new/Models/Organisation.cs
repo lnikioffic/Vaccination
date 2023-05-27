@@ -18,6 +18,9 @@ public partial class Organisation : ICard
 
     public string Type { get; set; } = null!;
 
+    
+
+
     public bool Entity { get; set; }
 
     public int LocalityId { get; set; }

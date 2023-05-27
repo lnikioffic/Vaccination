@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class LocalityController:Controller<Locality>
+    internal class LocalityController:CRUDCardService<Locality>
     {
        
 
