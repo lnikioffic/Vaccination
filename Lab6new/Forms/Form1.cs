@@ -27,7 +27,7 @@ namespace Lab6new
                 Sex = true,
                 BirthYear = 1000,
                 ChipNumber = "qwe",
-                Nickname = "qwe",
+                Name = "qwe",
                 SpecialSigns = "qwe",
                 Photo = "qwe",
                 Locality = locality,
