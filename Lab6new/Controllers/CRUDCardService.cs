@@ -9,10 +9,10 @@ using Lab6new.Models.Interface;
 
 namespace Lab6new.Controllers
 {
-    internal class Controller<T>
+    internal class CRUDCardService<T>
         where T : class, ICard
     {
-        public static Predicate<T> And<T>(params Predicate<T>[] predicates)
+        /*public static Predicate<T> And<T>(params Predicate<T>[] predicates)
         {
             return delegate (T item)
             {
@@ -25,7 +25,7 @@ namespace Lab6new.Controllers
                 }
                 return true;
             };
-        }
+        }*/
 
         public List<T> GetData(Predicate<T> filter)
         {

@@ -8,7 +8,7 @@ namespace Lab6new
         private LocalityController localityController = new LocalityController();
         private UserController userController = new UserController();
         private OrganisationController organizationController = new OrganisationController();
-        private AnimalController animalController = new AnimalController();
+        private CRUDCardService<Animal> animalController = new AnimalController();
         public Form1()
         {
             InitializeComponent();
