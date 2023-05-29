@@ -10,6 +10,10 @@ public partial class Locality : ICard
 
     public string Locality1 { get; set; } = null!;
 
+    public int DistrictId { get; set; }
+
+    public virtual District District { get; set; } = null!;
+
     public virtual ICollection<Act> Acts { get; set; } = new List<Act>();
 
     public virtual ICollection<Animal> Animals { get; set; } = new List<Animal>();

@@ -30,9 +30,11 @@ public partial class Lab3newContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<District> Districts { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lab3new;Username=postgres;Password=6776");
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lab3new;Username=postgres;Password=Nikita2002");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -168,6 +170,25 @@ public partial class Lab3newContext : DbContext
             entity.Property(e => e.Locality1)
                 .HasMaxLength(255)
                 .HasColumnName("locality");
+
+            entity.Property(e => e.DistrictId).HasColumnName("district_id");
+
+            entity.HasOne(d => d.District).WithMany(p => p.Localities)
+                .HasForeignKey(d => d.DistrictId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("fk_locality_district");
+        });
+
+        modelBuilder.Entity<District>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("District_pkey");
+
+            entity.ToTable("District");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.District1)
+                .HasMaxLength(255)
+                .HasColumnName("district");
         });
 
         modelBuilder.Entity<Organisation>(entity =>

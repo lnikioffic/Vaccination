@@ -11,26 +11,29 @@ namespace Lab6new
         private CRUDCardService<Animal> animalController = new AnimalController();
         public Form1()
         {
+            District district = new District { District1 = "Москоский" };
+            Locality locality = new Locality { Locality1 = "Москва", District = district };
+            localityController.Add(locality);
             InitializeComponent();
         }
 
         private void Add(object sender, EventArgs e)
         {
 
-            Locality locality = new Locality { Locality1 = "Тюмень" };
-            var animal = new Animal
-            {
-                RegistrationNumber = "123645",
-                Category = true,
-                Sex = true,
-                BirthYear = 2018,
-                ChipNumber = "156F-253B-12",
-                Name = "Шарик",
-                SpecialSigns = "Белая собака ухо черное, похожа на Макса Потапова",
-                Photo = "static/images/animals/dog/1.jpg",
-                Locality = locality,
-            };
-            animalController.Add(animal);
+            //Locality locality = new Locality { Locality1 = "Тюмень" };
+            //var animal = new Animal
+            //{
+            //    RegistrationNumber = "123645",
+            //    Category = true,
+            //    Sex = true,
+            //    BirthYear = 2018,
+            //    ChipNumber = "156F-253B-12",
+            //    Name = "Шарик",
+            //    SpecialSigns = "Белая собака ухо черное, похожа на Макса Потапова",
+            //    Photo = "static/images/animals/dog/1.jpg",
+            //    Locality = locality,
+            //};
+            //animalController.Add(animal);
             /*localityController.Add(locality);
             Predicate<Locality> h = (x) => x.Locality1 == "";
             var locality = localityController.GetData(h).First();*/
