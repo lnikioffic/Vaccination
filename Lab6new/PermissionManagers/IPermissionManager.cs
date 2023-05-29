@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6new.Auth.PermissionManagers
+namespace Lab6new.PermissionManagers
 {
     internal interface IPermissionManager
     {
         User User { get; }
 
-        Predicate<Animal> AnimalReadFilter {  get; }
+        Predicate<Animal> AnimalReadFilter { get; }
 
         Predicate<Act> ActReadFilter { get; }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class AnimalController : CRUDCardService<Animal>
+    internal class AnimalController : CRUDCardController<Animal>
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6new.Auth.PermissionManagers
+namespace Lab6new.PermissionManagers
 {
     internal class OMSUOperatorPermissionManager : IPermissionManager
     {
@@ -30,25 +30,25 @@ namespace Lab6new.Auth.PermissionManagers
         public User User { get; }
 
         public Predicate<Animal> AnimalReadFilter
-            => (x) => x.LocalityId == User.Organisation.LocalityId;
+            => (animal) => animal.Locality.DistrictId == User.Organisation.Locality.DistrictId;
 
         public Predicate<Act> ActReadFilter
-            => (x) => x.LocalityId == User.Organisation.LocalityId;
+            => (act) => act.Locality.DistrictId == User.Organisation.Locality.DistrictId;
 
         public Predicate<Contract> ContractReadFilter
-            => (x) => x.Costs
-            .Select((y) => y.LocalityId)
+            => (contract) => contract.Costs
+            .Select((cost) => cost.LocalityId)
             .Contains(User.Organisation.LocalityId);
 
         public Predicate<Organisation> OrganisationReadFilter
-            => (x) => x.LocalityId == User.Organisation.LocalityId
-            && accessOrganisationType.Contains(x.Type);
+            => (organisation) => organisation.Locality.DistrictId == User.Organisation.Locality.DistrictId
+            && accessOrganisationType.Contains(organisation.Type);
 
         public bool CanEditAct() => false;
 
-        public bool CanEditAnimal()=> false;
+        public bool CanEditAnimal() => false;
 
-        public bool CanEditContract()=> true;
+        public bool CanEditContract() => true;
 
         public bool CanEditOrganisation() => true;
     }

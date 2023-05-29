@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6new.Auth.PermissionManagers
+namespace Lab6new.Controllers.Interface
 {
-    internal class VetServiceTutorPermissonManager
+    interface IExportDataController
     {
+
     }
 }

@@ -9,7 +9,7 @@ using Lab6new.Models.Interface;
 
 namespace Lab6new.Controllers
 {
-    internal class CRUDCardService<T>
+    internal class CRUDCardController<T>
         where T : class, ICard
     {
         /*public static Predicate<T> And<T>(params Predicate<T>[] predicates)

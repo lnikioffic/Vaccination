@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class UserController : CRUDCardService<User>
+    internal class UserController : CRUDCardController<User>
     {
     }
 }
