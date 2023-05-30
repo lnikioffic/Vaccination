@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class AnimalController : CRUDCardController<Animal>
+    internal class ContractController:CRUDCardController<Contract>
     {
-
-        public AnimalController(IPermissionManager permissionManager, User user)
+        public ContractController(IPermissionManager permissionManager, User user)
         {
             User = user;
             PermissionManager = permissionManager;

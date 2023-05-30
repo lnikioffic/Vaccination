@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Lab6new;
 using Lab6new.Models.Interface;
+using Lab6new.PermissionManagers;
 
 namespace Lab6new.Controllers
 {
     internal class CRUDCardController<T>
         where T : class, ICard
     {
+
         /*public static Predicate<T> And<T>(params Predicate<T>[] predicates)
         {
             return delegate (T item)

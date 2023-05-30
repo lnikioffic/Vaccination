@@ -33,6 +33,7 @@
             passwordLabel = new Label();
             loginTextBox = new TextBox();
             passwordTextBox = new TextBox();
+            errorsLabel = new Label();
             SuspendLayout();
             // 
             // authButton
@@ -78,11 +79,21 @@
             passwordTextBox.Size = new Size(166, 27);
             passwordTextBox.TabIndex = 4;
             // 
+            // errorsLabel
+            // 
+            errorsLabel.AutoSize = true;
+            errorsLabel.ForeColor = Color.Red;
+            errorsLabel.Location = new Point(369, 49);
+            errorsLabel.Name = "errorsLabel";
+            errorsLabel.Size = new Size(0, 20);
+            errorsLabel.TabIndex = 5;
+            // 
             // AuthForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(errorsLabel);
             Controls.Add(passwordTextBox);
             Controls.Add(loginTextBox);
             Controls.Add(passwordLabel);
@@ -101,5 +112,6 @@
         private Label passwordLabel;
         private TextBox loginTextBox;
         private TextBox passwordTextBox;
+        private Label errorsLabel;
     }
 }

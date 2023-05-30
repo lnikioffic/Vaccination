@@ -5,92 +5,45 @@ namespace Lab6new
 {
     public partial class Form1 : Form
     {
-        private LocalityController localityController = new LocalityController();
-        private UserController userController = new UserController();
-        private OrganisationController organizationController = new OrganisationController();
-        private CRUDCardController<Animal> animalController = new AnimalController();
+        /*private CRUDCardController<Locality> localityController = new CRUDCardController<Locality>();
+        private CRUDCardController<User> userController = new CRUDCardController<User>();
+        private CRUDCardController<Organisation> organizationController = new CRUDCardController<Organisation>();
+        private CRUDCardController<Animal> animalController = new CRUDCardController<Animal>();
+        private CRUDCardController<District> districtController = new CRUDCardController<District>();*/
         public Form1()
         {
-            District district = new District { District1 = "Москоский" };
-            Locality locality = new Locality { Locality1 = "Москва", District = district };
-            localityController.Add(locality);
             InitializeComponent();
         }
 
         private void Add(object sender, EventArgs e)
         {
 
-            //Locality locality = new Locality { Locality1 = "Тюмень" };
-            //var animal = new Animal
-            //{
-            //    RegistrationNumber = "123645",
-            //    Category = true,
-            //    Sex = true,
-            //    BirthYear = 2018,
-            //    ChipNumber = "156F-253B-12",
-            //    Name = "Шарик",
-            //    SpecialSigns = "Белая собака ухо черное, похожа на Макса Потапова",
-            //    Photo = "static/images/animals/dog/1.jpg",
-            //    Locality = locality,
-            //};
-            //animalController.Add(animal);
-            /*localityController.Add(locality);
-            Predicate<Locality> h = (x) => x.Locality1 == "";
-            var locality = localityController.GetData(h).First();*/
-
-            //animalController.Add(animal);
-            /*Organisation organisation = new Organisation
+            /*Predicate<District> h = (x) => x.District1 == "Москоский";
+            District district = districtController.GetData(h).First();
+            Locality locality = new Locality { Locality1 = "Москва", DistrictId = district.Id };
+            localityController.Add(locality);
+            Organisation organisation = new Organisation
             {
                 FullName = "test",
                 Inn = "test",
                 Kpp = "test",
-                District = "test",
-                City = "test",
-                Street = "test",
-                HouseNumber = "test",
-                Index = "test",
+                Address = "test",
                 Type = "test",
                 Entity = true,
-                Locality = locality
+                LocalityId = locality.Id
             };
             organizationController.Add(organisation);
             User user = new User
             {
                 Login = "admin",
+                Password = GetHash("admin"),
                 FirstName = "admin",
                 LastName = "admin",
                 Patronymic = "admin",
-                Organisation = organisation,
-                Role = "admin",
+                OrganisationId = organisation.Id,
+                Role = "Оператор ОМСУ",
             };
             userController.Add(user);*/
         }
-
-        /*private void Print(object sender, EventArgs e)
-        {
-
-            Predicate<Locality> h = (x) => true;
-            var data = localityController.GetData(h).Select(x => x.Locality1);
-            label1.Text = "";
-            foreach (var item in data)
-            {
-                label1.Text += item.ToString() + "\n";
-            }
-        }
-
-        private void Delete(object sender, EventArgs e)
-        {
-            Predicate<Locality> h = (x) => x.Locality1 == textBox3.Text;
-            var data = localityController.GetData(h).First();
-            localityController.Delete(data);
-        }
-
-        private void Update(object sender, EventArgs e)
-        {
-            Predicate<Locality> h = (x) => x.Locality1 == textBox2.Text;
-            var data = localityController.GetData(h).First();
-            data.Locality1 = textBox4.Text;
-            localityController.Update(data);
-        }*/
     }
 }

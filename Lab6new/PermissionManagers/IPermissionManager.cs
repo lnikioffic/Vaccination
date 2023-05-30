@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.PermissionManagers
 {
-    internal interface IPermissionManager
+    public interface IPermissionManager
     {
         User User { get; }
 
