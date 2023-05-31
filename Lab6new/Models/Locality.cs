@@ -21,4 +21,9 @@ public partial class Locality : ICard
     public virtual ICollection<Cost> Costs { get; set; } = new List<Cost>();
 
     public virtual ICollection<Organisation> Organisations { get; set; } = new List<Organisation>();
+
+    public override string ToString()
+    {
+        return Locality1;
+    }
 }

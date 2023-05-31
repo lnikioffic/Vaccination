@@ -14,11 +14,11 @@ namespace Lab6new.Controllers
         where T : class, ICard
     {
 
-        /*public static Predicate<T> And<T>(params Predicate<T>[] predicates)
+        public Predicate<T1> And<T1>(List<Predicate<T1>> predicates)
         {
-            return delegate (T item)
+            return delegate (T1 item)
             {
-                foreach (Predicate<T> predicate in predicates)
+                foreach (Predicate<T1> predicate in predicates)
                 {
                     if (!predicate(item))
                     {
@@ -27,9 +27,9 @@ namespace Lab6new.Controllers
                 }
                 return true;
             };
-        }*/
+        }
 
-        public List<T> GetData(Predicate<T> filter)
+        public List<T> GetData(Predicate<T> filter,Func<T,object> sort)
         {
             using (var db = new Lab3newContext())
             {
@@ -41,11 +41,17 @@ namespace Lab6new.Controllers
                     .GetValue(db);
 
                 if (model as DbSet<T> != null)
-                    return ((DbSet<T>)model)
+                {
+                    var a = ((DbSet<T>)model)
                         .AsEnumerable()
                         .Where(x => filter(x))
-                        .AsQueryable()
-                        .ToList();
+                        .OrderBy(sort)
+                        .AsQueryable();
+                    var c = a.ToQueryString();
+                    var b = a.ToList();
+                    return b;
+                }
+                   
 
                 return new List<T>();
             }
