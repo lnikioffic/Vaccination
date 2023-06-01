@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            animalTable = new DataGridView();
             localityFilter = new ComboBox();
             registrationNumberFilter = new ComboBox();
             chipNumberFilter = new ComboBox();
@@ -40,20 +40,20 @@
             dogCheckBox = new CheckBox();
             catCheckBox = new CheckBox();
             showCardButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)animalTable).BeginInit();
             sexFilter.SuspendLayout();
             categoryFilter.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // animalTable
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 119);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(776, 221);
-            dataGridView1.TabIndex = 3;
+            animalTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            animalTable.Location = new Point(12, 119);
+            animalTable.Name = "animalTable";
+            animalTable.RowHeadersWidth = 51;
+            animalTable.RowTemplate.Height = 29;
+            animalTable.Size = new Size(776, 221);
+            animalTable.TabIndex = 3;
             // 
             // localityFilter
             // 
@@ -172,11 +172,11 @@
             Controls.Add(chipNumberFilter);
             Controls.Add(registrationNumberFilter);
             Controls.Add(localityFilter);
-            Controls.Add(dataGridView1);
+            Controls.Add(animalTable);
             Name = "AnimalForm";
             Text = "AnimalForm";
             Load += AnimalForm_Load;
-            Controls.SetChildIndex(dataGridView1, 0);
+            Controls.SetChildIndex(animalTable, 0);
             Controls.SetChildIndex(localityFilter, 0);
             Controls.SetChildIndex(registrationNumberFilter, 0);
             Controls.SetChildIndex(chipNumberFilter, 0);
@@ -184,7 +184,7 @@
             Controls.SetChildIndex(sexFilter, 0);
             Controls.SetChildIndex(categoryFilter, 0);
             Controls.SetChildIndex(showCardButton, 0);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)animalTable).EndInit();
             sexFilter.ResumeLayout(false);
             sexFilter.PerformLayout();
             categoryFilter.ResumeLayout(false);
@@ -194,7 +194,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView animalTable;
         private ComboBox localityFilter;
         private ComboBox registrationNumberFilter;
         private ComboBox chipNumberFilter;

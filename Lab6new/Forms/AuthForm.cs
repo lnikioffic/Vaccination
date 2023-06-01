@@ -1,6 +1,7 @@
 ﻿using Lab6new.Controllers;
 using Lab6new.Controllers.Interface;
 using Lab6new.Models;
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,11 @@ namespace Lab6new.Forms
         public AuthForm()
         {
             InitializeComponent();
+            var permMan = authController.Authorization("admin", "admin");
+            var registriesListForm = new RegistriesListForm(permMan);
+            this.Hide();
+            registriesListForm.Show();
+            
         }
 
         public string GetHash(string input)

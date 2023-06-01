@@ -32,7 +32,6 @@ namespace Lab6new.Forms
         {
             var localities = LocalityController
                 .GetData((x) => true, (x) => x.Locality1)
-                .Select((x) => x.Locality1)
                 .ToList();
 
             var registrationNumbers = AnimalController
@@ -45,12 +44,12 @@ namespace Lab6new.Forms
                 .Select((x) => x.ChipNumber)
                 .ToList();
 
-            SetDataToComboBox(localityFilter, localities);
-            SetDataToComboBox(registrationNumberFilter, registrationNumbers);
-            SetDataToComboBox(chipNumberFilter, chipNumbers);
+            SetDataToComboBox<Locality>(localityFilter, localities);
+            SetDataToComboBox<string>(registrationNumberFilter, registrationNumbers);
+            SetDataToComboBox<string>(chipNumberFilter, chipNumbers);
         }
 
-        private void SetDataToComboBox(ComboBox comboBox, List<string> data)
+        private void SetDataToComboBox<T>(ComboBox comboBox, List<T> data)
         {
             comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
@@ -61,14 +60,15 @@ namespace Lab6new.Forms
         {
             var filters = new List<Predicate<Animal>>()
             {
-                localityFilter.GetFilterFromComboBox((animal) => (animal as Animal).Locality.Locality1),
+                localityFilter.GetFilterFromComboBox((locality) => locality),
                 registrationNumberFilter.GetFilterFromComboBox((animal)=> (animal as Animal).RegistrationNumber),
                 chipNumberFilter.GetFilterFromComboBox((animal) =>(animal as Animal).ChipNumber),
                 sexFilter.GetFilterFromGroupBox((animal)=>(animal as Animal).Sex),
                 categoryFilter.GetFilterFromGroupBox((animal)=>(animal as Animal).Category)
-            };
+            };            
             var filter = AnimalController.And<Animal>(filters);
-            var data = AnimalController.GetData(filter,(x)=>x.RegistrationNumber);
+            var data = AnimalController.GetData(filter, (x) => x.RegistrationNumber);
+            animalTable.DataSource = data;
         }
     }
 
@@ -78,9 +78,9 @@ namespace Lab6new.Forms
             this ComboBox comboBox, Func<ICard, object> selector
             )
         {
-            if (comboBox.SelectedText == "")
+            if (comboBox.SelectedValue == null)
                 return (x) => true;
-            return (x) => selector(x).ToString() == comboBox.SelectedText;
+            return (x) => selector(x).ToString() == comboBox.SelectedValue.ToString();
         }
         public static Predicate<ICard> GetFilterFromGroupBox(
             this GroupBox groupBox, Func<ICard, bool> selector
