@@ -32,15 +32,25 @@ namespace Lab6new.RepresentationFactory
         [DisplayName(@"Особые приметы")]
         public string SpecialSigns { get; }
 
-        [DisplayName(@"Особые приметы")]
+        [DisplayName(@"Фото")]
         public string Photo { get; }
-        
 
         [DisplayName(@"Населеный пункт")]
         public string Locality { get; }
 
-        [Browsable(false)]
         public Animal Animal { get; }
+
+        public Act? CurrentAct { get; }
+
+
+        [DisplayName(@"Дата начала")]
+        public DateOnly? actStartDate { get { return CurrentAct?.StartDate; } }
+
+        [DisplayName(@"Дата окочания")]
+        public DateOnly? actEndDate { get { return CurrentAct?.EndDate; } }
+
+        [DisplayName(@"Тип вакцины")]
+        public string? actType { get { return CurrentAct?.Type; } }
 
         public AnimalCardRepresentation(Animal animal)
         {
@@ -54,6 +64,7 @@ namespace Lab6new.RepresentationFactory
             SpecialSigns = animal.SpecialSigns;
             Photo = animal.Photo;
             Locality = animal.Locality.Locality1;
+            CurrentAct = animal.Acts.Where(x => x.EndDate >= DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault();
         }
 
         public void setValue(Animal animal)

@@ -2,6 +2,7 @@
 using Lab6new.Models;
 using Lab6new.Models.Interface;
 using Lab6new.RepresentationFactory;
+using Lab6new.RepresentationFactory.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -85,7 +86,22 @@ namespace Lab6new.Forms
 
         private void showCardButton_Click(object sender, EventArgs e)
         {
-            showCardButton.Text = (animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).RegistrationNumber;
+            if (animalTable.SelectedRows.Count == 1)
+            {
+                var card = new AnimalCardForm(
+                    new AnimalController(
+                        PermissionManager,
+                        PermissionManager.User,
+                        new CardRepresentationFabric()
+                        ),(animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).Animal
+                    );
+                card.Show();
+            }
+            else
+            {
+                MessageBox.Show("Выберете одну строчку!!!", "Ошибка", MessageBoxButtons.OK);
+            }
+
         }
     }
 

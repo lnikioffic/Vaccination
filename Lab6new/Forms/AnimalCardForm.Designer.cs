@@ -28,12 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "AnimalCardForm";
+            dataTable = new TableLayoutPanel();
+            SuspendLayout();
+            // 
+            // dataTable
+            // 
+            dataTable.AutoSize = true;
+            dataTable.ColumnCount = 2;
+            dataTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            dataTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            dataTable.Location = new Point(12, 12);
+            dataTable.Name = "dataTable";
+            dataTable.RowCount = 1;
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            dataTable.Size = new Size(522, 28);
+            dataTable.TabIndex = 1;
+            // 
+            // AnimalCardForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(dataTable);
+            Name = "AnimalCardForm";
+            Text = "AnimalCardForm";
+            Load += AnimalCardForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private TableLayoutPanel dataTable;
     }
 }

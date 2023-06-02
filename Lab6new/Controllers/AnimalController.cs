@@ -31,7 +31,7 @@ namespace Lab6new.Controllers
 
         private IRepresentationFabric RepresentationFabric { get; }
 
-        public IEnumerable<IAnimalRepresentation> GetAnimals(List<Predicate<Animal>> filters, Func<Animal, object> sort, bool sortType)
+        public IEnumerable<IAnimalRepresentation> GetAnimals(List<Predicate<Animal>> filters, Func<Animal, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.AnimalReadFilter);
