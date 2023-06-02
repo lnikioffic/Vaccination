@@ -1,5 +1,6 @@
 ﻿using Lab6new.Controllers.Interface;
 using Lab6new.PermissionManagers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,9 @@ namespace Lab6new.Controllers
             using (var db = new Lab3newContext())
             {
                 var user = db.Users
+                    .Include((user) => user.Organisation)
+                        .ThenInclude((organisation) => organisation.Locality)
+                            .ThenInclude((locality) => locality.District)
                     .Where((user) => user.Login == login && user.Password == GetHash(password))
                     .FirstOrDefault();
 

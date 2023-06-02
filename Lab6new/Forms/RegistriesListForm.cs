@@ -1,5 +1,6 @@
 ﻿using Lab6new.Controllers;
 using Lab6new.PermissionManagers;
+using Lab6new.RepresentationFactory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace Lab6new.Forms
 
         private void animalRegistryButton_Click(object sender, EventArgs e)
         {
-            var animalController = new AnimalController(PermissionManager, PermissionManager.User);
+            var animalController = new AnimalController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
             var animalForm = new AnimalForm(animalController,localityController);
             animalForm.Show();

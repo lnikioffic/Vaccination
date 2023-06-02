@@ -2,6 +2,7 @@
 using Lab6new.RepresentationFactory.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,24 +11,54 @@ namespace Lab6new.RepresentationFactory
 {
     internal class AnimalCardRepresentation : IAnimalRepresentation
     {
-        string? registrationNumber;
-        string? category;
-        string? sex;
-        string? chipNumber;
-        string? name;
-        string? specialSigns;
-        string? locality;
-        Act? act;
+        [DisplayName(@"Регистрационный номер")]
+        public string RegistrationNumber { get; }
+
+        [DisplayName(@"Животное")]
+        public string Category { get; }
+
+        [DisplayName(@"Пол")]
+        public string Sex { get; }
+
+        [DisplayName(@"Год рождения")]
+        public int BirthYear { get; }
+
+        [DisplayName(@"Номер чипа")]
+        public string ChipNumber { get; }
+
+        [DisplayName(@"Кличка")]
+        public string Name { get; }
+
+        [DisplayName(@"Особые приметы")]
+        public string SpecialSigns { get; }
+
+        [DisplayName(@"Особые приметы")]
+        public string Photo { get; }
+        
+
+        [DisplayName(@"Населеный пункт")]
+        public string Locality { get; }
+
+        [Browsable(false)]
+        public Animal Animal { get; }
+
+        public AnimalCardRepresentation(Animal animal)
+        {
+            Animal = animal;
+            RegistrationNumber = animal.RegistrationNumber;
+            Category = animal.Category ? "собака" : "кошка";
+            Sex = animal.Sex ? "самец" : "самка";
+            BirthYear = animal.BirthYear;
+            ChipNumber = animal.ChipNumber;
+            Name = animal.Name;
+            SpecialSigns = animal.SpecialSigns;
+            Photo = animal.Photo;
+            Locality = animal.Locality.Locality1;
+        }
+
         public void setValue(Animal animal)
         {
-            registrationNumber = animal.RegistrationNumber;
-            category = animal.Category.ToString();
-            sex = animal.Sex ? "собака" : "кошка";
-            chipNumber = animal.ChipNumber;
-            name = animal.Name;
-            specialSigns = animal.SpecialSigns;
-            locality = animal.Locality.Locality1;
-            act = animal.Acts.OrderByDescending(i => i.EndDate).FirstOrDefault();
+            throw new NotImplementedException();
         }
     }
 }

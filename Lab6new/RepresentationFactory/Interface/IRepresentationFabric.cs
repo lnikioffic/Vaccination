@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab6new.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace Lab6new.RepresentationFactory.Interface
 {
     internal interface IRepresentationFabric
     {
-        public IAnimalRepresentation createAnimalRepresentation();
-        public IContractRepresentation createContractRepresentation();
-        public IOrganisationRepresentation createOrganisationRepresentation();
+        public IAnimalRepresentation createAnimalRepresentation(Animal animal);
+        public IContractRepresentation createContractRepresentation(Contract contract);
+        public IOrganisationRepresentation createOrganisationRepresentation(Organisation organisation);
     }
 }

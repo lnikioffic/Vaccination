@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Lab6new;
 using Lab6new.Models.Interface;
 using Lab6new.PermissionManagers;
+using Lab6new.Models;
 
 namespace Lab6new.Controllers
 {
@@ -14,22 +15,8 @@ namespace Lab6new.Controllers
         where T : class, ICard
     {
 
-        public Predicate<T1> And<T1>(List<Predicate<T1>> predicates)
-        {
-            return delegate (T1 item)
-            {
-                foreach (Predicate<T1> predicate in predicates)
-                {
-                    if (!predicate(item))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            };
-        }
 
-        public List<T> GetData(Predicate<T> filter,Func<T,object> sort)
+        /*public List<T> GetData(Predicate<T> filter, Func<T, object> sort)
         {
             using (var db = new Lab3newContext())
             {
@@ -43,19 +30,19 @@ namespace Lab6new.Controllers
                 if (model as DbSet<T> != null)
                 {
                     var a = ((DbSet<T>)model)
+                        .Include((x)=>(x as Animal)=>)
                         .AsEnumerable()
                         .Where(x => filter(x))
                         .OrderBy(sort)
-                        .AsQueryable();
-                    var c = a.ToQueryString();
-                    var b = a.ToList();
-                    return b;
+                        .AsQueryable()
+                        .ToList();
+                    return a;
                 }
-                   
+                    
 
                 return new List<T>();
             }
-        }
+        }*/
 
         public void Add(T dataObject)
         {

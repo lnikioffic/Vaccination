@@ -1,4 +1,5 @@
-﻿using Lab6new.RepresentationFactory.Interface;
+﻿using Lab6new.Models;
+using Lab6new.RepresentationFactory.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,17 @@ namespace Lab6new.RepresentationFactory
 {
     internal class TableRepresentationFabric : IRepresentationFabric
     {
-        public IAnimalRepresentation createAnimalRepresentation()
+        public IAnimalRepresentation createAnimalRepresentation(Animal animal)
+        {
+            return new AnimalTableRepresentation(animal); ;
+        }
+
+        public IContractRepresentation createContractRepresentation(Contract contract)
         {
             throw new NotImplementedException();
         }
 
-        public IContractRepresentation createContractRepresentation()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IOrganisationRepresentation createOrganisationRepresentation()
+        public IOrganisationRepresentation createOrganisationRepresentation(Organisation organisation)
         {
             throw new NotImplementedException();
         }
