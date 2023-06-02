@@ -30,75 +30,21 @@ namespace Lab6new.Forms
 
         private void AnimalCardForm_Load(object sender, EventArgs e)
         {
-            var animalRepProperties = Animal
-                .GetType()
-                .GetProperties()
-                .Where(z => z.GetCustomAttributes(typeof(DisplayNameAttribute), false).Length > 0)
-                .Select(z => z.GetValue(Animal))
-                .ToList();
-
-            var animalRepAttr = Animal
-                .GetType()
-                .GetProperties()
-                .Select(z => z.GetCustomAttributes(typeof(DisplayNameAttribute), false))
-                .Where(z => z.Length > 0)
-                .Select(z => z[0])
-                .Cast<DisplayNameAttribute>()
-                .ToList();
-
-            for (int i = 0; i < animalRepProperties.Count; i++)
-            {
-                Control control = null;
-                switch (animalRepAttr[i].DisplayName)
-                {
-                    case "Фото":
-                        {
-                            animalPhoto.Image = new Bitmap(@"" + animalRepProperties[i]?.ToString());
-                            break;
-                        }
-                    case "Животное":
-                        {
-                            control = new ComboBox
-                            {
-                                Name = "category",
-                                DataSource = new List<string> { "собака", "кошка" },
-                                SelectedItem = animalRepProperties.ToString(),
-                                AutoSize = true
-                            };
-                            break;
-                        }
-                    case "Пол":
-                        {
-                            control =
-                            new ComboBox
-                            {
-                                Name = "sex",
-                                DataSource = new List<string> { "самец", "самка" },
-                                SelectedItem = animalRepProperties.ToString(),
-                                AutoSize = true
-                            };
-                            break;
-                        }
-                    default:
-                        {
-                            control = new TextBox
-                            {
-                                Name = "textBox" + i,
-                                Text = animalRepProperties[i]?.ToString(),
-                                AutoSize = true,
-                            };
-                            break;
-                        }
-                }
-                if(animalRepAttr[i].DisplayName != "Фото")
-                {
-                    dataTable.Controls.Add(
-                    new Label { Name = "label" + i, Text = animalRepAttr[i].DisplayName, AutoSize = true, },
-                    0, i
-                    );
-                    dataTable.Controls.Add(control,1, i);
-                }
-            }
+            regNumb.Text = Animal.RegistrationNumber;
+            category.DataSource = new List<string> { "собака", "кошка" };
+            category.SelectedItem = Animal.Category;
+            sex.DataSource = new List<string> { "самец", "самка" };
+            sex.SelectedItem = Animal.Sex;
+            birthYear.Text = Animal.BirthYear.ToString();
+            chipNumb.Text = Animal.ChipNumber;
+            name.Text = Animal.Name;
+            locality.Text = Animal.Locality;
+            specialSigns.Text = Animal.SpecialSigns;
+            actType.Text = Animal.actType;
+            actStartDate.Text = Animal.actStartDate.ToString();
+            actEndDate.Text = Animal.actEndDate.ToString();
+            animalPhoto.Image = new Bitmap(@Animal.Photo);
         }
+
     }
 }
