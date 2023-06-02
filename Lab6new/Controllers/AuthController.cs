@@ -21,6 +21,8 @@ namespace Lab6new.Controllers
                     .Include((user) => user.Organisation)
                         .ThenInclude((organisation) => organisation.Locality)
                             .ThenInclude((locality) => locality.District)
+                     .Include((user) => user.Organisation)
+                        .ThenInclude((organisation) => organisation.ContractPerformOrganisations)
                     .Where((user) => user.Login == login && user.Password == GetHash(password))
                     .FirstOrDefault();
 

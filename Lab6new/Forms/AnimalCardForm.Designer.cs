@@ -53,6 +53,9 @@
             actType = new TextBox();
             actStartDate = new TextBox();
             actEndDate = new TextBox();
+            deleteButton = new Button();
+            changeButton = new Button();
+            vaccinationButton = new Button();
             ((System.ComponentModel.ISupportInitialize)animalPhoto).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -279,6 +282,7 @@
             // 
             actType.Location = new Point(650, 235);
             actType.Name = "actType";
+            actType.ReadOnly = true;
             actType.Size = new Size(125, 27);
             actType.TabIndex = 19;
             // 
@@ -286,6 +290,7 @@
             // 
             actStartDate.Location = new Point(650, 272);
             actStartDate.Name = "actStartDate";
+            actStartDate.ReadOnly = true;
             actStartDate.Size = new Size(125, 27);
             actStartDate.TabIndex = 20;
             // 
@@ -293,14 +298,48 @@
             // 
             actEndDate.Location = new Point(650, 307);
             actEndDate.Name = "actEndDate";
+            actEndDate.ReadOnly = true;
             actEndDate.Size = new Size(125, 27);
             actEndDate.TabIndex = 21;
+            // 
+            // deleteButton
+            // 
+            deleteButton.Location = new Point(504, 397);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(139, 29);
+            deleteButton.TabIndex = 22;
+            deleteButton.Text = "Удалить";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
+            // 
+            // changeButton
+            // 
+            changeButton.Location = new Point(312, 397);
+            changeButton.Name = "changeButton";
+            changeButton.Size = new Size(139, 29);
+            changeButton.TabIndex = 23;
+            changeButton.Text = "Изменить";
+            changeButton.UseVisualStyleBackColor = true;
+            changeButton.Click += changeButton_Click;
+            // 
+            // vaccinationButton
+            // 
+            vaccinationButton.Location = new Point(126, 397);
+            vaccinationButton.Name = "vaccinationButton";
+            vaccinationButton.Size = new Size(139, 29);
+            vaccinationButton.TabIndex = 24;
+            vaccinationButton.Text = "Вакцинировать";
+            vaccinationButton.UseVisualStyleBackColor = true;
+            vaccinationButton.Click += vaccinationButton_Click;
             // 
             // AnimalCardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(vaccinationButton);
+            Controls.Add(changeButton);
+            Controls.Add(deleteButton);
             Controls.Add(actEndDate);
             Controls.Add(actStartDate);
             Controls.Add(actType);
@@ -346,5 +385,8 @@
         private TextBox actType;
         private TextBox actStartDate;
         private TextBox actEndDate;
+        private Button deleteButton;
+        private Button changeButton;
+        private Button vaccinationButton;
     }
 }

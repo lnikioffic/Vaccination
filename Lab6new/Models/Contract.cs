@@ -25,4 +25,9 @@ public partial class Contract : ICard
     public virtual Organisation OrderOrganisation { get; set; } = null!;
 
     public virtual Organisation PerformOrganisation { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return Number;
+    }
 }

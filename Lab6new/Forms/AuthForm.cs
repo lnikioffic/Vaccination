@@ -27,7 +27,7 @@ namespace Lab6new.Forms
             var registriesListForm = new RegistriesListForm(permMan);
             this.Hide();
             registriesListForm.Show();
-            
+
         }
 
         public string GetHash(string input)

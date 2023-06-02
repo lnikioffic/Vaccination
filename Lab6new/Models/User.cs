@@ -26,4 +26,9 @@ public partial class User : ICard
     public virtual ICollection<Act> Acts { get; set; } = new List<Act>();
 
     public virtual Organisation Organisation { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return LastName + FirstName;
+    }
 }

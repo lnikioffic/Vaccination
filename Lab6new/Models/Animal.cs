@@ -29,4 +29,9 @@ public partial class Animal : ICard
     public virtual ICollection<Act> Acts { get; set; } = new List<Act>();
 
     public virtual Locality Locality { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return Name;
+    }
 }

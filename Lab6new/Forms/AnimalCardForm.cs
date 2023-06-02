@@ -46,5 +46,24 @@ namespace Lab6new.Forms
             animalPhoto.Image = new Bitmap(@Animal.Photo);
         }
 
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void vaccinationButton_Click(object sender, EventArgs e)
+        {
+            var actForm = new VaccinationForm(
+                new ActController(AnimalController.PermissionManager,
+                AnimalController.PermissionManager.User),
+                Animal.Animal
+                );
+            actForm.Show();
+        }
     }
 }

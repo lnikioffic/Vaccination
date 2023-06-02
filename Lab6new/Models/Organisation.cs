@@ -32,4 +32,10 @@ public partial class Organisation : ICard
     public virtual Locality Locality { get; set; } = null!;
 
     public virtual ICollection<User> Users { get; set; } = new List<User>();
+
+
+    public override string ToString()
+    {
+        return FullName;
+    }
 }
