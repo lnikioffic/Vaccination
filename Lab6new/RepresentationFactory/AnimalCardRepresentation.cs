@@ -11,7 +11,7 @@ namespace Lab6new.RepresentationFactory
 {
     internal class AnimalCardRepresentation : IAnimalRepresentation
     {
-        [DisplayName(@"Регистрационный номер")]
+        [DisplayName("Регистрационный номер")]
         public string RegistrationNumber { get; }
 
         [DisplayName(@"Животное")]
@@ -40,17 +40,16 @@ namespace Lab6new.RepresentationFactory
 
         public Animal Animal { get; }
 
-        public Act? CurrentAct { get; }
-
+        public Act? lastAct { get; }
 
         [DisplayName(@"Дата начала")]
-        public DateOnly? actStartDate { get { return CurrentAct?.StartDate; } }
+        public DateOnly? actStartDate { get { return lastAct?.StartDate; } }
 
         [DisplayName(@"Дата окочания")]
-        public DateOnly? actEndDate { get { return CurrentAct?.EndDate; } }
+        public DateOnly? actEndDate { get { return lastAct?.EndDate; } }
 
         [DisplayName(@"Тип вакцины")]
-        public string? actType { get { return CurrentAct?.Type; } }
+        public string? actType { get { return lastAct?.Type; } }
 
         public AnimalCardRepresentation(Animal animal)
         {
@@ -64,7 +63,7 @@ namespace Lab6new.RepresentationFactory
             SpecialSigns = animal.SpecialSigns;
             Photo = animal.Photo;
             Locality = animal.Locality.Locality1;
-            CurrentAct = animal.Acts.Where(x => x.EndDate >= DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault();
+            lastAct = animal.Acts.OrderByDescending(x=>x.EndDate).FirstOrDefault();
         }
 
         public void setValue(Animal animal)

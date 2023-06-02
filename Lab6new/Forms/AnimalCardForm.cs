@@ -48,19 +48,56 @@ namespace Lab6new.Forms
 
             for (int i = 0; i < animalRepProperties.Count; i++)
             {
-                dataTable.Controls.Add(
+                Control control = null;
+                switch (animalRepAttr[i].DisplayName)
+                {
+                    case "Фото":
+                        {
+                            animalPhoto.Image = new Bitmap(@"" + animalRepProperties[i]?.ToString());
+                            break;
+                        }
+                    case "Животное":
+                        {
+                            control = new ComboBox
+                            {
+                                Name = "category",
+                                DataSource = new List<string> { "собака", "кошка" },
+                                SelectedItem = animalRepProperties.ToString(),
+                                AutoSize = true
+                            };
+                            break;
+                        }
+                    case "Пол":
+                        {
+                            control =
+                            new ComboBox
+                            {
+                                Name = "sex",
+                                DataSource = new List<string> { "самец", "самка" },
+                                SelectedItem = animalRepProperties.ToString(),
+                                AutoSize = true
+                            };
+                            break;
+                        }
+                    default:
+                        {
+                            control = new TextBox
+                            {
+                                Name = "textBox" + i,
+                                Text = animalRepProperties[i]?.ToString(),
+                                AutoSize = true,
+                            };
+                            break;
+                        }
+                }
+                if(animalRepAttr[i].DisplayName != "Фото")
+                {
+                    dataTable.Controls.Add(
                     new Label { Name = "label" + i, Text = animalRepAttr[i].DisplayName, AutoSize = true, },
                     0, i
                     );
-                dataTable.Controls.Add(
-                    new TextBox
-                    {
-                        Name = "textBox" + i,
-                        Text = animalRepProperties[i]?.ToString(),
-                        AutoSize = true,
-                    },
-                    1, i
-                    );
+                    dataTable.Controls.Add(control,1, i);
+                }
             }
         }
     }

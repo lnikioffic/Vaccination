@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             dataTable = new TableLayoutPanel();
+            animalPhoto = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)animalPhoto).BeginInit();
             SuspendLayout();
             // 
             // dataTable
@@ -42,28 +44,29 @@
             dataTable.RowCount = 1;
             dataTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             dataTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataTable.Size = new Size(522, 28);
-            dataTable.TabIndex = 1;
+            dataTable.Size = new Size(451, 37);
+            dataTable.TabIndex = 0;
+            // 
+            // animalPhoto
+            // 
+            animalPhoto.Location = new Point(535, 12);
+            animalPhoto.Name = "animalPhoto";
+            animalPhoto.Size = new Size(220, 206);
+            animalPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
+            animalPhoto.TabIndex = 1;
+            animalPhoto.TabStop = false;
             // 
             // AnimalCardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(animalPhoto);
             Controls.Add(dataTable);
             Name = "AnimalCardForm";
             Text = "AnimalCardForm";
             Load += AnimalCardForm_Load;
+            ((System.ComponentModel.ISupportInitialize)animalPhoto).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -71,5 +74,6 @@
         #endregion
 
         private TableLayoutPanel dataTable;
+        private PictureBox animalPhoto;
     }
 }
