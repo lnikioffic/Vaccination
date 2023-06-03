@@ -23,11 +23,6 @@ namespace Lab6new.Forms
         public AuthForm()
         {
             InitializeComponent();
-            var permMan = authController.Authorization("admin", "admin");
-            var registriesListForm = new RegistriesListForm(permMan);
-            this.Hide();
-            registriesListForm.Show();
-
         }
 
         public string GetHash(string input)

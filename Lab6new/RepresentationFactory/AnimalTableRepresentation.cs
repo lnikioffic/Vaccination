@@ -12,22 +12,22 @@ namespace Lab6new.RepresentationFactory
     internal class AnimalTableRepresentation : IAnimalRepresentation
     {
         [DisplayName(@"Регистрационный номер")]
-        public string RegistrationNumber { get; }
+        public string RegistrationNumber { get {return Animal.RegistrationNumber; } }
 
         [DisplayName(@"Животное")]
-        public string Category { get; }
+        public string Category { get {return Animal.Category ? "собака" : "кошка"; } }
 
         [DisplayName(@"Пол")]
-        public string Sex { get; }
+        public string Sex { get {return Animal.Sex ? "самец" : "самка"; } }
 
         [DisplayName(@"Номер чипа")]
-        public string ChipNumber { get; }
+        public string ChipNumber { get {return Animal.ChipNumber; } }
 
         [DisplayName(@"Кличка")]
-        public string Name { get; }
+        public string Name { get { return Animal.Name; } }
 
         [DisplayName(@"Населеный пункт")]
-        public string Locality { get; }
+        public string Locality { get {return Animal.Locality.Locality1; } }
 
         [Browsable(false)]
         public Animal Animal { get; }
@@ -35,12 +35,6 @@ namespace Lab6new.RepresentationFactory
         public AnimalTableRepresentation(Animal animal)
         {
             Animal = animal;
-            RegistrationNumber = animal.RegistrationNumber;
-            Category = animal.Category ? "собака" : "кошка";
-            Sex = animal.Sex ? "самец" : "самка";
-            ChipNumber = animal.ChipNumber;
-            Name = animal.Name;
-            Locality = animal.Locality.Locality1;
         }
 
         public void setValue(Animal animal)

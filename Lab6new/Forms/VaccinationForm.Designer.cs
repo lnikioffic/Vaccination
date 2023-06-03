@@ -36,14 +36,14 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            doctor = new TextBox();
-            animal = new TextBox();
-            contract = new TextBox();
-            locality = new TextBox();
-            startDate = new TextBox();
-            duration = new TextBox();
-            type = new TextBox();
-            serialNumb = new TextBox();
+            userTextBox = new TextBox();
+            animalTextBox = new TextBox();
+            contractTextBox = new TextBox();
+            localityTextBox = new TextBox();
+            startDateTextBox = new TextBox();
+            durationTextBox = new TextBox();
+            typeTextBox = new TextBox();
+            serialNumbTextBox = new TextBox();
             button1 = new Button();
             SuspendLayout();
             // 
@@ -119,66 +119,66 @@
             label8.TabIndex = 7;
             label8.Text = "Серийный номер";
             // 
-            // doctor
+            // userTextBox
             // 
-            doctor.Location = new Point(288, 28);
-            doctor.Name = "doctor";
-            doctor.ReadOnly = true;
-            doctor.Size = new Size(280, 27);
-            doctor.TabIndex = 8;
+            userTextBox.Location = new Point(288, 28);
+            userTextBox.Name = "userTextBox";
+            userTextBox.ReadOnly = true;
+            userTextBox.Size = new Size(280, 27);
+            userTextBox.TabIndex = 8;
             // 
-            // animal
+            // animalTextBox
             // 
-            animal.Location = new Point(288, 61);
-            animal.Name = "animal";
-            animal.ReadOnly = true;
-            animal.Size = new Size(280, 27);
-            animal.TabIndex = 9;
+            animalTextBox.Location = new Point(288, 61);
+            animalTextBox.Name = "animalTextBox";
+            animalTextBox.ReadOnly = true;
+            animalTextBox.Size = new Size(280, 27);
+            animalTextBox.TabIndex = 9;
             // 
-            // contract
+            // contractTextBox
             // 
-            contract.Location = new Point(288, 94);
-            contract.Name = "contract";
-            contract.ReadOnly = true;
-            contract.Size = new Size(280, 27);
-            contract.TabIndex = 10;
+            contractTextBox.Location = new Point(288, 94);
+            contractTextBox.Name = "contractTextBox";
+            contractTextBox.ReadOnly = true;
+            contractTextBox.Size = new Size(280, 27);
+            contractTextBox.TabIndex = 10;
             // 
-            // locality
+            // localityTextBox
             // 
-            locality.Location = new Point(288, 127);
-            locality.Name = "locality";
-            locality.ReadOnly = true;
-            locality.Size = new Size(280, 27);
-            locality.TabIndex = 11;
+            localityTextBox.Location = new Point(288, 127);
+            localityTextBox.Name = "localityTextBox";
+            localityTextBox.ReadOnly = true;
+            localityTextBox.Size = new Size(280, 27);
+            localityTextBox.TabIndex = 11;
             // 
-            // startDate
+            // startDateTextBox
             // 
-            startDate.Location = new Point(288, 160);
-            startDate.Name = "startDate";
-            startDate.ReadOnly = true;
-            startDate.Size = new Size(280, 27);
-            startDate.TabIndex = 12;
+            startDateTextBox.Location = new Point(288, 160);
+            startDateTextBox.Name = "startDateTextBox";
+            startDateTextBox.ReadOnly = true;
+            startDateTextBox.Size = new Size(280, 27);
+            startDateTextBox.TabIndex = 12;
             // 
-            // duration
+            // durationTextBox
             // 
-            duration.Location = new Point(288, 193);
-            duration.Name = "duration";
-            duration.Size = new Size(280, 27);
-            duration.TabIndex = 13;
+            durationTextBox.Location = new Point(288, 193);
+            durationTextBox.Name = "durationTextBox";
+            durationTextBox.Size = new Size(280, 27);
+            durationTextBox.TabIndex = 13;
             // 
-            // type
+            // typeTextBox
             // 
-            type.Location = new Point(288, 227);
-            type.Name = "type";
-            type.Size = new Size(280, 27);
-            type.TabIndex = 14;
+            typeTextBox.Location = new Point(288, 227);
+            typeTextBox.Name = "typeTextBox";
+            typeTextBox.Size = new Size(280, 27);
+            typeTextBox.TabIndex = 14;
             // 
-            // serialNumb
+            // serialNumbTextBox
             // 
-            serialNumb.Location = new Point(288, 260);
-            serialNumb.Name = "serialNumb";
-            serialNumb.Size = new Size(280, 27);
-            serialNumb.TabIndex = 15;
+            serialNumbTextBox.Location = new Point(288, 260);
+            serialNumbTextBox.Name = "serialNumbTextBox";
+            serialNumbTextBox.Size = new Size(280, 27);
+            serialNumbTextBox.TabIndex = 15;
             // 
             // button1
             // 
@@ -196,14 +196,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(button1);
-            Controls.Add(serialNumb);
-            Controls.Add(type);
-            Controls.Add(duration);
-            Controls.Add(startDate);
-            Controls.Add(locality);
-            Controls.Add(contract);
-            Controls.Add(animal);
-            Controls.Add(doctor);
+            Controls.Add(serialNumbTextBox);
+            Controls.Add(typeTextBox);
+            Controls.Add(durationTextBox);
+            Controls.Add(startDateTextBox);
+            Controls.Add(localityTextBox);
+            Controls.Add(contractTextBox);
+            Controls.Add(animalTextBox);
+            Controls.Add(userTextBox);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -214,6 +214,7 @@
             Controls.Add(label1);
             Name = "VaccinationForm";
             Text = "VaccinationForm";
+            Activated += VaccinationForm_Activated;
             Load += VaccinationForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -229,14 +230,14 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private TextBox doctor;
-        private TextBox animal;
-        private TextBox contract;
-        private TextBox locality;
-        private TextBox startDate;
-        private TextBox duration;
-        private TextBox type;
-        private TextBox serialNumb;
+        private TextBox userTextBox;
+        private TextBox animalTextBox;
+        private TextBox contractTextBox;
+        private TextBox localityTextBox;
+        private TextBox startDateTextBox;
+        private TextBox durationTextBox;
+        private TextBox typeTextBox;
+        private TextBox serialNumbTextBox;
         private Button button1;
     }
 }

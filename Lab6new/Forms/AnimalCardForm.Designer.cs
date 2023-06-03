@@ -46,8 +46,8 @@
             sex = new ComboBox();
             birthYear = new TextBox();
             tableLayoutPanel1 = new TableLayoutPanel();
+            locality = new ComboBox();
             specialSigns = new TextBox();
-            locality = new TextBox();
             name = new TextBox();
             chipNumb = new TextBox();
             actType = new TextBox();
@@ -211,8 +211,8 @@
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(specialSigns, 1, 7);
             tableLayoutPanel1.Controls.Add(locality, 1, 6);
+            tableLayoutPanel1.Controls.Add(specialSigns, 1, 7);
             tableLayoutPanel1.Controls.Add(name, 1, 5);
             tableLayoutPanel1.Controls.Add(chipNumb, 1, 4);
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
@@ -248,6 +248,14 @@
             tableLayoutPanel1.Size = new Size(423, 385);
             tableLayoutPanel1.TabIndex = 18;
             // 
+            // locality
+            // 
+            locality.FormattingEnabled = true;
+            locality.Location = new Point(214, 198);
+            locality.Name = "locality";
+            locality.Size = new Size(206, 28);
+            locality.TabIndex = 22;
+            // 
             // specialSigns
             // 
             specialSigns.Location = new Point(214, 233);
@@ -256,13 +264,6 @@
             specialSigns.Name = "specialSigns";
             specialSigns.Size = new Size(206, 117);
             specialSigns.TabIndex = 21;
-            // 
-            // locality
-            // 
-            locality.Location = new Point(214, 198);
-            locality.Name = "locality";
-            locality.Size = new Size(206, 27);
-            locality.TabIndex = 20;
             // 
             // name
             // 
@@ -378,7 +379,6 @@
         private ComboBox sex;
         private TextBox birthYear;
         private TableLayoutPanel tableLayoutPanel1;
-        private TextBox locality;
         private TextBox name;
         private TextBox chipNumb;
         private TextBox specialSigns;
@@ -388,5 +388,6 @@
         private Button deleteButton;
         private Button changeButton;
         private Button vaccinationButton;
+        private ComboBox locality;
     }
 }

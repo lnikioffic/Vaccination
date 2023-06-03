@@ -92,9 +92,11 @@ namespace Lab6new.Forms
                     new AnimalController(
                         PermissionManager,
                         PermissionManager.User,
-                        new CardRepresentationFabric()
-                        ),(animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).Animal
-                    );
+                        new CardRepresentationFabric()),
+                    new LocalityController(
+                        PermissionManager,
+                        PermissionManager.User),
+                    (animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).Animal);
                 card.Show();
             }
             else

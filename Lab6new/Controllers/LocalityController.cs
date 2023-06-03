@@ -22,7 +22,10 @@ namespace Lab6new.Controllers
 
         public IPermissionManager PermissionManager { get; }
 
-
+        public bool Validate(string locality)
+        {
+            return GetData((x)=>x.Locality1 == locality,(x)=>true).FirstOrDefault() != null;
+        }
         public List<Locality> GetData(Predicate<Locality> filter, Func<Locality, object> sort)
         {
             using (var db = new Lab3newContext())

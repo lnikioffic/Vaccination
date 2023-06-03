@@ -12,35 +12,35 @@ namespace Lab6new.RepresentationFactory
     internal class AnimalCardRepresentation : IAnimalRepresentation
     {
         [DisplayName("Регистрационный номер")]
-        public string RegistrationNumber { get; }
+        public string RegistrationNumber { get { return Animal.RegistrationNumber; } }
 
         [DisplayName(@"Животное")]
-        public string Category { get; }
+        public string Category { get { return Animal.Category ? "собака" : "кошка"; } }
 
         [DisplayName(@"Пол")]
-        public string Sex { get; }
+        public string Sex { get { return Animal.Sex ? "самец" : "самка"; } }
 
         [DisplayName(@"Год рождения")]
-        public int BirthYear { get; }
+        public int BirthYear { get { return Animal.BirthYear; } }
 
         [DisplayName(@"Номер чипа")]
-        public string ChipNumber { get; }
+        public string ChipNumber { get { return Animal.ChipNumber; } }
 
         [DisplayName(@"Кличка")]
-        public string Name { get; }
+        public string Name { get { return Animal.Name; } }
 
         [DisplayName(@"Особые приметы")]
-        public string SpecialSigns { get; }
+        public string SpecialSigns { get { return Animal.SpecialSigns; } }
 
         [DisplayName(@"Фото")]
-        public string Photo { get; }
+        public string Photo { get { return Animal.Photo; } }
 
         [DisplayName(@"Населеный пункт")]
-        public string Locality { get; }
+        public string Locality { get { return Animal.Locality.Locality1; } }
 
         public Animal Animal { get; }
 
-        public Act? lastAct { get; }
+        public Act? lastAct { get { return Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault(); } }
 
         [DisplayName(@"Дата начала")]
         public DateOnly? actStartDate { get { return lastAct?.StartDate; } }
@@ -54,16 +54,6 @@ namespace Lab6new.RepresentationFactory
         public AnimalCardRepresentation(Animal animal)
         {
             Animal = animal;
-            RegistrationNumber = animal.RegistrationNumber;
-            Category = animal.Category ? "собака" : "кошка";
-            Sex = animal.Sex ? "самец" : "самка";
-            BirthYear = animal.BirthYear;
-            ChipNumber = animal.ChipNumber;
-            Name = animal.Name;
-            SpecialSigns = animal.SpecialSigns;
-            Photo = animal.Photo;
-            Locality = animal.Locality.Locality1;
-            lastAct = animal.Acts.OrderByDescending(x=>x.EndDate).FirstOrDefault();
         }
 
         public void setValue(Animal animal)

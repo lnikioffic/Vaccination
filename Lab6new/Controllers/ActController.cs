@@ -31,7 +31,7 @@ namespace Lab6new.Controllers
         public bool Validate(string duration,string type,string serialNumb)
         {
             var i = 0;
-            return int.TryParse(duration,out i);
+            return int.TryParse(duration,out i) && type != "" && serialNumb !="";
         }
 
         public List<Locality> GetData(Predicate<Locality> filter, Func<Locality, object> sort)

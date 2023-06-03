@@ -34,4 +34,5 @@ public partial class Animal : ICard
     {
         return Name;
     }
+
 }
