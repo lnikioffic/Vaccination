@@ -17,8 +17,8 @@ namespace Lab6new.Forms
         private OrganisationController OrganisationController { get; }
 
         public OrganisationForm(OrganisationController organisationController)
-            :base(organisationController.PermissionManager)
         {
+            PermissionManager = organisationController.PermissionManager;
             OrganisationController = organisationController;
             InitializeComponent();
         }

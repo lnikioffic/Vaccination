@@ -17,6 +17,11 @@ namespace Lab6new.Forms
     {
         protected IPermissionManager PermissionManager { get; set; }
 
+        public RegistriesListForm()
+        {
+            InitializeComponent();
+        }
+
         public RegistriesListForm(IPermissionManager permissionManager)
         {
             PermissionManager = permissionManager;

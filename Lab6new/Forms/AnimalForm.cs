@@ -24,8 +24,8 @@ namespace Lab6new.Forms
 
         private LocalityController LocalityController { get; }
         public AnimalForm(AnimalController animalController, LocalityController localityController)
-            :base(animalController.PermissionManager)
         {
+            PermissionManager = animalController.PermissionManager;
             LocalityController = localityController;
             AnimalController = animalController;
             InitializeComponent();

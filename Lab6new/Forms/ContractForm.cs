@@ -17,8 +17,8 @@ namespace Lab6new.Forms
         private ContractController ContractController { get;}
 
         public ContractForm(ContractController contractController)
-            :base(contractController.PermissionManager)
         {
+            PermissionManager = contractController.PermissionManager;
             ContractController = contractController;
             InitializeComponent();
         }
