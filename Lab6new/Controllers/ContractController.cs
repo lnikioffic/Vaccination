@@ -16,7 +16,7 @@ namespace Lab6new.Controllers
         {
             get
             {
-                if (PermissionManager.CanEditAnimal())
+                if (PermissionManager.CanEditContract())
                     return new CRUDCardController<Contract>();
                 throw new Exception("У вас недостаточно прав");
             }
@@ -68,7 +68,7 @@ namespace Lab6new.Controllers
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.ContractReadFilter);
-            return GetData(FilterService.GlueFilters(resultFilter), sort, sortType)
+            return GetData(resultFilter.GlueFilters(), sort, sortType)
                 .Select(
                 (x) => RepresentationFabric
                 .createContractRepresentation(x)
@@ -79,7 +79,7 @@ namespace Lab6new.Controllers
         {
             using (var db = new Lab3newContext())
             {
-                var animals = db.Contracts
+                var contracts = db.Contracts
                     .Include(x => x.OrderOrganisation)
                     .Include(x => x.PerformOrganisation)
                         .ThenInclude(x=>x.Locality)
@@ -90,8 +90,8 @@ namespace Lab6new.Controllers
                     .OrderBy(sort)
                     .AsQueryable();
                 if (descending)
-                    return animals.Reverse().ToList();
-                return animals.ToList();
+                    return contracts.Reverse().ToList();
+                return contracts.ToList();
             }
         }
     }

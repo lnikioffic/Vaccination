@@ -61,7 +61,7 @@ namespace Lab6new.Controllers
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.ActReadFilter);
-            return GetData(FilterService.GlueFilters(resultFilter), sort).ToList();
+            return GetData(resultFilter.GlueFilters(), sort).ToList();
         }
 
         private  List<Act> GetData(Predicate<Act> filter, Func<Act, object> sort)

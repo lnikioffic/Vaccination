@@ -26,13 +26,14 @@ namespace Lab6new.Forms
         {
             PermissionManager = permissionManager;
             InitializeComponent();
+            username.Text = permissionManager.User.ToString();
         }
 
         private void animalRegistryButton_Click(object sender, EventArgs e)
         {
             var animalController = new AnimalController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
-            var animalForm = new AnimalForm(animalController,localityController);
+            var animalForm = new AnimalForm(animalController, localityController);
             animalForm.Show();
             this.Hide();
         }
@@ -40,14 +41,15 @@ namespace Lab6new.Forms
         private void contractRegistryButton_Click(object sender, EventArgs e)
         {
             var contractController = new ContractController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
-            var contractForm = new ContractForm(contractController);
+            var localityController = new LocalityController(PermissionManager, PermissionManager.User);
+            var contractForm = new ContractForm(contractController, localityController);
             contractForm.Show();
             this.Hide();
         }
 
         private void organisationRegistryButton_Click(object sender, EventArgs e)
         {
-            var organisationController = new OrganisationController(PermissionManager, PermissionManager.User);
+            var organisationController = new OrganisationController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
             var organisationForm = new OrganisationForm(organisationController);
             organisationForm.Show();
             this.Hide();

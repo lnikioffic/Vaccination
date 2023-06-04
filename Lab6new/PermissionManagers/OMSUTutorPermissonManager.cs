@@ -31,6 +31,9 @@ namespace Lab6new.PermissionManagers
         public Predicate<Organisation> OrganisationReadFilter
             => (organisation) => organisation.Locality.DistrictId == User.Organisation.Locality.DistrictId;
 
+        public Predicate<Locality> LocalityReadFilter
+            => (locality) => locality.DistrictId == User.Organisation.Locality.DistrictId;
+
         public bool CanEditAct() => false;        
 
         public bool CanEditAnimal() => false;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.PermissionManagers
 {
-    internal class VetServiceOperatorPermissonManager:IPermissionManager
+    internal class VetServiceOperatorPermissonManager : IPermissionManager
     {
         //Оператор Ветслужбы
         private List<string> accessOrganisationType
@@ -36,6 +36,9 @@ namespace Lab6new.PermissionManagers
 
         public Predicate<Organisation> OrganisationReadFilter
             => (organisation) => accessOrganisationType.Contains(organisation.Type);
+
+        public Predicate<Locality> LocalityReadFilter
+            => (locality) => true;
 
         public bool CanEditAct() => false;
 

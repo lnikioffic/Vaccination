@@ -1,6 +1,7 @@
 ﻿using Lab6new.Controllers;
 using Lab6new.Models;
 using Lab6new.Models.Interface;
+using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
 using Lab6new.RepresentationFactory.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace Lab6new.Forms
         private AnimalController AnimalController { get; }
 
         private LocalityController LocalityController { get; }
+
         public AnimalForm(AnimalController animalController, LocalityController localityController)
         {
             PermissionManager = animalController.PermissionManager;
@@ -35,51 +37,52 @@ namespace Lab6new.Forms
         {
 
             var localities = LocalityController
-                .GetData((x) => true, (x) => x.Locality1)
+                .GetLocalities(new List<Predicate<Locality>>(), (x) => x.Locality1)
                 .ToList();
 
-            SetDataToComboBox(localityFilter, localities);
+            localityFilter.SetDataToComboBox(localities);
         }
 
-        private void SetDataToComboBox<T>(ComboBox comboBox, List<T> data)
-        {
-            comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox.DataSource = data;
-            comboBox.SelectedItem = null;
-        }
-
-        private void searchButton_Click(object sender, EventArgs e)
+        private List<Predicate<Animal>> GetFilters()
         {
             Predicate<Animal> localFil;
+
             if (localityFilter.SelectedItem == null)
                 localFil = (animal) => true;
             else
                 localFil = (animal) => animal.Locality.Locality1 == (localityFilter.SelectedValue as Locality).Locality1;
+
             var filters = new List<Predicate<Animal>>()
             {
                 localFil,
                 sexFilter.GetFilterFromBoolGroupBox((animal)=>(animal as Animal).Sex),
                 categoryFilter.GetFilterFromBoolGroupBox((animal)=>(animal as Animal).Category)
             };
+            if (registrationNumberFilter.Text != "")
+                filters = new List<Predicate<Animal>> { (animal) => animal.RegistrationNumber == registrationNumberFilter.Text };
 
-            var sorts = new Dictionary<RadioButton, Func<Animal, object>>
+            return filters;
+        }
+
+        private Dictionary<RadioButton, Func<Animal, object>> GetSorts()
+        {
+            return new Dictionary<RadioButton, Func<Animal, object>>
             {
                 {regNumberRadio,(x)=>x.RegistrationNumber},
                 {localityRadio,(x)=>x.Locality.Locality1 },
                 {nameRadio,(x)=>x.Name },
                 {nullSortRadio, (x)=>true }
             };
+        }
 
-            if (registrationNumberFilter.Text != "")
-                filters = new List<Predicate<Animal>> { (animal) => animal.RegistrationNumber == registrationNumberFilter.Text };
-
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            
+            var sorts = GetSorts();
             var sort = sorts[sortBox.Controls.OfType<RadioButton>().First((x => x.Checked))];
-
             var sortType = descendingRadio.Checked;
-
             animalTable.DataSource = AnimalController
-                .GetAnimals(filters, sort, sortType)
+                .GetAnimals(GetFilters(), sort, sortType)
                 .Cast<AnimalTableRepresentation>()
                 .ToList();
         }
@@ -114,39 +117,4 @@ namespace Lab6new.Forms
         }
     }
 
-    internal static class Extensions
-    {
-        public static Predicate<ICard> GetFilterFromComboBox(
-            this ComboBox comboBox, Func<ICard, object> selector
-            )
-        {
-            if (comboBox.SelectedValue == null)
-                return (x) => true;
-            return (x) => selector(x).ToString() == comboBox.SelectedValue.ToString();
-        }
-        public static Predicate<ICard> GetFilterFromBoolGroupBox(
-            this GroupBox groupBox, Func<ICard, bool> selector
-            )
-        {
-
-            var checkBoxes = groupBox.Controls.OfType<CheckBox>().ToArray();
-
-            if (checkBoxes[0].Checked == checkBoxes[1].Checked)
-                return (x) => checkBoxes[0].Checked && checkBoxes[1].Checked;
-
-            return (x) => selector(x) == checkBoxes[0].Checked;
-        }
-
-        /*
-         В БД
-         собака = true
-         кошка = false
-        --------------
-        если собака = flase и кошка = false (x)=>false
-        если собака = true и кошка = true (x)=>true
-        --------------
-        если собака = true и кошка = false (x)=>x.Category = true
-        если собака = false и кошка = true (x)=>x.Category = false
-         */
-    }
 }

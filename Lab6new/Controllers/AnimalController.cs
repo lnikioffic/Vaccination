@@ -15,7 +15,7 @@ namespace Lab6new.Controllers
     internal class AnimalController
     {
 
-        public CRUDCardController<Animal> CRUDCardController
+        private CRUDCardController<Animal> CRUDCardController
         {
             get
             {
@@ -70,7 +70,7 @@ namespace Lab6new.Controllers
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.AnimalReadFilter);
-            return GetData(FilterService.GlueFilters(resultFilter), sort, sortType)
+            return GetData(resultFilter.GlueFilters(), sort, sortType)
                 .Select(
                 (x) => RepresentationFabric
                 .createAnimalRepresentation(x)

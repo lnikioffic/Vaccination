@@ -29,6 +29,9 @@ namespace Lab6new.PermissionManagers
         public Predicate<Organisation> OrganisationReadFilter
             => (contract) => false;
 
+        public Predicate<Locality> LocalityReadFilter
+            => (locality)=>true;
+
         public bool CanEditAct()=> true;
 
         public bool CanEditAnimal()=> true;

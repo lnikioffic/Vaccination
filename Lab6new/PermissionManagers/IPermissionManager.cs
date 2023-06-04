@@ -20,6 +20,8 @@ namespace Lab6new.PermissionManagers
 
         Predicate<Organisation> OrganisationReadFilter { get; }
 
+        Predicate<Locality> LocalityReadFilter { get; }
+
         bool CanEditAnimal();
 
         bool CanEditAct();

@@ -30,7 +30,7 @@ namespace Lab6new.RepresentationFactory
 
         public Cost? Cost { get; }
 
-        [DisplayName("Цена")]
+        [DisplayName("Средняя стоимость")]
         public double Costs { get; }
 
         public ContractCardRepresentation(Contract contract)

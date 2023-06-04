@@ -24,8 +24,15 @@ namespace Lab6new.Controllers
 
         public bool Validate(string locality)
         {
-            return GetData((x)=>x.Locality1 == locality,(x)=>true).FirstOrDefault() != null;
+            return GetLocalities(new List<Predicate<Locality>> { (x) => x.Locality1 == locality },(x)=>true).FirstOrDefault() != null;
         }
+        public List<Locality> GetLocalities(List<Predicate<Locality>> filters, Func<Locality, object> sort)
+        {
+            var resultFilter = filters;
+            resultFilter.Add(PermissionManager.LocalityReadFilter);
+            return GetData(resultFilter.GlueFilters(), sort).ToList();
+        }
+
         public List<Locality> GetData(Predicate<Locality> filter, Func<Locality, object> sort)
         {
             using (var db = new Lab3newContext())

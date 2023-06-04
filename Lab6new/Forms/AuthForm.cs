@@ -23,7 +23,7 @@ namespace Lab6new.Forms
         public AuthForm()
         {
             InitializeComponent();
-        }
+         }
 
         public string GetHash(string input)
         {

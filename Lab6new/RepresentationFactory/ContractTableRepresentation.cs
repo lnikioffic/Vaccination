@@ -32,7 +32,7 @@ namespace Lab6new.RepresentationFactory
         [Browsable (false)]
         public List<Cost> Costs { get { return Contract.Costs.ToList(); } }
 
-        [DisplayName(@"Дата окочания")]
+        [DisplayName("Средняя стоимость")]
         public double AverageCost { get { return Math.Round(Costs.Select(x => x.Cost1).Average(), 2); } }
 
 

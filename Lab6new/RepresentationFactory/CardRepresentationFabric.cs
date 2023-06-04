@@ -22,7 +22,7 @@ namespace Lab6new.RepresentationFactory
 
         public IOrganisationRepresentation createOrganisationRepresentation(Organisation organisation)
         {
-            throw new NotImplementedException();
+            return new OrganisationCardRepresentation(organisation);
         }
     }
 }

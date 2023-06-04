@@ -29,6 +29,6 @@ public partial class User : ICard
 
     public override string ToString()
     {
-        return LastName + FirstName;
+        return LastName + " " + FirstName;
     }
 }

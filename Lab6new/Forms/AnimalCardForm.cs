@@ -40,15 +40,16 @@ namespace Lab6new.Forms
         {
 
             regNumb.Text = AnimalRep.RegistrationNumber;
-            category.DataSource = new List<string> { "собака", "кошка" };
+            category.SetDataToComboBox(new List<string> { "собака", "кошка" });
             category.SelectedItem = AnimalRep.Category;
-            sex.DataSource = new List<string> { "самец", "самка" };
+            sex.SetDataToComboBox(new List<string> { "самец", "самка" });
             sex.SelectedItem = AnimalRep.Sex;
             birthYear.Text = AnimalRep.BirthYear.ToString();
             chipNumb.Text = AnimalRep.ChipNumber;
             name.Text = AnimalRep.Name;
             locality.DataSource = LocalityController
-                .GetData(x => x.DistrictId == AnimalRep.Animal.Locality.DistrictId, (x => x.Locality1))
+                .GetLocalities(new List<Predicate<Locality>>(),
+                (x => x.Locality1))
                 .Select((x) => x.Locality1)
                 .ToList();
             locality.SelectedItem = AnimalRep.Locality;
@@ -73,8 +74,8 @@ namespace Lab6new.Forms
                 AnimalRep.Animal.BirthYear = year;
                 AnimalRep.Animal.SpecialSigns = specialSigns.Text;
                 AnimalRep.Animal.Locality = LocalityController
-                    .GetData(x => x.Locality1 == locality.SelectedItem
-                    .ToString(), (x) => true)
+                    .GetLocalities(new List<Predicate<Locality>> { x => x.Locality1 == locality.SelectedItem.ToString() },
+                    (x) => true)
                     .First();
                 AnimalController.Update(AnimalRep.Animal);
             }
