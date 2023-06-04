@@ -25,8 +25,8 @@ namespace Lab6new.PermissionManagers
 
         public Predicate<Contract> ContractReadFilter
             => (contract) => contract.Costs
-            .Select((cost) => cost.LocalityId)
-            .Contains(User.Organisation.LocalityId);
+            .Select((cost) => cost.Locality.DistrictId)
+            .Contains(User.Organisation.Locality.DistrictId);
 
         public Predicate<Organisation> OrganisationReadFilter
             => (organisation) => organisation.Locality.DistrictId == User.Organisation.Locality.DistrictId;

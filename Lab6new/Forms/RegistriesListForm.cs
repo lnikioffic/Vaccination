@@ -17,11 +17,6 @@ namespace Lab6new.Forms
     {
         protected IPermissionManager PermissionManager { get; set; }
 
-        public RegistriesListForm()
-        {
-            InitializeComponent();
-        }
-
         public RegistriesListForm(IPermissionManager permissionManager)
         {
             PermissionManager = permissionManager;
@@ -39,7 +34,7 @@ namespace Lab6new.Forms
 
         private void contractRegistryButton_Click(object sender, EventArgs e)
         {
-            var contractController = new ContractController(PermissionManager, PermissionManager.User);
+            var contractController = new ContractController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
             var contractForm = new ContractForm(contractController);
             contractForm.Show();
             this.Hide();

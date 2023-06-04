@@ -17,7 +17,7 @@ namespace Lab6new.RepresentationFactory
 
         public IContractRepresentation createContractRepresentation(Contract contract)
         {
-            throw new NotImplementedException();
+            return new ContractTableRepresentation(contract);
         }
 
         public IOrganisationRepresentation createOrganisationRepresentation(Organisation organisation)

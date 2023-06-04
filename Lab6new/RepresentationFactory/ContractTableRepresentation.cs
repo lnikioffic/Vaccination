@@ -12,38 +12,33 @@ namespace Lab6new.RepresentationFactory
     internal class ContractTableRepresentation : IContractRepresentation
     {
         [DisplayName(@"Номер")]
-        public string Number { get; }
+        public string Number { get { return Contract.Number; } }
 
         [DisplayName(@"Заказчик")]
-        public string OrderOrganisation { get; }
+        public string OrderOrganisation { get { return Contract.OrderOrganisation.FullName; } }
 
         [DisplayName(@"Исполнитель")]
-        public string PerformOrganisation { get; }
+        public string PerformOrganisation { get { return Contract.PerformOrganisation.FullName; } }
 
         [DisplayName(@"Дата начала")]
-        public DateOnly? ContractStartDate { get; }
+        public DateOnly ContractStartDate { get {return Contract.StartDate; } }
 
         [DisplayName(@"Дата окочания")]
-        public DateOnly? ContractEndDate { get; }
+        public DateOnly ContractEndDate { get { return Contract.EndDate; } }
 
+        [Browsable(false)]
         public Contract Contract { get; }
 
-        public Cost? Cost { get; }
+        [Browsable (false)]
+        public List<Cost> Costs { get { return Contract.Costs.ToList(); } }
 
-        [DisplayName("Цена")]
-        public double Costs { get; }
+        [DisplayName(@"Дата окочания")]
+        public double AverageCost { get { return Math.Round(Costs.Select(x => x.Cost1).Average(), 2); } }
+
 
         public ContractTableRepresentation(Contract contract)
         {
             Contract = contract;
-            Number = contract.Number;
-            OrderOrganisation = contract.OrderOrganisation.FullName;
-            PerformOrganisation = contract.PerformOrganisation.FullName;
-            ContractStartDate = contract.StartDate;
-            ContractEndDate = contract.EndDate;
-            Cost = contract.Costs.FirstOrDefault();
-            Costs = Cost.Cost1;
         }
-
     }
 }

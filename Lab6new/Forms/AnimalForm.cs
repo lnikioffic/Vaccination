@@ -24,8 +24,8 @@ namespace Lab6new.Forms
 
         private LocalityController LocalityController { get; }
         public AnimalForm(AnimalController animalController, LocalityController localityController)
+            :base(animalController.PermissionManager)
         {
-            PermissionManager = animalController.PermissionManager;
             LocalityController = localityController;
             AnimalController = animalController;
             InitializeComponent();
@@ -88,7 +88,10 @@ namespace Lab6new.Forms
         {
             if (animalTable.SelectedRows.Count == 1)
             {
-                var card = new AnimalCardForm(
+                var animalRep = animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation;
+                if (animalRep != null)
+                {
+                    var card = new AnimalCardForm(
                     new AnimalController(
                         PermissionManager,
                         PermissionManager.User,
@@ -99,8 +102,9 @@ namespace Lab6new.Forms
                     new ActController(
                         PermissionManager,
                         PermissionManager.User),
-                    (animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).Animal);
-                card.Show();
+                    animalRep.Animal);
+                    card.Show();
+                }
             }
             else
             {

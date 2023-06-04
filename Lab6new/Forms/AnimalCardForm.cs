@@ -118,13 +118,16 @@ namespace Lab6new.Forms
         {
             try
             {
-                var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == AnimalRep.lastAct.Id }, (x) => true).First();
-                var actForm = new VaccinationForm(
+                if (AnimalRep.lastAct != null)
+                {
+                    var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == AnimalRep.lastAct.Id }, (x) => true).First();
+                    var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
                     AnimalRep.Animal, act);
-                this.Close();
-                actForm.Show();
+                    this.Close();
+                    actForm.Show();
+                }
             }
             catch (Exception ex)
             {
