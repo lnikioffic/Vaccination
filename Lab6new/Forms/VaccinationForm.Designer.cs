@@ -44,7 +44,8 @@
             durationTextBox = new TextBox();
             typeTextBox = new TextBox();
             serialNumbTextBox = new TextBox();
-            button1 = new Button();
+            addButton = new Button();
+            changeButton = new Button();
             SuspendLayout();
             // 
             // label1
@@ -180,22 +181,34 @@
             serialNumbTextBox.Size = new Size(280, 27);
             serialNumbTextBox.TabIndex = 15;
             // 
-            // button1
+            // addButton
             // 
-            button1.Location = new Point(185, 348);
-            button1.Name = "button1";
-            button1.Size = new Size(230, 29);
-            button1.TabIndex = 16;
-            button1.Text = "Вакцинировать";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            addButton.Location = new Point(185, 348);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(230, 29);
+            addButton.TabIndex = 16;
+            addButton.Text = "Вакцинировать";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Click += addButton_Click;
+            // 
+            // changeButton
+            // 
+            changeButton.Location = new Point(185, 348);
+            changeButton.Name = "changeButton";
+            changeButton.Size = new Size(230, 29);
+            changeButton.TabIndex = 17;
+            changeButton.Text = "Изменить";
+            changeButton.UseVisualStyleBackColor = true;
+            changeButton.Visible = false;
+            changeButton.Click += changeButton_Click;
             // 
             // VaccinationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(changeButton);
+            Controls.Add(addButton);
             Controls.Add(serialNumbTextBox);
             Controls.Add(typeTextBox);
             Controls.Add(durationTextBox);
@@ -214,7 +227,6 @@
             Controls.Add(label1);
             Name = "VaccinationForm";
             Text = "VaccinationForm";
-            Activated += VaccinationForm_Activated;
             Load += VaccinationForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -238,6 +250,7 @@
         private TextBox durationTextBox;
         private TextBox typeTextBox;
         private TextBox serialNumbTextBox;
-        private Button button1;
+        private Button addButton;
+        private Button changeButton;
     }
 }

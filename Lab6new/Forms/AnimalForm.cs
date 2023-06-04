@@ -96,6 +96,9 @@ namespace Lab6new.Forms
                     new LocalityController(
                         PermissionManager,
                         PermissionManager.User),
+                    new ActController(
+                        PermissionManager,
+                        PermissionManager.User),
                     (animalTable.SelectedRows[0].DataBoundItem as AnimalTableRepresentation).Animal);
                 card.Show();
             }

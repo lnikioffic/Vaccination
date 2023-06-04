@@ -56,6 +56,7 @@
             deleteButton = new Button();
             changeButton = new Button();
             vaccinationButton = new Button();
+            actChangeButton = new Button();
             ((System.ComponentModel.ISupportInitialize)animalPhoto).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -333,11 +334,22 @@
             vaccinationButton.UseVisualStyleBackColor = true;
             vaccinationButton.Click += vaccinationButton_Click;
             // 
+            // actChangeButton
+            // 
+            actChangeButton.Location = new Point(504, 352);
+            actChangeButton.Name = "actChangeButton";
+            actChangeButton.Size = new Size(232, 29);
+            actChangeButton.TabIndex = 26;
+            actChangeButton.Text = "Изменить последний акт";
+            actChangeButton.UseVisualStyleBackColor = true;
+            actChangeButton.Click += actChangeButton_Click;
+            // 
             // AnimalCardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(actChangeButton);
             Controls.Add(vaccinationButton);
             Controls.Add(changeButton);
             Controls.Add(deleteButton);
@@ -389,5 +401,6 @@
         private Button changeButton;
         private Button vaccinationButton;
         private ComboBox locality;
+        private Button actChangeButton;
     }
 }

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,24 +20,29 @@ namespace Lab6new.Forms
         private AnimalController AnimalController { get; }
 
         private LocalityController LocalityController { get; }
+
+        private ActController ActController { get; }
         private AnimalCardRepresentation AnimalRep { get; set; }
-        public AnimalCardForm(AnimalController animalController, LocalityController localityController, Animal animal)
+
+        public AnimalCardForm(AnimalController animalController, LocalityController localityController, ActController actController, Animal animal)
         {
             AnimalController = animalController;
             LocalityController = localityController;
+            ActController = actController;
             AnimalRep = animalController
                 .GetAnimals(new List<Predicate<Animal>> { (x) => x.Id == animal.Id }, (x) => true)
                 .Cast<AnimalCardRepresentation>()
                 .First();
             InitializeComponent();
-            sex.DataSource = new List<string> { "самец", "самка" };
-            category.DataSource = new List<string> { "собака", "кошка" };
         }
 
         private void AnimalCardForm_Load(object sender, EventArgs e)
         {
+
             regNumb.Text = AnimalRep.RegistrationNumber;
+            category.DataSource = new List<string> { "собака", "кошка" };
             category.SelectedItem = AnimalRep.Category;
+            sex.DataSource = new List<string> { "самец", "самка" };
             sex.SelectedItem = AnimalRep.Sex;
             birthYear.Text = AnimalRep.BirthYear.ToString();
             chipNumb.Text = AnimalRep.ChipNumber;
@@ -55,44 +61,40 @@ namespace Lab6new.Forms
 
         private void changeButton_Click(object sender, EventArgs e)
         {
-            var fields = new Dictionary<string, string>
+            try
             {
-                {"name",name.Text},
-                {"category",category.SelectedItem.ToString()},
-                {"sex",sex.SelectedItem.ToString()},
-                {"chipNumb",chipNumb.Text},
-                {"birthYear",birthYear.Text},
-                {"regNumb",regNumb.Text},
-                {"specialSigns",specialSigns.Text},
-            };
-            if (LocalityController.Validate(locality.SelectedItem.ToString()))
-            {
-                if (AnimalController.Validate(fields))
-                {
-                    AnimalRep.Animal.RegistrationNumber = fields["regNumb"];
-                    AnimalRep.Animal.Category = fields["category"] == "собака";
-                    AnimalRep.Animal.Sex = fields["sex"] == "самец";
-                    AnimalRep.Animal.Name = fields["name"];
-                    AnimalRep.Animal.ChipNumber = fields["chipNumb"];
-                    AnimalRep.Animal.BirthYear = int.Parse(fields["birthYear"]);
-                    AnimalRep.Animal.SpecialSigns = fields["specialSigns"];
-                    AnimalRep.Animal.Locality = LocalityController.GetData(x => x.Locality1 == (locality.SelectedItem.ToString()), (x) => true).First();
-                    AnimalRep.Animal.LocalityId = LocalityController.GetData(x => x.Locality1 == (locality.SelectedItem.ToString()), (x) => true).First().Id;
-                    AnimalController.CRUDCardController.Update(AnimalRep.Animal);
-                    AnimalCardForm_Load(sender, e);
-                }
+                AnimalRep.Animal.RegistrationNumber = regNumb.Text;
+                AnimalRep.Animal.Category = category.SelectedItem.ToString() == "собака";
+                AnimalRep.Animal.Sex = sex.SelectedItem.ToString() == "самец";
+                AnimalRep.Animal.Name = name.Text;
+                AnimalRep.Animal.ChipNumber = chipNumb.Text;
+                var year = 0;
+                int.TryParse(birthYear.Text, out year);
+                AnimalRep.Animal.BirthYear = year;
+                AnimalRep.Animal.SpecialSigns = specialSigns.Text;
+                AnimalRep.Animal.Locality = LocalityController
+                    .GetData(x => x.Locality1 == locality.SelectedItem
+                    .ToString(), (x) => true)
+                    .First();
+                AnimalController.Update(AnimalRep.Animal);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
+            AnimalCardForm_Load(sender, e);
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if(AnimalRep.Animal.Acts.Count == 0)
+            try
             {
-                AnimalController.CRUDCardController.Delete(AnimalRep.Animal);
-                var message = MessageBox.Show("Животное успешно удалено", "Сообщение");
-                this.Close();
+                AnimalController.Delete(AnimalRep.Animal);
             }
-                
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private void vaccinationButton_Click(object sender, EventArgs e)
@@ -110,9 +112,24 @@ namespace Lab6new.Forms
             {
                 MessageBox.Show(ex.Message, "Ошибка");
             }
-
         }
 
-
+        private void actChangeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == AnimalRep.lastAct.Id }, (x) => true).First();
+                var actForm = new VaccinationForm(
+                    new ActController(AnimalController.PermissionManager,
+                        AnimalController.PermissionManager.User),
+                    AnimalRep.Animal, act);
+                this.Close();
+                actForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
+        }
     }
 }

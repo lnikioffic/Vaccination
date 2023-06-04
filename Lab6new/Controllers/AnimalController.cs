@@ -15,12 +15,14 @@ namespace Lab6new.Controllers
     internal class AnimalController
     {
 
-        public CRUDCardController<Animal> CRUDCardController { 
-            get {
+        public CRUDCardController<Animal> CRUDCardController
+        {
+            get
+            {
                 if (PermissionManager.CanEditAnimal())
                     return new CRUDCardController<Animal>();
                 throw new Exception("У вас недостаточно прав");
-            } 
+            }
         }
 
         public AnimalController(IPermissionManager permissionManager, User user, IRepresentationFabric representationFabric)
@@ -37,16 +39,31 @@ namespace Lab6new.Controllers
 
         private IRepresentationFabric RepresentationFabric { get; }
 
-        public bool Validate(Dictionary<string, string> fields)
+        public bool Validate(Animal animal)
         {
-            var notEmptyField = fields["name"] != "" && fields["specialSigns"] != "";
-            var uniqueField = GetData((x) => x.RegistrationNumber == fields["regNumb"]
-            || x.ChipNumber == fields["chipNumb"], (x) => true)
+            var notEmptyField = animal.Name != "" && animal.SpecialSigns != ""
+                && animal.RegistrationNumber != "" && animal.ChipNumber != "";
+            var uniqueField = GetData((x) => (x.RegistrationNumber == animal.RegistrationNumber
+            || x.ChipNumber == animal.ChipNumber) && x.Id != animal.Id, (x) => true)
                 .FirstOrDefault() == null;
-            var selectedField = (fields["sex"] == "самец" || fields["sex"] == "самка") && (fields["category"] == "собака" || fields["category"] == "кошка");
-            var birth = 0;
-            var inputField = int.TryParse(fields["birthYear"], out birth);            
-            return notEmptyField  && selectedField && inputField;
+            var inputField = animal.BirthYear != 0;
+            return notEmptyField && uniqueField && inputField;
+        }
+
+        public void Update(Animal animal)
+        {
+            if (Validate(animal))
+                CRUDCardController.Update(animal);
+            else
+                throw new Exception("Не верно введеные данные");
+        }
+
+        public void Delete(Animal animal)
+        {
+            if (animal.Acts.Count == 0)
+                CRUDCardController.Delete(animal);
+            else
+                throw new Exception("Нельзя удалять животное, у которго есть акты вакцинации");
         }
 
         public IEnumerable<IAnimalRepresentation> GetAnimals(List<Predicate<Animal>> filters, Func<Animal, object> sort, bool sortType = false)

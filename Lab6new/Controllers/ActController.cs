@@ -18,28 +18,63 @@ namespace Lab6new.Controllers
         {
             User = user;
             PermissionManager = permissionManager;
-            CRUDCardController = new CRUDCardController<Act>();
         }
 
-        public CRUDCardController<Act> CRUDCardController { get; }
+        public CRUDCardController<Act> CRUDCardController
+        {
+            get
+            {
+                if (PermissionManager.CanEditAnimal())
+                    return new CRUDCardController<Act>();
+                throw new Exception("У вас недостаточно прав");
+            }
+        }
 
         public User User { get; }
 
         public IPermissionManager PermissionManager { get; }
 
 
-        public bool Validate(string duration,string type,string serialNumb)
+        public bool Validate(Act act)
         {
-            var i = 0;
-            return int.TryParse(duration,out i) && type != "" && serialNumb !="";
+            return GetData((x) => x.SerialNumber == act.SerialNumber && x.Id != act.Id, (x) => true)
+                .FirstOrDefault() == null && act.Type != "" && act.SerialNumber != "";
         }
 
-        public List<Locality> GetData(Predicate<Locality> filter, Func<Locality, object> sort)
+        public void Add(Act act)
+        {
+            if (Validate(act))
+                CRUDCardController.Add(act);
+            else
+                throw new Exception("Не верно введеные данные");
+        }
+
+        public void Update(Act act)
+        {
+            if (Validate(act))
+                CRUDCardController.Update(act);
+            else
+                throw new Exception("Не верно введеные данные");
+        }
+
+        public List<Act> GetActs(List<Predicate<Act>> filters, Func<Act, object> sort)
+        {
+            var resultFilter = filters;
+            resultFilter.Add(PermissionManager.ActReadFilter);
+            return GetData(FilterService.GlueFilters(resultFilter), sort).ToList();
+        }
+
+        private  List<Act> GetData(Predicate<Act> filter, Func<Act, object> sort)
         {
             using (var db = new Lab3newContext())
             {
-                return db.Localities
-                    .Include(x => x.District)
+                return db.Acts
+                    .Include(x => x.User)
+                        .ThenInclude(x => x.Organisation)
+                            .ThenInclude(x => x.Locality)
+                    .Include(x => x.User)
+                        .ThenInclude(x => x.Organisation)
+                            .ThenInclude(x => x.ContractPerformOrganisations)
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)
