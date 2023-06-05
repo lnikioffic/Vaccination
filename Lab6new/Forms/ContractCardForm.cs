@@ -232,7 +232,7 @@ namespace Lab6new.Forms
         {
             try
             {
-                var interval = new Interval(startDate.Text.ToString(), endDate.Text.ToString());
+                var interval = new Interval(startDate.Text, endDate.Text);
                 var contract = new Contract
                 {
                     Number = numbTextBox.Text,
@@ -259,6 +259,8 @@ namespace Lab6new.Forms
             try
             {
                 ContractController.Delete(Contract);
+                MessageBox.Show("Контракт успешно удален", "Сообщение");
+                this.Dispose();
             }
             catch (Exception ex)
             {
@@ -268,7 +270,20 @@ namespace Lab6new.Forms
 
         private void updateButton_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                var interval = new Interval(startDate.Text,endDate.Text);
+                Contract.Number = numbTextBox.Text;
+                Contract.PerformOrganisation = PerformOrganisation;
+                Contract.OrderOrganisation = OrderOrganisation;
+                Contract.StartDate = interval.StartDate;
+                Contract.EndDate = interval.EndDate;
+                Contract.Costs = CreateCosts(Contract);
+                ContractController.Update(Contract);
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
     }
 }

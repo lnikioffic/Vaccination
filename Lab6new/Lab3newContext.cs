@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lab6new.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Lab6new;
 
@@ -139,7 +140,6 @@ public partial class Lab3newContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("fk_contract_organisation_perform");
         });
-
         modelBuilder.Entity<Cost>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Cost_pkey");
@@ -153,7 +153,7 @@ public partial class Lab3newContext : DbContext
 
             entity.HasOne(d => d.Contract).WithMany(p => p.Costs)
                 .HasForeignKey(d => d.ContractId)
-                .OnDelete(DeleteBehavior.Restrict)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fk_cost_contract");
 
             entity.HasOne(d => d.Locality).WithMany(p => p.Costs)

@@ -248,6 +248,7 @@
             Controls.Add(contractTable);
             Name = "ContractForm";
             Text = "ContractForm";
+            Activated += ContractForm_Activated;
             Load += ContractForm_Load;
             Controls.SetChildIndex(contractTable, 0);
             Controls.SetChildIndex(sortBox, 0);

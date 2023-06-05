@@ -111,6 +111,9 @@ namespace Lab6new.Forms
             addForm.Show();
         }
 
-
+        private void ContractForm_Activated(object sender, EventArgs e)
+        {
+            searchButton_Click(sender, e);
+        }
     }
 }

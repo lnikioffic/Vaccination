@@ -48,20 +48,11 @@ namespace Lab6new.Controllers
             return notEmptyField && uniqueField && organisation;
         }
 
-        public void Update(Contract contract)
-        {
-            if (Validate(contract))
-                CRUDCardController.Update(contract);
-            else
-                throw new Exception("Не верно введеные данные");
-        }
 
         public void Delete(Contract contract)
         {
             if (contract.Acts.Count == 0)
             {
-                /*foreach(var cost in contract.Costs)
-                    CostController.Delete(cost);*/
                 CRUDCardController.Delete(contract);
             }
             else
@@ -89,6 +80,39 @@ namespace Lab6new.Controllers
                 );
         }
 
+        public void Update(Contract contract)
+        {
+            if (Validate(contract))
+            {
+                using (var db = new Lab3newContext())
+                {
+                    var contr = db.Contracts.Single(x => x.Id == contract.Id);
+                    contr.OrderOrganisation
+                        = db.Organisations.Single(x => x.Id == contract.OrderOrganisation.Id);
+
+                    contr.PerformOrganisation =
+                        db.Organisations.Single(x => x.Id == contract.PerformOrganisation.Id);
+
+                    var previousCosts = db.Costs.Where(x => x.ContractId == contract.Id).ToList();
+
+                    contr.Costs = null;
+                    db.SaveChanges();
+                    contr.Costs = contract.Costs;
+                    /*foreach (var cost in previousCosts)
+                        if (!contract.Costs.Select(x => x.Id).Contains(cost.Id))
+                            CostController.Delete(cost);
+
+                    foreach (var cost in contract.Costs)
+                        if (!previousCosts.Select(x => x.Id).Contains(cost.Id))
+                            CostController.Add(cost);*/
+                    db.SaveChanges();
+                }
+            }
+            else
+                throw new Exception("Не верно введеные данные");
+
+        }
+
         public List<Contract> GetData(Predicate<Contract> filter, Func<Contract, object> sort, bool descending = false)
         {
             using (var db = new Lab3newContext())
@@ -96,9 +120,9 @@ namespace Lab6new.Controllers
                 var contracts = db.Contracts
                     .Include(x => x.OrderOrganisation)
                     .Include(x => x.PerformOrganisation)
-                        .ThenInclude(x=>x.Locality)
-                    .Include(x=>x.Costs)
-                        .ThenInclude(x=>x.Locality)
+                        .ThenInclude(x => x.Locality)
+                    .Include(x => x.Costs)
+                        .ThenInclude(x => x.Locality)
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)

@@ -91,6 +91,8 @@ namespace Lab6new.Forms
             try
             {
                 AnimalController.Delete(AnimalRep.Animal);
+                MessageBox.Show("Животное успешно удаленно", "Сообщение");
+                this.Dispose();
             }
             catch (Exception ex)
             {

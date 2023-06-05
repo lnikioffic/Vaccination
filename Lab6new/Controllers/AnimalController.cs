@@ -52,8 +52,23 @@ namespace Lab6new.Controllers
 
         public void Update(Animal animal)
         {
+            
             if (Validate(animal))
-                CRUDCardController.Update(animal);
+            {
+                using(var db = new Lab3newContext())
+                {
+                    var anim = db.Animals.Single(x=>x.Id == animal.Id);
+                    anim.Name = animal.Name;
+                    anim.ChipNumber = animal.ChipNumber;
+                    anim.BirthYear = animal.BirthYear;
+                    anim.RegistrationNumber = animal.RegistrationNumber;
+                    anim.Sex = animal.Sex;
+                    anim.Category = animal.Category;
+                    anim.SpecialSigns = animal.SpecialSigns;
+                    anim.Locality = db.Localities.Single(x=>x.Id == animal.Locality.Id);
+                    db.SaveChanges();
+                }
+            }
             else
                 throw new Exception("Не верно введеные данные");
         }
