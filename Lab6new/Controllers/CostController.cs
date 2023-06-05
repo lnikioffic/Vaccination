@@ -38,6 +38,14 @@ namespace Lab6new.Controllers
                 throw new Exception("Цена контракта не может быть равна 0");
         }
 
+        public void Delete(Cost cost)
+        {
+            if (Validate(cost))
+                CRUDCardController.Delete(cost);
+            else
+                throw new Exception("Цена контракта не может быть равна 0");
+        }
+
         public User User { get; }
 
         public IPermissionManager PermissionManager { get; }

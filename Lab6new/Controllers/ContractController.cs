@@ -22,11 +22,14 @@ namespace Lab6new.Controllers
             }
         }
 
+        private CostController CostController { get; }
+
         public ContractController(IPermissionManager permissionManager, User user, IRepresentationFabric representationFabric)
         {
             User = user;
             PermissionManager = permissionManager;
             RepresentationFabric = representationFabric;
+            CostController = new CostController(PermissionManager, User);
         }
 
 
@@ -56,15 +59,21 @@ namespace Lab6new.Controllers
         public void Delete(Contract contract)
         {
             if (contract.Acts.Count == 0)
+            {
+                /*foreach(var cost in contract.Costs)
+                    CostController.Delete(cost);*/
                 CRUDCardController.Delete(contract);
+            }
             else
                 throw new Exception("Нельзя удалять контракт по каторому выполнена хотябы одна вакцинация");
         }
 
         public void Add(Contract contract)
         {
-            if(Validate(contract))
+            if (Validate(contract))
+            {
                 CRUDCardController.Add(contract);
+            }
             else
                 throw new Exception("Неверно введенные данные");
         }

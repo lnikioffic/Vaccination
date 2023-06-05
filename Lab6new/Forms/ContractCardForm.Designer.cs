@@ -49,6 +49,8 @@
             localitiesTable = new TableLayoutPanel();
             label9 = new Label();
             label10 = new Label();
+            deleteButton= new Button();
+            updateButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -255,6 +257,26 @@
             label10.TabIndex = 28;
             label10.Text = "Цена";
             // 
+            // deleteButton
+            // 
+            deleteButton.Location = new Point(175, 382);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(203, 29);
+            deleteButton.TabIndex = 22;
+            deleteButton.Text = "Удалить";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
+            // 
+            // updateButton
+            // 
+            updateButton.Location = new Point(425, 382);
+            updateButton.Name = "updateButton";
+            updateButton.Size = new Size(203, 29);
+            updateButton.TabIndex = 22;
+            updateButton.Text = "Изменить";
+            updateButton.UseVisualStyleBackColor = true;
+            updateButton.Click += updateButton_Click;
+            // 
             // ContractAddForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -271,6 +293,8 @@
             Controls.Add(costTextBox);
             Controls.Add(localityCombobox);
             Controls.Add(tableLayoutPanel1);
+            Controls.Add(deleteButton);
+            Controls.Add(updateButton);
             Name = "ContractAddForm";
             Text = "ContractCardForm";
             Load += ContractCardForm_Load;
@@ -303,5 +327,7 @@
         private TableLayoutPanel localitiesTable;
         private Label label9;
         private Label label10;
+        private Button deleteButton;
+        private Button updateButton;
     }
 }

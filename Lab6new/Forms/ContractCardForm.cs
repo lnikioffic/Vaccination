@@ -68,8 +68,16 @@ namespace Lab6new.Forms
 
             if (Contract != null)
             {
+                deleteButton.Visible = true;
+                updateButton.Visible = true;
+                contractAddButton .Visible = false;
                 SetFieldsValues(Contract);
-                delete
+            }
+            else
+            {
+                deleteButton.Visible = false;
+                updateButton.Visible = false;
+                contractAddButton.Visible = true;
             }
 
 
@@ -233,12 +241,8 @@ namespace Lab6new.Forms
                     OrderOrganisationId = OrderOrganisation.Id,
                     PerformOrganisationId = PerformOrganisation.Id,
                 };
+                contract.Costs = CreateCosts(contract);
                 ContractController.Add(contract);
-                var costs = CreateCosts(contract);
-                foreach (var cost in costs)
-                {
-                    CostController.Add(cost);
-                }
                 MessageBox.Show("Контракт успешно добавлен", "Сообщение");
                 this.Dispose();
 
@@ -249,15 +253,22 @@ namespace Lab6new.Forms
             }
         }
 
+
         private void deleteButton_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                ContractController.Delete(Contract);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
-        private void changeButton_Click(object sender, EventArgs e)
+        private void updateButton_Click(object sender, EventArgs e)
         {
 
         }
-
     }
 }
