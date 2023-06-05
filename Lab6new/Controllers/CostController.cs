@@ -21,14 +21,21 @@ namespace Lab6new.Controllers
         {
             get
             {
-                if (PermissionManager.CanEditAct())
+                if (PermissionManager.CanEditContract())
                     return new CRUDCardController<Cost>();
                 throw new Exception("У вас недостаточно прав");
             }
         }
+        private bool Validate(Cost cost)
+        {
+            return cost.Cost1 != 0;
+        }
         public void Add(Cost cost)
         {
-            CRUDCardController.Add(cost);
+            if (Validate(cost))
+                CRUDCardController.Add(cost);
+            else
+                throw new Exception("Цена контракта не может быть равна 0");
         }
 
         public User User { get; }

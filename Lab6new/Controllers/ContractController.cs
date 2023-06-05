@@ -38,14 +38,11 @@ namespace Lab6new.Controllers
 
         public bool Validate(Contract contract)
         {
-            /*var notEmptyField = animal.Name != "" && animal.SpecialSigns != ""
-                && animal.RegistrationNumber != "" && animal.ChipNumber != "";
-            var uniqueField = GetData((x) => (x.RegistrationNumber == animal.RegistrationNumber
-            || x.ChipNumber == animal.ChipNumber) && x.Id != animal.Id, (x) => true)
+            var notEmptyField = contract.Number != "";
+            var uniqueField = GetData((x) => (x.Number == contract.Number) && x.Id != contract.Id, (x) => true)
                 .FirstOrDefault() == null;
-            var inputField = animal.BirthYear != 0;
-            return notEmptyField && uniqueField && inputField;*/
-            return true;
+            var organisation = contract.PerformOrganisationId != contract.OrderOrganisationId;
+            return notEmptyField && uniqueField && organisation;
         }
 
         public void Update(Contract contract)
@@ -61,7 +58,15 @@ namespace Lab6new.Controllers
             if (contract.Acts.Count == 0)
                 CRUDCardController.Delete(contract);
             else
-                throw new Exception("Нельзя удалять животное, у которго есть акты вакцинации");
+                throw new Exception("Нельзя удалять контракт по каторому выполнена хотябы одна вакцинация");
+        }
+
+        public void Add(Contract contract)
+        {
+            if(Validate(contract))
+                CRUDCardController.Add(contract);
+            else
+                throw new Exception("Неверно введенные данные");
         }
 
         public IEnumerable<IContractRepresentation> GetContracts(List<Predicate<Contract>> filters, Func<Contract, object> sort, bool sortType = false)

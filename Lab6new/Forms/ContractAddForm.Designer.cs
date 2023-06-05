@@ -45,8 +45,10 @@
             contractAddButton = new Button();
             addLocalityButton = new Button();
             label7 = new Label();
-            localitiesTable = new TableLayoutPanel();
             label8 = new Label();
+            localitiesTable = new TableLayoutPanel();
+            label9 = new Label();
+            label10 = new Label();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -191,6 +193,7 @@
             contractAddButton.TabIndex = 21;
             contractAddButton.Text = "Добавить контракт";
             contractAddButton.UseVisualStyleBackColor = true;
+            contractAddButton.Click += contractAddButton_Click;
             // 
             // addLocalityButton
             // 
@@ -211,20 +214,6 @@
             label7.TabIndex = 23;
             label7.Text = "Цена";
             // 
-            // localitiesTable
-            // 
-            localitiesTable.ColumnCount = 3;
-            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 69.14893F));
-            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.8510647F));
-            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            localitiesTable.Location = new Point(461, 56);
-            localitiesTable.Name = "localitiesTable";
-            localitiesTable.RowCount = 1;
-            localitiesTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            localitiesTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            localitiesTable.Size = new Size(303, 24);
-            localitiesTable.TabIndex = 24;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -234,13 +223,47 @@
             label8.TabIndex = 25;
             label8.Text = "* Дата должна быть формата дд.мм.гггг";
             // 
+            // localitiesTable
+            // 
+            localitiesTable.AutoSize = true;
+            localitiesTable.ColumnCount = 3;
+            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.2599258F));
+            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.74007F));
+            localitiesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+            localitiesTable.Location = new Point(458, 53);
+            localitiesTable.Name = "localitiesTable";
+            localitiesTable.RowCount = 1;
+            localitiesTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            localitiesTable.Size = new Size(287, 24);
+            localitiesTable.TabIndex = 26;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(458, 30);
+            label9.Name = "label9";
+            label9.Size = new Size(80, 20);
+            label9.TabIndex = 27;
+            label9.Text = "Нас. пункт";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(593, 30);
+            label10.Name = "label10";
+            label10.Size = new Size(45, 20);
+            label10.TabIndex = 28;
+            label10.Text = "Цена";
+            // 
             // ContractAddForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(label8);
+            Controls.Add(label10);
+            Controls.Add(label9);
             Controls.Add(localitiesTable);
+            Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(addLocalityButton);
             Controls.Add(contractAddButton);
@@ -276,7 +299,9 @@
         private Button contractAddButton;
         private Button addLocalityButton;
         private Label label7;
-        private TableLayoutPanel localitiesTable;
         private Label label8;
+        private TableLayoutPanel localitiesTable;
+        private Label label9;
+        private Label label10;
     }
 }
