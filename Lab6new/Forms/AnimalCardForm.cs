@@ -22,62 +22,61 @@ namespace Lab6new.Forms
         private LocalityController LocalityController { get; }
 
         private ActController ActController { get; }
-        private AnimalCardRepresentation AnimalRep { get; set; }
+
+        private Animal Animal { get; set; }
 
         public AnimalCardForm(AnimalController animalController, LocalityController localityController, ActController actController, Animal animal)
         {
             AnimalController = animalController;
             LocalityController = localityController;
             ActController = actController;
-            AnimalRep = animalController
-                .GetAnimals(new List<Predicate<Animal>> { (x) => x.Id == animal.Id }, (x) => true)
-                .Cast<AnimalCardRepresentation>()
-                .First();
+            Animal = animal;
             InitializeComponent();
         }
 
         private void AnimalCardForm_Load(object sender, EventArgs e)
         {
 
-            regNumb.Text = AnimalRep.RegistrationNumber;
+            regNumb.Text = Animal.RegistrationNumber;
             category.SetDataToComboBox(new List<string> { "собака", "кошка" });
-            category.SelectedItem = AnimalRep.Category;
+            category.SelectedItem = Animal.Category ? "собака" : "кошка";
             sex.SetDataToComboBox(new List<string> { "самец", "самка" });
-            sex.SelectedItem = AnimalRep.Sex;
-            birthYear.Text = AnimalRep.BirthYear.ToString();
-            chipNumb.Text = AnimalRep.ChipNumber;
-            name.Text = AnimalRep.Name;
+            sex.SelectedItem = Animal.Sex ? "самец" : "самка";
+            birthYear.Text = Animal.BirthYear.ToString();
+            chipNumb.Text = Animal.ChipNumber;
+            name.Text = Animal.Name;
             locality.DataSource = LocalityController
                 .GetLocalities(new List<Predicate<Locality>>(),
                 (x => x.Locality1))
                 .Select((x) => x.Locality1)
                 .ToList();
-            locality.SelectedItem = AnimalRep.Locality;
-            specialSigns.Text = AnimalRep.SpecialSigns;
-            actType.Text = AnimalRep.actType;
-            actStartDate.Text = AnimalRep.actStartDate.ToString();
-            actEndDate.Text = AnimalRep.actEndDate.ToString();
-            animalPhoto.Image = new Bitmap(AnimalRep.Photo);
+            locality.SelectedItem = Animal.Locality.Locality1;
+            specialSigns.Text = Animal.SpecialSigns;
+            Act? lastAct = Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault();
+            actType.Text = lastAct?.Type.ToString();
+            actStartDate.Text = lastAct?.StartDate.ToString();
+            actEndDate.Text = lastAct?.EndDate.ToString();
+            animalPhoto.Image = new Bitmap(Animal.Photo);
         }
 
         private void changeButton_Click(object sender, EventArgs e)
         {
             try
             {
-                AnimalRep.Animal.RegistrationNumber = regNumb.Text;
-                AnimalRep.Animal.Category = category.SelectedItem.ToString() == "собака";
-                AnimalRep.Animal.Sex = sex.SelectedItem.ToString() == "самец";
-                AnimalRep.Animal.Name = name.Text;
-                AnimalRep.Animal.ChipNumber = chipNumb.Text;
+                Animal.RegistrationNumber = regNumb.Text;
+                Animal.Category = category.SelectedItem.ToString() == "собака";
+                Animal.Sex = sex.SelectedItem.ToString() == "самец";
+                Animal.Name = name.Text;
+                Animal.ChipNumber = chipNumb.Text;
                 var year = 0;
                 int.TryParse(birthYear.Text, out year);
-                AnimalRep.Animal.BirthYear = year;
-                AnimalRep.Animal.SpecialSigns = specialSigns.Text;
-                AnimalRep.Animal.Locality = LocalityController
+                Animal.BirthYear = year;
+                Animal.SpecialSigns = specialSigns.Text;
+                Animal.Locality = LocalityController
                     .GetLocalities(new List<Predicate<Locality>> { x => x.Locality1 == locality.SelectedItem.ToString() },
                     (x) => true)
                     .First();
-                AnimalController.Update(AnimalRep.Animal);
+                AnimalController.Update(Animal);
             }
             catch (Exception ex)
             {
@@ -90,7 +89,7 @@ namespace Lab6new.Forms
         {
             try
             {
-                AnimalController.Delete(AnimalRep.Animal);
+                AnimalController.Delete(Animal);
                 MessageBox.Show("Животное успешно удаленно", "Сообщение");
                 this.Dispose();
             }
@@ -107,7 +106,7 @@ namespace Lab6new.Forms
                 var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
-                    AnimalRep.Animal);
+                    Animal);
                 this.Close();
                 actForm.Show();
             }
@@ -121,13 +120,14 @@ namespace Lab6new.Forms
         {
             try
             {
-                if (AnimalRep.lastAct != null)
+                Act? lastAct = Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault();
+                if (lastAct != null)
                 {
-                    var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == AnimalRep.lastAct.Id }, (x) => true).First();
+                    var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == lastAct.Id }, (x) => true).First();
                     var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
-                    AnimalRep.Animal, act);
+                    Animal, act);
                     this.Close();
                     actForm.Show();
                 }

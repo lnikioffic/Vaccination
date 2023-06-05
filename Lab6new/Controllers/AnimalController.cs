@@ -32,6 +32,11 @@ namespace Lab6new.Controllers
             RepresentationFabric = representationFabric;
         }
 
+        private void CheckPermissons()
+        {
+            if (!PermissionManager.CanEditAnimal())
+                throw new Exception("У вас недостаточно прав");
+        }
 
         public User User { get; }
 
@@ -52,7 +57,7 @@ namespace Lab6new.Controllers
 
         public void Update(Animal animal)
         {
-            
+            CheckPermissons();
             if (Validate(animal))
             {
                 using(var db = new Lab3newContext())

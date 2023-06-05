@@ -24,7 +24,7 @@ namespace Lab6new.Forms
         {
             
             InitializeComponent();            
-            var registriesListForm = new RegistriesListForm(authController.Authorization("admin1", "admin1"));
+            var registriesListForm = new RegistriesListForm(authController.Authorization("admin", "admin"));
             registriesListForm.Show();
             this.Hide();
         }

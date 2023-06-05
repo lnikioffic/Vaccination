@@ -80,24 +80,30 @@ namespace Lab6new.Controllers
                 );
         }
 
+        private void CheckPermissons()
+        {
+            if (!PermissionManager.CanEditContract())
+                throw new Exception("У вас недостаточно прав");
+        }
         public void Update(Contract contract)
         {
+            CheckPermissons();
             if (Validate(contract))
             {
                 using (var db = new Lab3newContext())
                 {
                     var contr = db.Contracts.Single(x => x.Id == contract.Id);
+                    contr.StartDate = contract.StartDate;
+                    contr.EndDate = contract.EndDate;
+                    contr.Number = contract.Number;
                     contr.OrderOrganisation
                         = db.Organisations.Single(x => x.Id == contract.OrderOrganisation.Id);
-
                     contr.PerformOrganisation =
                         db.Organisations.Single(x => x.Id == contract.PerformOrganisation.Id);
-
-                    var previousCosts = db.Costs.Where(x => x.ContractId == contract.Id).ToList();
-
                     contr.Costs = null;
                     db.SaveChanges();
                     contr.Costs = contract.Costs;
+                    /*var previousCosts = db.Costs.Where(x => x.ContractId == contract.Id).ToList();*/
                     /*foreach (var cost in previousCosts)
                         if (!contract.Costs.Select(x => x.Id).Contains(cost.Id))
                             CostController.Delete(cost);
