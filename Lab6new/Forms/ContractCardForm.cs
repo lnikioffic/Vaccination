@@ -53,12 +53,12 @@ namespace Lab6new.Forms
                 .GetLocalities(new List<Predicate<Locality>>(), (x) => x.Locality1);
 
             var orderOrganisation = OrganisationController
-                .GetOrganisations1(new List<Predicate<Organisation>>(), x => x.FullName)
+                .GetOrganisations(new List<Predicate<Organisation>>(), x => x.FullName)
                 .Select(x => x.FullName)
                 .ToList();
 
             var performOrganisation = OrganisationController
-                .GetOrganisations1(new List<Predicate<Organisation>>(), x => x.FullName)
+                .GetOrganisations(new List<Predicate<Organisation>>(), x => x.FullName)
                 .Select(x => x.FullName)
                 .ToList();
 
@@ -111,7 +111,7 @@ namespace Lab6new.Forms
             get
             {
                 return OrganisationController
-                    .GetOrganisations1(
+                    .GetOrganisations(
                     new List<Predicate<Organisation>> { x => x.FullName == orderOrgCombobox.SelectedItem.ToString() },
                     x => true)
                     .First();
@@ -149,7 +149,7 @@ namespace Lab6new.Forms
             get
             {
                 return OrganisationController
-                    .GetOrganisations1(
+                    .GetOrganisations(
                     new List<Predicate<Organisation>> { x => x.FullName == performOrgComboBox.SelectedItem.ToString() },
                     x => true)
                     .First();

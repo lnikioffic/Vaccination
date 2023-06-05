@@ -37,7 +37,7 @@ namespace Lab6new.Controllers
         private IRepresentationFabric RepresentationFabric { get; }
 
 
-        public IEnumerable<IOrganisationRepresentation> GetOrganisations(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
+        public IEnumerable<IOrganisationRepresentation> GetOrganisationsRepresentation(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.OrganisationReadFilter);
@@ -48,7 +48,7 @@ namespace Lab6new.Controllers
                 );
         }
 
-        public List<Organisation> GetOrganisations1(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
+        public List<Organisation> GetOrganisations(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.OrganisationReadFilter);

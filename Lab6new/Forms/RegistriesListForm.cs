@@ -50,7 +50,8 @@ namespace Lab6new.Forms
         private void organisationRegistryButton_Click(object sender, EventArgs e)
         {
             var organisationController = new OrganisationController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
-            var organisationForm = new OrganisationForm(organisationController);
+            var localityController = new LocalityController(PermissionManager, PermissionManager.User);
+            var organisationForm = new OrganisationForm(organisationController,localityController);
             organisationForm.Show();
             this.Hide();
         }
