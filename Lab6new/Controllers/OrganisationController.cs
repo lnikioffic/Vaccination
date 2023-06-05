@@ -22,7 +22,7 @@ namespace Lab6new.Controllers
             }
         }
 
-        public OrganisationController(IPermissionManager permissionManager, User user, IRepresentationFabric representationFabric)
+        public OrganisationController(IPermissionManager permissionManager, User user, IRepresentationFabric<Organisation> representationFabric)
         {
             User = user;
             PermissionManager = permissionManager;
@@ -34,17 +34,16 @@ namespace Lab6new.Controllers
 
         public IPermissionManager PermissionManager { get; }
 
-        private IRepresentationFabric RepresentationFabric { get; }
+        private IRepresentationFabric<Organisation> RepresentationFabric { get; }
 
 
-        public IEnumerable<IOrganisationRepresentation> GetOrganisationsRepresentation(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
+        public IEnumerable<ITableRepresentation> GetOrganisationsRepresentation(List<Predicate<Organisation>> filters, Func<Organisation, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.OrganisationReadFilter);
             return GetData(resultFilter.GlueFilters(), sort, sortType)
                 .Select(
-                (x) => RepresentationFabric
-                .createOrganisationRepresentation(x)
+                (x) => RepresentationFabric.CreateTableRepresentation(x)
                 );
         }
 

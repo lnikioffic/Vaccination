@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.RepresentationFactory
 {
-    internal class AnimalTableRepresentation : IAnimalRepresentation
+    internal class AnimalTableRepresentation : ITableRepresentation
     {
         [DisplayName(@"Регистрационный номер")]
         public string RegistrationNumber { get {return Animal.RegistrationNumber; } }

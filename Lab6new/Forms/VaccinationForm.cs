@@ -2,6 +2,7 @@
 using Lab6new.Models;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
+using Lab6new.RepresentationFactory.Interface;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -114,7 +115,7 @@ namespace Lab6new.Forms
                 new AnimalController(
                     ActController.PermissionManager,
                     ActController.User,
-                    new CardRepresentationFabric()),
+                    new AnimalRepresentationFabric()),
                 new LocalityController(
                     ActController.PermissionManager,
                     ActController.User),

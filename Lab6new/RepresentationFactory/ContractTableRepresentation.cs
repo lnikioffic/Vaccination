@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.RepresentationFactory
 {
-    internal class ContractTableRepresentation : IContractRepresentation
+    internal class ContractTableRepresentation : ITableRepresentation
     {
         [DisplayName(@"Номер")]
         public string Number { get { return Contract.Number; } }

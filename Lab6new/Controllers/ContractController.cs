@@ -24,7 +24,7 @@ namespace Lab6new.Controllers
 
         private CostController CostController { get; }
 
-        public ContractController(IPermissionManager permissionManager, User user, IRepresentationFabric representationFabric)
+        public ContractController(IPermissionManager permissionManager, User user, IRepresentationFabric<Contract> representationFabric)
         {
             User = user;
             PermissionManager = permissionManager;
@@ -37,7 +37,7 @@ namespace Lab6new.Controllers
 
         public IPermissionManager PermissionManager { get; }
 
-        private IRepresentationFabric RepresentationFabric { get; }
+        private IRepresentationFabric<Contract> RepresentationFabric { get; }
 
         public bool Validate(Contract contract)
         {
@@ -69,14 +69,14 @@ namespace Lab6new.Controllers
                 throw new Exception("Неверно введенные данные");
         }
 
-        public IEnumerable<IContractRepresentation> GetContracts(List<Predicate<Contract>> filters, Func<Contract, object> sort, bool sortType = false)
+        public IEnumerable<ITableRepresentation> GetContracts(List<Predicate<Contract>> filters, Func<Contract, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.ContractReadFilter);
             return GetData(resultFilter.GlueFilters(), sort, sortType)
                 .Select(
                 (x) => RepresentationFabric
-                .createContractRepresentation(x)
+                .CreateTableRepresentation(x)
                 );
         }
 

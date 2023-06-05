@@ -1,6 +1,7 @@
 ﻿using Lab6new.Controllers;
 using Lab6new.Models;
 using Lab6new.RepresentationFactory;
+using Lab6new.RepresentationFactory.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -86,8 +87,8 @@ namespace Lab6new.Forms
                 {
                     var card = new ContractCardForm(
                         new LocalityController(PermissionManager, PermissionManager.User),
-                        new OrganisationController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
-                        new ContractController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
+                        new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric()),
+                        new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric()),
                         new CostController(PermissionManager, PermissionManager.User),
                         contractRep.Contract
                     );
@@ -104,8 +105,8 @@ namespace Lab6new.Forms
         {
             var addForm = new ContractCardForm(
                 new LocalityController(PermissionManager, PermissionManager.User),
-                new OrganisationController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
-                new ContractController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
+                new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric()),
+                new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric()),
                 new CostController(PermissionManager, PermissionManager.User)
                 );
             addForm.Show();

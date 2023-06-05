@@ -24,9 +24,9 @@ namespace Lab6new.Forms
         {
             
             InitializeComponent();            
-            var registriesListForm = new RegistriesListForm(authController.Authorization("admin1", "admin1"));
+            /*var registriesListForm = new RegistriesListForm(authController.Authorization("admin1", "admin1"));
             registriesListForm.Show();
-            this.Hide();
+            this.Hide();*/
         }
 
         public string GetHash(string input)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.RepresentationFactory
 {
-    internal class OrganisationTableRepresentation : IOrganisationRepresentation
+    internal class OrganisationTableRepresentation : ITableRepresentation
     {
         [DisplayName("Название")]
         public string FullName { get { return Organisation.FullName; } }

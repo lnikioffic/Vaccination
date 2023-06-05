@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Lab6new.RepresentationFactory.Interface
 {
-    internal interface IRepresentationFabric
+    internal interface IRepresentationFabric<T>
     {
-        public IAnimalRepresentation createAnimalRepresentation(Animal animal);
-        public IContractRepresentation createContractRepresentation(Contract contract);
-        public IOrganisationRepresentation createOrganisationRepresentation(Organisation organisation);
+        IExportRepresentation CreateAnimalRepresentation(T exportModel);
+
+        ITableRepresentation CreateTableRepresentation(T tableModel);
     }
 }

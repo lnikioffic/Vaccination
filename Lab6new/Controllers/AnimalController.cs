@@ -25,7 +25,7 @@ namespace Lab6new.Controllers
             }
         }
 
-        public AnimalController(IPermissionManager permissionManager, User user, IRepresentationFabric representationFabric)
+        public AnimalController(IPermissionManager permissionManager, User user, IRepresentationFabric<Animal> representationFabric)
         {
             User = user;
             PermissionManager = permissionManager;
@@ -42,7 +42,7 @@ namespace Lab6new.Controllers
 
         public IPermissionManager PermissionManager { get; }
 
-        private IRepresentationFabric RepresentationFabric { get; }
+        private IRepresentationFabric<Animal> RepresentationFabric { get; }
 
         public bool Validate(Animal animal)
         {
@@ -86,14 +86,14 @@ namespace Lab6new.Controllers
                 throw new Exception("Нельзя удалять животное, у которго есть акты вакцинации");
         }
 
-        public IEnumerable<IAnimalRepresentation> GetAnimals(List<Predicate<Animal>> filters, Func<Animal, object> sort, bool sortType = false)
+        public IEnumerable<ITableRepresentation> GetAnimals(List<Predicate<Animal>> filters, Func<Animal, object> sort, bool sortType = false)
         {
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.AnimalReadFilter);
             return GetData(resultFilter.GlueFilters(), sort, sortType)
                 .Select(
                 (x) => RepresentationFabric
-                .createAnimalRepresentation(x)
+                .CreateTableRepresentation(x)
                 );
         }
 

@@ -1,5 +1,4 @@
-﻿using Lab6new.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.RepresentationFactory.Interface
 {
-    internal interface IAnimalRepresentation
+    internal interface ITableRepresentation
     {
-        void setValue(Animal animal);
     }
 }

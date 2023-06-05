@@ -1,6 +1,7 @@
 ﻿using Lab6new.Controllers;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
+using Lab6new.RepresentationFactory.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace Lab6new.Forms
 
         private void animalRegistryButton_Click(object sender, EventArgs e)
         {
-            var animalController = new AnimalController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
+            var animalController = new AnimalController(PermissionManager, PermissionManager.User, new AnimalRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
             var animalForm = new AnimalForm(animalController, localityController);
             animalForm.Show();
@@ -40,7 +41,7 @@ namespace Lab6new.Forms
 
         private void contractRegistryButton_Click(object sender, EventArgs e)
         {
-            var contractController = new ContractController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
+            var contractController = new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
             var contractForm = new ContractForm(contractController, localityController);
             contractForm.Show();
@@ -49,7 +50,7 @@ namespace Lab6new.Forms
 
         private void organisationRegistryButton_Click(object sender, EventArgs e)
         {
-            var organisationController = new OrganisationController(PermissionManager, PermissionManager.User, new TableRepresentationFabric());
+            var organisationController = new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
             var organisationForm = new OrganisationForm(organisationController,localityController);
             organisationForm.Show();

@@ -98,7 +98,7 @@ namespace Lab6new.Forms
                     new AnimalController(
                         PermissionManager,
                         PermissionManager.User,
-                        new CardRepresentationFabric()),
+                        new AnimalRepresentationFabric()),
                     new LocalityController(
                         PermissionManager,
                         PermissionManager.User),
