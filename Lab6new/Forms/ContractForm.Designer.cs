@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            animalTable = new DataGridView();
+            contractTable = new DataGridView();
             sortBox = new GroupBox();
             nullSortRadio = new RadioButton();
             costRadio = new RadioButton();
@@ -46,21 +46,21 @@
             performOrgFilter = new TextBox();
             label3 = new Label();
             addButton = new Button();
-            ((System.ComponentModel.ISupportInitialize)animalTable).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contractTable).BeginInit();
             sortBox.SuspendLayout();
             typeSortBox.SuspendLayout();
             SuspendLayout();
             // 
-            // animalTable
+            // contractTable
             // 
-            animalTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            animalTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            animalTable.Location = new Point(12, 174);
-            animalTable.Name = "animalTable";
-            animalTable.RowHeadersWidth = 51;
-            animalTable.RowTemplate.Height = 29;
-            animalTable.Size = new Size(776, 221);
-            animalTable.TabIndex = 4;
+            contractTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            contractTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            contractTable.Location = new Point(12, 174);
+            contractTable.Name = "contractTable";
+            contractTable.RowHeadersWidth = 51;
+            contractTable.RowTemplate.Height = 29;
+            contractTable.Size = new Size(776, 221);
+            contractTable.TabIndex = 4;
             // 
             // sortBox
             // 
@@ -245,11 +245,11 @@
             Controls.Add(localityFilter);
             Controls.Add(typeSortBox);
             Controls.Add(sortBox);
-            Controls.Add(animalTable);
+            Controls.Add(contractTable);
             Name = "ContractForm";
             Text = "ContractForm";
             Load += ContractForm_Load;
-            Controls.SetChildIndex(animalTable, 0);
+            Controls.SetChildIndex(contractTable, 0);
             Controls.SetChildIndex(sortBox, 0);
             Controls.SetChildIndex(typeSortBox, 0);
             Controls.SetChildIndex(localityFilter, 0);
@@ -261,7 +261,7 @@
             Controls.SetChildIndex(label3, 0);
             Controls.SetChildIndex(performOrgFilter, 0);
             Controls.SetChildIndex(addButton, 0);
-            ((System.ComponentModel.ISupportInitialize)animalTable).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contractTable).EndInit();
             sortBox.ResumeLayout(false);
             sortBox.PerformLayout();
             typeSortBox.ResumeLayout(false);
@@ -272,7 +272,7 @@
 
         #endregion
 
-        private DataGridView animalTable;
+        private DataGridView contractTable;
         private GroupBox sortBox;
         private RadioButton nullSortRadio;
         private RadioButton costRadio;

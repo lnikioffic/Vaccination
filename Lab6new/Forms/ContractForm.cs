@@ -71,7 +71,7 @@ namespace Lab6new.Forms
             var sorts = GetSorts();
             var sort = sorts[sortBox.Controls.OfType<RadioButton>().First((x => x.Checked))];
             var sortType = descendingRadio.Checked;
-            animalTable.DataSource = ContractController
+            contractTable.DataSource = ContractController
                 .GetContracts(GetFilters(), sort, sortType)
                 .Cast<ContractTableRepresentation>()
                 .ToList();
@@ -79,12 +79,30 @@ namespace Lab6new.Forms
 
         private void showCardButton_Click(object sender, EventArgs e)
         {
-
+            if (contractTable.SelectedRows.Count == 1)
+            {
+                var contractRep = contractTable.SelectedRows[0].DataBoundItem as ContractTableRepresentation;
+                if (contractRep != null)
+                {
+                    var card = new ContractCardForm(
+                        new LocalityController(PermissionManager, PermissionManager.User),
+                        new OrganisationController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
+                        new ContractController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
+                        new CostController(PermissionManager, PermissionManager.User),
+                        contractRep.Contract
+                    );
+                    card.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберете одну строчку!!!", "Ошибка", MessageBoxButtons.OK);
+            }
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            var addForm = new ContractAddForm(
+            var addForm = new ContractCardForm(
                 new LocalityController(PermissionManager, PermissionManager.User),
                 new OrganisationController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
                 new ContractController(PermissionManager, PermissionManager.User, new CardRepresentationFabric()),
