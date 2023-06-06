@@ -19,9 +19,10 @@ namespace Lab6new.Forms
 {
     internal partial class VaccinationForm : Form
     {
-        public VaccinationForm(ActController actController, Animal animal)
+        public VaccinationForm(ActController actController, LocalityController localityController, Animal animal)
         {
             ActController = actController;
+            LocalityController = localityController;
             if (animal.Acts.Where((x) => x.EndDate > DateOnly.FromDateTime(DateTime.Now)).FirstOrDefault() == null)
                 this.animal = animal;
             else
@@ -32,9 +33,10 @@ namespace Lab6new.Forms
 
         }
 
-        public VaccinationForm(ActController actController, Animal animal, Act act)
+        public VaccinationForm(ActController actController,LocalityController localityController, Animal animal, Act act)
         {
             ActController = actController;
+            LocalityController = localityController;
             if (animal.Acts.Count != 0)
                 this.animal = animal;
             else
@@ -45,13 +47,13 @@ namespace Lab6new.Forms
             InitializeComponent();
         }
 
+        public LocalityController LocalityController { get; }
+
         private Act? act;
 
         private User user;
 
         private Organisation Organisation { get { return user.Organisation; } }
-
-        private Locality Locality { get { return Organisation.Locality; } }
 
         private DateOnly startDate;
 
@@ -75,12 +77,14 @@ namespace Lab6new.Forms
 
         private void VaccinationForm_Load(object sender, EventArgs e)
         {
+            var localities =Contract.Costs.Select(x=>x.Locality).ToList();
+
+            localityComboBox.SetDataToComboBox(localities);
             try
             {
                 animalTextBox.Text = animal.ToString();
                 userTextBox.Text = user.ToString();
                 contractTextBox.Text = Contract.ToString();
-                localityTextBox.Text = Locality.ToString();
                 startDateTextBox.Text = startDate.ToString();
                 if (act != null)
                 {
@@ -89,6 +93,7 @@ namespace Lab6new.Forms
                     typeTextBox.Text = act.Type.ToString();
                     addButton.Visible = false;
                     changeButton.Visible = true;
+                    localityComboBox.SelectedItem = act.Locality;
                 }
                 else
                 {
@@ -96,7 +101,8 @@ namespace Lab6new.Forms
                     changeButton.Visible = false;
                 }
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Ошибка");
                 this.Dispose();
             }
@@ -113,7 +119,7 @@ namespace Lab6new.Forms
                 EndDate = interval.EndDate,
                 Type = typeTextBox.Text,
                 SerialNumber = serialNumbTextBox.Text,
-                LocalityId = Locality.Id,
+                LocalityId = (localityComboBox.SelectedItem as Locality).Id,
                 ContractId = Contract.Id
             };
         }
@@ -141,8 +147,10 @@ namespace Lab6new.Forms
         {
             try
             {
-                if (act != null){
+                if (act != null)
+                {
                     var interval = new Interval(startDate, durationTextBox.Text);
+                    act.LocalityId = (localityComboBox.SelectedItem as Locality).Id;
                     act.EndDate = interval.EndDate;
                     act.Type = typeTextBox.Text;
                     act.SerialNumber = serialNumbTextBox.Text;

@@ -39,7 +39,7 @@ namespace Lab6new.Controllers
 
         private IRepresentationFabric<Contract> RepresentationFabric { get; }
 
-        public void Validate(Contract contract,Organisation peformOrg)
+        public void Validate(Contract contract, Organisation peformOrg)
         {
             var errors = new List<string>();
             if (contract.Number == "")
@@ -51,15 +51,14 @@ namespace Lab6new.Controllers
 
             if (peformOrg
                     .ContractPerformOrganisations
-                    .Where(x => x.EndDate >= DateOnly.FromDateTime(DateTime.Now))
+                    .Where(x => x.EndDate >= DateOnly.FromDateTime(DateTime.Now) && x.Number != contract.Number)
                     .Count() != 0)
                 errors.Add("Организация " + peformOrg.ToString() + " уже имеет действующий контракт");
 
             if (contract.PerformOrganisationId == contract.OrderOrganisationId)
                 errors.Add("Организация закказчика и исполнителя не могут совпадать");
 
-            if(contract.Costs.Select(x=>x.Locality.DistrictId).Where(x=>x != peformOrg.Locality.DistrictId).Count()>0)
-                errors.Add("Исполнитель не может вакцинировать, во всех городах из списка");
+            
 
             if (errors.Count > 0)
                 throw new ArgumentException(String.Join("\n", errors));
@@ -76,7 +75,7 @@ namespace Lab6new.Controllers
                 throw new Exception("Нельзя удалять контракт по каторому выполнена хотябы одна вакцинация");
         }
 
-        public void Add(Contract contract,Organisation peformOrg)
+        public void Add(Contract contract, Organisation peformOrg)
         {
             Validate(contract, peformOrg);
             CRUDCardController.Add(contract);
@@ -105,6 +104,7 @@ namespace Lab6new.Controllers
             using (var db = new Lab3newContext())
             {
                 var contr = db.Contracts.Single(x => x.Id == contract.Id);
+                db.Costs.ToList();
                 contr.StartDate = contract.StartDate;
                 contr.EndDate = contract.EndDate;
                 contr.Number = contract.Number;
@@ -112,8 +112,6 @@ namespace Lab6new.Controllers
                     = db.Organisations.Single(x => x.Id == contract.OrderOrganisation.Id);
                 contr.PerformOrganisation =
                     db.Organisations.Single(x => x.Id == contract.PerformOrganisation.Id);
-                contr.Costs = null;
-                db.SaveChanges();
                 contr.Costs = contract.Costs;
                 db.SaveChanges();
             }
@@ -127,8 +125,6 @@ namespace Lab6new.Controllers
                     .Include(x => x.OrderOrganisation)
                     .Include(x => x.PerformOrganisation)
                         .ThenInclude(x => x.Locality)
-                    .Include(x => x.PerformOrganisation)
-                        .ThenInclude(x => x.ContractPerformOrganisations)
                     .Include(x => x.Costs)
                         .ThenInclude(x => x.Locality)
                     .AsEnumerable()

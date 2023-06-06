@@ -39,13 +39,13 @@
             userTextBox = new TextBox();
             animalTextBox = new TextBox();
             contractTextBox = new TextBox();
-            localityTextBox = new TextBox();
             startDateTextBox = new TextBox();
             durationTextBox = new TextBox();
             typeTextBox = new TextBox();
             serialNumbTextBox = new TextBox();
             addButton = new Button();
             changeButton = new Button();
+            this.localityComboBox = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -144,14 +144,6 @@
             contractTextBox.Size = new Size(280, 27);
             contractTextBox.TabIndex = 10;
             // 
-            // localityTextBox
-            // 
-            localityTextBox.Location = new Point(288, 127);
-            localityTextBox.Name = "localityTextBox";
-            localityTextBox.ReadOnly = true;
-            localityTextBox.Size = new Size(280, 27);
-            localityTextBox.TabIndex = 11;
-            // 
             // startDateTextBox
             // 
             startDateTextBox.Location = new Point(288, 160);
@@ -202,18 +194,26 @@
             changeButton.Visible = false;
             changeButton.Click += changeButton_Click;
             // 
+            // localityComboBox
+            // 
+            this.localityComboBox.FormattingEnabled = true;
+            this.localityComboBox.Location = new Point(288, 127);
+            this.localityComboBox.Name = "localityComboBox";
+            this.localityComboBox.Size = new Size(280, 28);
+            this.localityComboBox.TabIndex = 18;
+            // 
             // VaccinationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(this.localityComboBox);
             Controls.Add(changeButton);
             Controls.Add(addButton);
             Controls.Add(serialNumbTextBox);
             Controls.Add(typeTextBox);
             Controls.Add(durationTextBox);
             Controls.Add(startDateTextBox);
-            Controls.Add(localityTextBox);
             Controls.Add(contractTextBox);
             Controls.Add(animalTextBox);
             Controls.Add(userTextBox);
@@ -245,12 +245,12 @@
         private TextBox userTextBox;
         private TextBox animalTextBox;
         private TextBox contractTextBox;
-        private TextBox localityTextBox;
         private TextBox startDateTextBox;
         private TextBox durationTextBox;
         private TextBox typeTextBox;
         private TextBox serialNumbTextBox;
         private Button addButton;
         private Button changeButton;
+        private ComboBox localityComboBox;
     }
 }

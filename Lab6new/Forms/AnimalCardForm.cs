@@ -106,6 +106,7 @@ namespace Lab6new.Forms
                 var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
+                    LocalityController,
                     Animal);
                 this.Dispose();
                 actForm.Show();
@@ -127,6 +128,7 @@ namespace Lab6new.Forms
                     var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
+                    LocalityController,
                     Animal, act);
                     this.Close();
                     actForm.Show();

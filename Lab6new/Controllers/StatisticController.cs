@@ -2,6 +2,7 @@
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationAbstractFactory.Fabrics;
 using Lab6new.RepresentationFactory.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,20 +24,25 @@ namespace Lab6new.Controllers
         public IPermissionManager PermissionManager { get; set; }
         private IRepresentationFabric<StatisticItem> RepresentationFabric { get; set; }
 
-        public User User { get; set; }  
+        public User User { get; set; }
 
-        public List<StatisticItem> MakeStatistic(List<Predicate<Act>> filters)
+        public List<StatisticItem> MakeStatistic(Predicate<Act> filter)
         {
             using (var db = new Lab3newContext())
             {
-                var statistic = db.Acts.Where(x => true)
+                var statistic = db.Acts
+                    .Include(x=>x.Locality)
+                    .Include(x=>x.Contract)
+                        .ThenInclude(x=>x.Costs)
+                            .ThenInclude(x=>x.Locality)
+                    .AsEnumerable().Where(x=>filter(x))
                     .GroupBy(x => x.Locality)
                     .Select(x => new StatisticItem
                     {
                         Locality = x.Key,
                         VaccinesCount = x.Count(),
                         TotalCost = x.Select(y => y.Contract.Costs.Where(z => z.Locality == x.Key).Select(w => w.Cost1).First()).Sum()
-                    }).ToList();
+                    }).AsQueryable().ToList();
 
                 return statistic;
             }
@@ -47,7 +53,7 @@ namespace Lab6new.Controllers
 
             var resultFilter = filters;
             resultFilter.Add(PermissionManager.ActReadFilter);
-            return MakeStatistic(resultFilter)
+            return MakeStatistic(resultFilter.GlueFilters())
                 .Select(x => RepresentationFabric.CreateTableRepresentation(x))
                 .ToList();
         }

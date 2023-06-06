@@ -13,8 +13,6 @@ namespace Lab6new.Controllers
 {
     internal class ActController
     {
-
-
         public ActController(IPermissionManager permissionManager, User user)
         {
             User = user;
@@ -36,27 +34,47 @@ namespace Lab6new.Controllers
         public IPermissionManager PermissionManager { get; }
 
 
-        public bool Validate(Act act)
+        public void Validate(Act act)
         {
-            return GetData((x) => x.SerialNumber == act.SerialNumber && x.Id != act.Id, (x) => true)
-                .FirstOrDefault() == null && act.Type != "" && act.SerialNumber != "";
+            var errors = new List<string>();
+            if (GetData((x) => x.SerialNumber == act.SerialNumber && x.Id != act.Id, (x) => true)
+                .FirstOrDefault() != null)
+                errors.Add("Серийный номер должен быть уникален");
+
+            if (act.Type == "" || act.SerialNumber == "")
+                errors.Add("Тип и серия не должны быть пустыми");
+
+            if (errors.Count > 0)
+                throw new ArgumentException(String.Join("\n", errors));
+        }
+
+        private void CheckPermissons()
+        {
+            if (!PermissionManager.CanEditAnimal())
+                throw new Exception("У вас недостаточно прав");
         }
 
         public void Add(Act act)
         {
-            if (Validate(act))
-                CRUDCardController.Add(act);
-            else
-                throw new Exception("Не верно введеные данные");
+            Validate(act);
+            CRUDCardController.Add(act);
         }
 
-        public void Update(Act act)
+        public void Update(Act newAct)
         {
-            if (Validate(act))
-                CRUDCardController.Update(act);
-            else
-                throw new Exception("Не верно введеные данные");
+            CheckPermissons();
+            Validate(newAct);
+            using (var db = new Lab3newContext())
+            {
+                var act = db.Acts.Single(x => x.Id == newAct.Id);
+                act.SerialNumber = newAct.SerialNumber;
+                act.Type = newAct.Type;
+                act.EndDate = newAct.EndDate;
+                act.Locality = db.Localities.Single(x => x.Id == newAct.LocalityId);
+                db.SaveChanges();
+            }
         }
+
 
         public List<Act> GetActs(List<Predicate<Act>> filters, Func<Act, object> sort)
         {
@@ -74,7 +92,7 @@ namespace Lab6new.Controllers
             throw new Exception("Акт не найдн");
         }
 
-        private  List<Act> GetData(Predicate<Act> filter, Func<Act, object> sort)
+        private List<Act> GetData(Predicate<Act> filter, Func<Act, object> sort)
         {
             using (var db = new Lab3newContext())
             {
@@ -85,15 +103,14 @@ namespace Lab6new.Controllers
                     .Include(x => x.User)
                         .ThenInclude(x => x.Organisation)
                             .ThenInclude(x => x.ContractPerformOrganisations)
-                                .ThenInclude(x=>x.Costs)
-                                    .ThenInclude(x=>x.Locality)
+                                .ThenInclude(x => x.Costs)
+                                    .ThenInclude(x => x.Locality)
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)
                     .AsQueryable()
                     .ToList();
             }
-
         }
     }
 }
