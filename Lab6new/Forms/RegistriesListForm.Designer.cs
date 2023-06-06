@@ -32,7 +32,7 @@
             animalRegistryButton = new Button();
             contractRegistryButton = new Button();
             organisationRegistryButton = new Button();
-            username = new Label();
+            statisticButton = new Button();
             SuspendLayout();
             // 
             // button1
@@ -74,20 +74,22 @@
             organisationRegistryButton.UseVisualStyleBackColor = true;
             organisationRegistryButton.Click += organisationRegistryButton_Click;
             // 
-            // username
+            // statisticButton
             // 
-            username.AutoSize = true;
-            username.Location = new Point(589, 8);
-            username.Name = "username";
-            username.Size = new Size(0, 20);
-            username.TabIndex = 3;
+            statisticButton.Location = new Point(494, -1);
+            statisticButton.Name = "statisticButton";
+            statisticButton.Size = new Size(167, 29);
+            statisticButton.TabIndex = 4;
+            statisticButton.Text = "Статистика по актам";
+            statisticButton.UseVisualStyleBackColor = true;
+            statisticButton.Click += statisticButton_Click;
             // 
             // RegistriesListForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(username);
+            Controls.Add(statisticButton);
             Controls.Add(organisationRegistryButton);
             Controls.Add(contractRegistryButton);
             Controls.Add(animalRegistryButton);
@@ -95,7 +97,6 @@
             Name = "RegistriesListForm";
             Text = "RegistriesListForm";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -104,6 +105,6 @@
         private Button animalRegistryButton;
         private Button contractRegistryButton;
         private Button organisationRegistryButton;
-        private Label username;
+        private Button statisticButton;
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Models
 {
-    public partial class District : ICard
+    public partial class District : IModel
     {
         public int Id { get; set; }
 

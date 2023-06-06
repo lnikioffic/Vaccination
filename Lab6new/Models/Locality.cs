@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab6new.Models;
 
-public partial class Locality : ICard
+public partial class Locality : IModel
 {
     public int Id { get; set; }
 

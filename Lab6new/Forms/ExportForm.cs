@@ -1,4 +1,6 @@
 ﻿using Lab6new.Controllers;
+using Lab6new.RepresentationFactory.Interface;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,24 +10,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Lab6new.RepresentationFactory.Representations;
 
 namespace Lab6new.Forms
 {
-    public partial class ExportForm : Form
+    internal partial class ExportForm : Form
     {
-        
-        private ExportController ExportController { get { return new ExportController(); } }
 
-        public ExportForm()
+        private ExportController ExportController { get; }
+
+        public ExportForm(ExportController exportController,List<IExportRepresentation> exportRepresentations)
         {
+            ExportRepresentations = exportRepresentations;
+            ExportController = exportController;
             InitializeComponent();
         }
 
-        /*private ExportData*/
+        private string folderPath = "";
+
+        private List<IExportRepresentation> ExportRepresentations { get; set; }
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                ExportController.Export(ExportRepresentations, folderPath, fileName.Text);
+                MessageBox.Show("Даныне успешно экспортированны", "Сообщение");
+                this.Dispose();
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private void choseFolderButton_Click(object sender, EventArgs e)
@@ -33,7 +49,7 @@ namespace Lab6new.Forms
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                var folderName = folderBrowserDialog1.SelectedPath;
+                folderPath = folderBrowserDialog1.SelectedPath;
             }
         }
     }

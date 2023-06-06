@@ -1,4 +1,5 @@
 ﻿using Lab6new.Models;
+using Lab6new.RepresentationFactory.Representations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Lab6new.RepresentationFactory.Interface
     {
         public IExportRepresentation CreateAnimalRepresentation(Contract exportModel)
         {
-            throw new NotImplementedException();
+            return new ContractExportRepresentation(exportModel);
         }
 
         public ITableRepresentation CreateTableRepresentation(Contract tableModel)

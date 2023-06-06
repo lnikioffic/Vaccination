@@ -49,6 +49,7 @@
             descendingRadio = new RadioButton();
             radioButton4 = new RadioButton();
             registrationNumberFilter = new TextBox();
+            exportButton = new Button();
             ((System.ComponentModel.ISupportInitialize)animalTable).BeginInit();
             sexFilter.SuspendLayout();
             categoryFilter.SuspendLayout();
@@ -157,7 +158,7 @@
             // 
             // showCardButton
             // 
-            showCardButton.Location = new Point(330, 409);
+            showCardButton.Location = new Point(417, 409);
             showCardButton.Name = "showCardButton";
             showCardButton.Size = new Size(135, 29);
             showCardButton.TabIndex = 10;
@@ -278,11 +279,22 @@
             registrationNumberFilter.Size = new Size(185, 27);
             registrationNumberFilter.TabIndex = 15;
             // 
+            // exportButton
+            // 
+            exportButton.Location = new Point(222, 409);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(135, 29);
+            exportButton.TabIndex = 16;
+            exportButton.Text = "Экспортировать";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
+            // 
             // AnimalForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(exportButton);
             Controls.Add(registrationNumberFilter);
             Controls.Add(typeSortBox);
             Controls.Add(sortBox);
@@ -308,6 +320,7 @@
             Controls.SetChildIndex(sortBox, 0);
             Controls.SetChildIndex(typeSortBox, 0);
             Controls.SetChildIndex(registrationNumberFilter, 0);
+            Controls.SetChildIndex(exportButton, 0);
             ((System.ComponentModel.ISupportInitialize)animalTable).EndInit();
             sexFilter.ResumeLayout(false);
             sexFilter.PerformLayout();
@@ -346,5 +359,6 @@
         private RadioButton descendingRadio;
         private RadioButton radioButton4;
         private TextBox registrationNumberFilter;
+        private Button exportButton;
     }
 }

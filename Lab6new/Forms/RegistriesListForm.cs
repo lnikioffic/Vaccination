@@ -52,9 +52,14 @@ namespace Lab6new.Forms
         {
             var organisationController = new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric());
             var localityController = new LocalityController(PermissionManager, PermissionManager.User);
-            var organisationForm = new OrganisationForm(organisationController,localityController);
+            var organisationForm = new OrganisationForm(organisationController, localityController);
             organisationForm.Show();
             this.Hide();
+        }
+
+        private void statisticButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

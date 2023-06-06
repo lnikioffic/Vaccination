@@ -1,4 +1,5 @@
 ﻿using Lab6new.Models.Interface;
+using Lab6new.RepresentationFactory.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace Lab6new
 {
     internal static class Extensions
     {
-        public static Predicate<ICard> GetFilterFromComboBox(
-           this ComboBox comboBox, Func<ICard, object> selector
+        public static Predicate<IModel> GetFilterFromComboBox(
+           this ComboBox comboBox, Func<IModel, object> selector
            )
         {
             if (comboBox.SelectedValue == null)
                 return (x) => true;
             return (x) => selector(x).ToString() == comboBox.SelectedValue.ToString();
         }
-        public static Predicate<ICard> GetFilterFromBoolGroupBox(
-            this GroupBox groupBox, Func<ICard, bool> selector
+        public static Predicate<IModel> GetFilterFromBoolGroupBox(
+            this GroupBox groupBox, Func<IModel, bool> selector
             )
         {
 
@@ -50,6 +51,11 @@ namespace Lab6new
                 }
                 return true;
             };
+        }
+        public static IEnumerable<object[]> ToExport(this IEnumerable<IExportRepresentation> data)
+        {
+            foreach(var item in data)
+                yield return item.GetExportData();
         }
     }
 }

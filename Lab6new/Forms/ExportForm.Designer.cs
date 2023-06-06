@@ -32,7 +32,7 @@
             folderBrowserDialog1 = new FolderBrowserDialog();
             folderBrowserDialog2 = new FolderBrowserDialog();
             choseFolderButton = new Button();
-            textBox1 = new TextBox();
+            fileName = new TextBox();
             label1 = new Label();
             SuspendLayout();
             // 
@@ -56,12 +56,12 @@
             choseFolderButton.UseVisualStyleBackColor = true;
             choseFolderButton.Click += choseFolderButton_Click;
             // 
-            // textBox1
+            // fileName
             // 
-            textBox1.Location = new Point(43, 76);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(205, 27);
-            textBox1.TabIndex = 3;
+            fileName.Location = new Point(43, 76);
+            fileName.Name = "fileName";
+            fileName.Size = new Size(205, 27);
+            fileName.TabIndex = 3;
             // 
             // label1
             // 
@@ -78,7 +78,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(451, 270);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(fileName);
             Controls.Add(choseFolderButton);
             Controls.Add(exportButton);
             Name = "ExportForm";
@@ -92,7 +92,7 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private FolderBrowserDialog folderBrowserDialog2;
         private Button choseFolderButton;
-        private TextBox textBox1;
+        private TextBox fileName;
         private Label label1;
     }
 }

@@ -48,6 +48,7 @@
             entityBox = new GroupBox();
             oooCheckBox = new CheckBox();
             ipCheckBox = new CheckBox();
+            exportButton = new Button();
             sortBox.SuspendLayout();
             typeSortBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)organisationTable).BeginInit();
@@ -215,7 +216,7 @@
             // 
             // showCardButton
             // 
-            showCardButton.Location = new Point(330, 409);
+            showCardButton.Location = new Point(426, 414);
             showCardButton.Name = "showCardButton";
             showCardButton.Size = new Size(135, 29);
             showCardButton.TabIndex = 25;
@@ -258,11 +259,22 @@
             ipCheckBox.Text = "Физ.";
             ipCheckBox.UseVisualStyleBackColor = true;
             // 
+            // exportButton
+            // 
+            exportButton.Location = new Point(210, 414);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(135, 29);
+            exportButton.TabIndex = 27;
+            exportButton.Text = "Экспортировть";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
+            // 
             // OrganisationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(exportButton);
             Controls.Add(entityBox);
             Controls.Add(showCardButton);
             Controls.Add(organisationTable);
@@ -290,6 +302,7 @@
             Controls.SetChildIndex(organisationTable, 0);
             Controls.SetChildIndex(showCardButton, 0);
             Controls.SetChildIndex(entityBox, 0);
+            Controls.SetChildIndex(exportButton, 0);
             sortBox.ResumeLayout(false);
             sortBox.PerformLayout();
             typeSortBox.ResumeLayout(false);
@@ -323,5 +336,6 @@
         private GroupBox entityBox;
         private CheckBox oooCheckBox;
         private CheckBox ipCheckBox;
+        private Button exportButton;
     }
 }

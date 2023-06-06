@@ -12,26 +12,26 @@ namespace Lab6new.RepresentationFactory
     internal class OrganisationTableRepresentation : ITableRepresentation
     {
         [DisplayName("Название")]
-        public string FullName { get { return Organisation.FullName; } }
+        public string FullName { get { return RepresentEntity.FullName; } }
 
         [DisplayName("ИНН")]
-        public string Inn { get { return Organisation.Inn; } }
+        public string Inn { get { return RepresentEntity.Inn; } }
 
         [DisplayName("Тип")]
-        public string Type { get { { return Organisation.Type; } } }
+        public string Type { get { { return RepresentEntity.Type; } } }
 
         [DisplayName("Лицо")]
-        public string Entity { get { return Organisation.Entity ? "Юридическое" : "Физической"; } }
+        public string Entity { get { return RepresentEntity.Entity ? "Юридическое" : "Физической"; } }
 
         [DisplayName("Нас.пункт")]
-        public string Locality { get { return Organisation.Locality.Locality1; } }
+        public string Locality { get { return RepresentEntity.Locality.Locality1; } }
 
         [Browsable(false)]
-        public Organisation Organisation { get; }
+        public Organisation RepresentEntity { get; }
 
         public OrganisationTableRepresentation(Organisation organisation)
         {
-            Organisation = organisation;
+            RepresentEntity = organisation;
         }
     }
 }

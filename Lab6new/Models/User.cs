@@ -5,7 +5,7 @@ using Lab6new.Models;
 
 namespace Lab6new;
 
-public partial class User : ICard
+public partial class User : IModel
 {
     public int Id { get; set; }
 

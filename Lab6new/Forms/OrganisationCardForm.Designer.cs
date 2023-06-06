@@ -198,13 +198,13 @@
             locality.Size = new Size(206, 27);
             locality.TabIndex = 22;
             // 
-            // OrganisationCardFormcs
+            // OrganisationCardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
-            Name = "OrganisationCardFormcs";
+            Name = "OrganisationCardForm";
             Text = "OrganisationCardFormcs";
             Load += OrganisationCardFormcs_Load;
             tableLayoutPanel1.ResumeLayout(false);

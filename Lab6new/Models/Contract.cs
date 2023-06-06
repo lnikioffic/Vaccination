@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab6new.Models;
 
-public partial class Contract : ICard
+public partial class Contract : IModel
 {
     public int Id { get; set; }
 

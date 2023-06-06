@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab6new.Models;
 
-public partial class Cost : ICard
+public partial class Cost : IModel
 {
     public int Id { get; set; }
 
@@ -17,4 +17,9 @@ public partial class Cost : ICard
     public virtual Contract Contract { get; set; } = null!;
 
     public virtual Locality Locality { get; set; } = null!;
+
+    public override string ToString()
+    {
+        return Locality.Locality1 + " " + Cost1.ToString();
+    }
 }

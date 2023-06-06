@@ -2,6 +2,7 @@
 using Lab6new.Models;
 using Lab6new.RepresentationFactory;
 using Lab6new.RepresentationFactory.Interface;
+using Lab6new.RepresentationFactory.Representations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -90,7 +91,7 @@ namespace Lab6new.Forms
                         new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric()),
                         new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric()),
                         new CostController(PermissionManager, PermissionManager.User),
-                        contractRep.Contract
+                        contractRep.RepresentEntity
                     );
                     card.Show();
                 }
@@ -115,6 +116,16 @@ namespace Lab6new.Forms
         private void ContractForm_Activated(object sender, EventArgs e)
         {
             searchButton_Click(sender, e);
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            var data = (contractTable.DataSource as List<ContractTableRepresentation>)
+                .Select(x => new ContractTableRepresentation(x.RepresentEntity))
+                .Cast<IExportRepresentation>()
+                .ToList();
+            var exportForm = new ExportForm(new ExportController(PermissionManager, PermissionManager.User), data);
+            exportForm.Show();
         }
     }
 }

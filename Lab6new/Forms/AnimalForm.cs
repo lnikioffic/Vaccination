@@ -4,6 +4,7 @@ using Lab6new.Models.Interface;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
 using Lab6new.RepresentationFactory.Interface;
+using Lab6new.RepresentationFactory.Representations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -16,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Lab6new.Forms
 {
@@ -77,7 +79,7 @@ namespace Lab6new.Forms
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            
+
             var sorts = GetSorts();
             var sort = sorts[sortBox.Controls.OfType<RadioButton>().First((x => x.Checked))];
             var sortType = descendingRadio.Checked;
@@ -105,7 +107,7 @@ namespace Lab6new.Forms
                     new ActController(
                         PermissionManager,
                         PermissionManager.User),
-                    animalRep.Animal);
+                    animalRep.RepresentEntity);
                     card.Show();
                 }
             }
@@ -114,6 +116,16 @@ namespace Lab6new.Forms
                 MessageBox.Show("Выберете одну строчку!!!", "Ошибка", MessageBoxButtons.OK);
             }
 
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            var data = (animalTable.DataSource as List<AnimalTableRepresentation>)
+                .Select(x => new AnimalExportRepresentation(x.RepresentEntity))
+                .Cast<IExportRepresentation>()
+                .ToList();
+            var exportForm = new ExportForm(new ExportController(PermissionManager, PermissionManager.User), data);
+            exportForm.Show();
         }
     }
 

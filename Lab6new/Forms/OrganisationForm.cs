@@ -2,6 +2,8 @@
 using Lab6new.Models;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
+using Lab6new.RepresentationFactory.Interface;
+using Lab6new.RepresentationFactory.Representations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -105,7 +107,7 @@ namespace Lab6new.Forms
                 if (organisationRep != null)
                 {
                     var card = new OrganisationCardForm(
-                        organisationRep.Organisation
+                        organisationRep.RepresentEntity
                     );
                     card.Show();
                 }
@@ -114,6 +116,16 @@ namespace Lab6new.Forms
             {
                 MessageBox.Show("Выберете одну строчку!!!", "Ошибка", MessageBoxButtons.OK);
             }
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            var data = (organisationTable.DataSource as List<OrganisationTableRepresentation>)
+                .Select(x => new OrganisationExportRepresentation(x.RepresentEntity))
+                .Cast<IExportRepresentation>()
+                .ToList();
+            var exportForm = new ExportForm(new ExportController(PermissionManager, PermissionManager.User), data);
+            exportForm.Show();
         }
     }
 }

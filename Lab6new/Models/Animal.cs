@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab6new.Models;
 
-public partial class Animal : ICard
+public partial class Animal : IModel
 {
     public int Id { get; set; }
 

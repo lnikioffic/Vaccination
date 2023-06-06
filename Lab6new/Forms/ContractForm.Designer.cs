@@ -46,6 +46,7 @@
             performOrgFilter = new TextBox();
             label3 = new Label();
             addButton = new Button();
+            exportButton = new Button();
             ((System.ComponentModel.ISupportInitialize)contractTable).BeginInit();
             sortBox.SuspendLayout();
             typeSortBox.SuspendLayout();
@@ -179,7 +180,7 @@
             // 
             // showCardButton
             // 
-            showCardButton.Location = new Point(417, 409);
+            showCardButton.Location = new Point(492, 409);
             showCardButton.Name = "showCardButton";
             showCardButton.Size = new Size(135, 29);
             showCardButton.TabIndex = 17;
@@ -221,7 +222,7 @@
             // 
             // addButton
             // 
-            addButton.Location = new Point(211, 409);
+            addButton.Location = new Point(315, 409);
             addButton.Name = "addButton";
             addButton.Size = new Size(135, 29);
             addButton.TabIndex = 22;
@@ -229,11 +230,22 @@
             addButton.UseVisualStyleBackColor = true;
             addButton.Click += addButton_Click;
             // 
+            // exportButton
+            // 
+            exportButton.Location = new Point(140, 409);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(135, 29);
+            exportButton.TabIndex = 23;
+            exportButton.Text = "Экспортировать";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
+            // 
             // ContractForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(exportButton);
             Controls.Add(addButton);
             Controls.Add(performOrgFilter);
             Controls.Add(label3);
@@ -262,6 +274,7 @@
             Controls.SetChildIndex(label3, 0);
             Controls.SetChildIndex(performOrgFilter, 0);
             Controls.SetChildIndex(addButton, 0);
+            Controls.SetChildIndex(exportButton, 0);
             ((System.ComponentModel.ISupportInitialize)contractTable).EndInit();
             sortBox.ResumeLayout(false);
             sortBox.PerformLayout();
@@ -291,5 +304,6 @@
         private TextBox performOrgFilter;
         private Label label3;
         private Button addButton;
+        private Button exportButton;
     }
 }

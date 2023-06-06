@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab6new.Models;
 
-public partial class Organisation : ICard
+public partial class Organisation : IModel
 {
     public int Id { get; set; }
 
@@ -17,9 +17,6 @@ public partial class Organisation : ICard
     public string Address { get; set; } = null!;
 
     public string Type { get; set; } = null!;
-
-    
-
 
     public bool Entity { get; set; }
 

@@ -12,34 +12,29 @@ namespace Lab6new.RepresentationFactory
     internal class AnimalTableRepresentation : ITableRepresentation
     {
         [DisplayName(@"Регистрационный номер")]
-        public string RegistrationNumber { get {return Animal.RegistrationNumber; } }
+        public string RegistrationNumber { get {return RepresentEntity.RegistrationNumber; } }
 
         [DisplayName(@"Животное")]
-        public string Category { get {return Animal.Category ? "собака" : "кошка"; } }
+        public string Category { get {return RepresentEntity.Category ? "собака" : "кошка"; } }
 
         [DisplayName(@"Пол")]
-        public string Sex { get {return Animal.Sex ? "самец" : "самка"; } }
+        public string Sex { get {return RepresentEntity.Sex ? "самец" : "самка"; } }
 
         [DisplayName(@"Номер чипа")]
-        public string ChipNumber { get {return Animal.ChipNumber; } }
+        public string ChipNumber { get {return RepresentEntity.ChipNumber; } }
 
         [DisplayName(@"Кличка")]
-        public string Name { get { return Animal.Name; } }
+        public string Name { get { return RepresentEntity.Name; } }
 
         [DisplayName(@"Населеный пункт")]
-        public string Locality { get {return Animal.Locality.Locality1; } }
+        public string Locality { get {return RepresentEntity.Locality.Locality1; } }
 
         [Browsable(false)]
-        public Animal Animal { get; }
+        public Animal RepresentEntity { get; }
 
         public AnimalTableRepresentation(Animal animal)
         {
-            Animal = animal;
-        }
-
-        public void setValue(Animal animal)
-        {
-            throw new NotImplementedException();
+            RepresentEntity = animal;
         }
     }
 }

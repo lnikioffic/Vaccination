@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6new.RepresentationFactory.Interface
+namespace Lab6new.Models.Interface
 {
-    internal interface IExportRepresentation
+    public interface IModel
     {
+
     }
 }

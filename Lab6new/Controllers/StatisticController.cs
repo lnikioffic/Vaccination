@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6new.Models.Interface
+namespace Lab6new.Controllers
 {
-    public interface ICard
+    internal class StatisticController
     {
-
     }
 }

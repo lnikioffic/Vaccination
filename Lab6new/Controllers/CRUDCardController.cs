@@ -12,7 +12,7 @@ using Lab6new.Models;
 namespace Lab6new.Controllers
 {
     internal class CRUDCardController<T>
-        where T : class, ICard
+        where T : class, IModel
     {
 
 
