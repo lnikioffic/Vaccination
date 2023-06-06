@@ -30,7 +30,7 @@ namespace Lab6new.Forms
             AnimalController = animalController;
             LocalityController = localityController;
             ActController = actController;
-            Animal = animal;
+            Animal = AnimalController.GetAnimal(animal);
             InitializeComponent();
         }
 
@@ -107,7 +107,7 @@ namespace Lab6new.Forms
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
                     Animal);
-                this.Close();
+                this.Dispose();
                 actForm.Show();
             }
             catch (Exception ex)
@@ -123,13 +123,17 @@ namespace Lab6new.Forms
                 Act? lastAct = Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault();
                 if (lastAct != null)
                 {
-                    var act = ActController.GetActs(new List<Predicate<Act>> { (x) => x.Id == lastAct.Id }, (x) => true).First();
+                    var act = ActController.GetAct(lastAct);
                     var actForm = new VaccinationForm(
                     new ActController(AnimalController.PermissionManager,
                         AnimalController.PermissionManager.User),
                     Animal, act);
                     this.Close();
                     actForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("У этго животного нет акта", "Ошибка");
                 }
             }
             catch (Exception ex)

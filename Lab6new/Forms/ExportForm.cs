@@ -20,7 +20,7 @@ namespace Lab6new.Forms
 
         private ExportController ExportController { get; }
 
-        public ExportForm(ExportController exportController,List<IExportRepresentation> exportRepresentations)
+        public ExportForm(ExportController exportController, List<IExportRepresentation> exportRepresentations)
         {
             ExportRepresentations = exportRepresentations;
             ExportController = exportController;
@@ -39,7 +39,8 @@ namespace Lab6new.Forms
                 MessageBox.Show("Даныне успешно экспортированны", "Сообщение");
                 this.Dispose();
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Ошибка");
             }
         }
@@ -50,6 +51,7 @@ namespace Lab6new.Forms
             if (result == DialogResult.OK)
             {
                 folderPath = folderBrowserDialog1.SelectedPath;
+                pathLabel.Text = folderPath;
             }
         }
     }

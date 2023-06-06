@@ -289,6 +289,7 @@
             Controls.Add(localityFilter);
             Name = "OrganisationForm";
             Text = "OrganisationForm";
+            Activated += OrganisationForm_Activated;
             Load += OrganisationForm_Load;
             Controls.SetChildIndex(localityFilter, 0);
             Controls.SetChildIndex(label2, 0);

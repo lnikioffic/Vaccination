@@ -136,6 +136,7 @@ namespace Lab6new.Forms
                     {
                         ContractId = contract.Id,
                         LocalityId = locality.Id,
+                        Locality = locality,
                         Cost1 = price
                     }
                     );
@@ -242,7 +243,7 @@ namespace Lab6new.Forms
                     PerformOrganisationId = PerformOrganisation.Id,
                 };
                 contract.Costs = CreateCosts(contract);
-                ContractController.Add(contract);
+                ContractController.Add(contract,PerformOrganisation);
                 MessageBox.Show("Контракт успешно добавлен", "Сообщение");
                 this.Dispose();
 
@@ -279,7 +280,7 @@ namespace Lab6new.Forms
                 Contract.StartDate = interval.StartDate;
                 Contract.EndDate = interval.EndDate;
                 Contract.Costs = CreateCosts(Contract);
-                ContractController.Update(Contract);
+                ContractController.Update(Contract,PerformOrganisation);
             }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка");

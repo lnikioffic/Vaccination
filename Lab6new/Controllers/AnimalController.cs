@@ -44,38 +44,41 @@ namespace Lab6new.Controllers
 
         private IRepresentationFabric<Animal> RepresentationFabric { get; }
 
-        public bool Validate(Animal animal)
+        public void Validate(Animal animal)
         {
-            var notEmptyField = animal.Name != "" && animal.SpecialSigns != ""
-                && animal.RegistrationNumber != "" && animal.ChipNumber != "";
-            var uniqueField = GetData((x) => (x.RegistrationNumber == animal.RegistrationNumber
-            || x.ChipNumber == animal.ChipNumber) && x.Id != animal.Id, (x) => true)
-                .FirstOrDefault() == null;
-            var inputField = animal.BirthYear != 0;
-            return notEmptyField && uniqueField && inputField;
+            var errors = new List<string>();
+            if (animal.Name == "" || animal.SpecialSigns == "" || animal.RegistrationNumber == "" || animal.ChipNumber == "")
+                errors.Add("Поля: Кличка,Регистрационный номер, Номер чипа, Особые примет. Не могут быть пустыми");
+
+            if (GetData((x) => (x.RegistrationNumber == animal.RegistrationNumber ||
+            x.ChipNumber == animal.ChipNumber) && x.Id != animal.Id, (x) => true)
+                .FirstOrDefault() != null)
+                errors.Add("Регистрационный номер и Номер чипа, должны быть уникальны");
+
+            if (animal.BirthYear == 0)
+                errors.Add("Год рождения не валиден");
+
+            if (errors.Count > 0)
+                throw new ArgumentException(String.Join("\n", errors));
         }
 
         public void Update(Animal animal)
         {
             CheckPermissons();
-            if (Validate(animal))
+            Validate(animal);
+            using (var db = new Lab3newContext())
             {
-                using(var db = new Lab3newContext())
-                {
-                    var anim = db.Animals.Single(x=>x.Id == animal.Id);
-                    anim.Name = animal.Name;
-                    anim.ChipNumber = animal.ChipNumber;
-                    anim.BirthYear = animal.BirthYear;
-                    anim.RegistrationNumber = animal.RegistrationNumber;
-                    anim.Sex = animal.Sex;
-                    anim.Category = animal.Category;
-                    anim.SpecialSigns = animal.SpecialSigns;
-                    anim.Locality = db.Localities.Single(x=>x.Id == animal.Locality.Id);
-                    db.SaveChanges();
-                }
+                var anim = db.Animals.Single(x => x.Id == animal.Id);
+                anim.Name = animal.Name;
+                anim.ChipNumber = animal.ChipNumber;
+                anim.BirthYear = animal.BirthYear;
+                anim.RegistrationNumber = animal.RegistrationNumber;
+                anim.Sex = animal.Sex;
+                anim.Category = animal.Category;
+                anim.SpecialSigns = animal.SpecialSigns;
+                anim.Locality = db.Localities.Single(x => x.Id == animal.Locality.Id);
+                db.SaveChanges();
             }
-            else
-                throw new Exception("Не верно введеные данные");
         }
 
         public void Delete(Animal animal)
@@ -97,7 +100,15 @@ namespace Lab6new.Controllers
                 );
         }
 
-        public List<Animal> GetData(Predicate<Animal> filter, Func<Animal, object> sort, bool descending = false)
+        public Animal GetAnimal(Animal animal)
+        {
+            var filters = new List<Predicate<Animal>> { PermissionManager.AnimalReadFilter, x => x.Id == animal.Id };
+            var result = GetData(filters.GlueFilters(), x => true).FirstOrDefault();
+            if (result != null)
+                return result;
+            throw new Exception("Животное не найдено");
+        }
+        private List<Animal> GetData(Predicate<Animal> filter, Func<Animal, object> sort, bool descending = false)
         {
             using (var db = new Lab3newContext())
             {

@@ -2,6 +2,7 @@
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,15 @@ namespace Lab6new.Controllers
             return GetData(resultFilter.GlueFilters(), sort).ToList();
         }
 
+        public Act GetAct(Act act)
+        {
+            var filters = new List<Predicate<Act>> { (x) => x.Id == act.Id, PermissionManager.ActReadFilter };
+            var result = GetData(filters.GlueFilters(), x => true).FirstOrDefault();
+            if (result != null)
+                return result;
+            throw new Exception("Акт не найдн");
+        }
+
         private  List<Act> GetData(Predicate<Act> filter, Func<Act, object> sort)
         {
             using (var db = new Lab3newContext())
@@ -75,12 +85,15 @@ namespace Lab6new.Controllers
                     .Include(x => x.User)
                         .ThenInclude(x => x.Organisation)
                             .ThenInclude(x => x.ContractPerformOrganisations)
+                                .ThenInclude(x=>x.Costs)
+                                    .ThenInclude(x=>x.Locality)
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)
                     .AsQueryable()
                     .ToList();
             }
+
         }
     }
 }

@@ -39,13 +39,30 @@ namespace Lab6new.Controllers
 
         private IRepresentationFabric<Contract> RepresentationFabric { get; }
 
-        public bool Validate(Contract contract)
+        public void Validate(Contract contract,Organisation peformOrg)
         {
-            var notEmptyField = contract.Number != "";
-            var uniqueField = GetData((x) => (x.Number == contract.Number) && x.Id != contract.Id, (x) => true)
-                .FirstOrDefault() == null;
-            var organisation = contract.PerformOrganisationId != contract.OrderOrganisationId;
-            return notEmptyField && uniqueField && organisation;
+            var errors = new List<string>();
+            if (contract.Number == "")
+                errors.Add("Номер не может быть путсым.");
+
+            if (GetData((x) => (x.Number == contract.Number) && x.Id != contract.Id, (x) => true)
+                .FirstOrDefault() != null)
+                errors.Add("Поле номер должно быть уникальным");
+
+            if (peformOrg
+                    .ContractPerformOrganisations
+                    .Where(x => x.EndDate >= DateOnly.FromDateTime(DateTime.Now))
+                    .Count() != 0)
+                errors.Add("Организация " + peformOrg.ToString() + " уже имеет действующий контракт");
+
+            if (contract.PerformOrganisationId == contract.OrderOrganisationId)
+                errors.Add("Организация закказчика и исполнителя не могут совпадать");
+
+            if(contract.Costs.Select(x=>x.Locality.DistrictId).Where(x=>x != peformOrg.Locality.DistrictId).Count()>0)
+                errors.Add("Исполнитель не может вакцинировать, во всех городах из списка");
+
+            if (errors.Count > 0)
+                throw new ArgumentException(String.Join("\n", errors));
         }
 
 
@@ -59,14 +76,10 @@ namespace Lab6new.Controllers
                 throw new Exception("Нельзя удалять контракт по каторому выполнена хотябы одна вакцинация");
         }
 
-        public void Add(Contract contract)
+        public void Add(Contract contract,Organisation peformOrg)
         {
-            if (Validate(contract))
-            {
-                CRUDCardController.Add(contract);
-            }
-            else
-                throw new Exception("Неверно введенные данные");
+            Validate(contract, peformOrg);
+            CRUDCardController.Add(contract);
         }
 
         public IEnumerable<ITableRepresentation> GetContracts(List<Predicate<Contract>> filters, Func<Contract, object> sort, bool sortType = false)
@@ -85,38 +98,25 @@ namespace Lab6new.Controllers
             if (!PermissionManager.CanEditContract())
                 throw new Exception("У вас недостаточно прав");
         }
-        public void Update(Contract contract)
+        public void Update(Contract contract, Organisation peformOrg)
         {
             CheckPermissons();
-            if (Validate(contract))
+            Validate(contract, peformOrg);
+            using (var db = new Lab3newContext())
             {
-                using (var db = new Lab3newContext())
-                {
-                    var contr = db.Contracts.Single(x => x.Id == contract.Id);
-                    contr.StartDate = contract.StartDate;
-                    contr.EndDate = contract.EndDate;
-                    contr.Number = contract.Number;
-                    contr.OrderOrganisation
-                        = db.Organisations.Single(x => x.Id == contract.OrderOrganisation.Id);
-                    contr.PerformOrganisation =
-                        db.Organisations.Single(x => x.Id == contract.PerformOrganisation.Id);
-                    contr.Costs = null;
-                    db.SaveChanges();
-                    contr.Costs = contract.Costs;
-                    /*var previousCosts = db.Costs.Where(x => x.ContractId == contract.Id).ToList();*/
-                    /*foreach (var cost in previousCosts)
-                        if (!contract.Costs.Select(x => x.Id).Contains(cost.Id))
-                            CostController.Delete(cost);
-
-                    foreach (var cost in contract.Costs)
-                        if (!previousCosts.Select(x => x.Id).Contains(cost.Id))
-                            CostController.Add(cost);*/
-                    db.SaveChanges();
-                }
+                var contr = db.Contracts.Single(x => x.Id == contract.Id);
+                contr.StartDate = contract.StartDate;
+                contr.EndDate = contract.EndDate;
+                contr.Number = contract.Number;
+                contr.OrderOrganisation
+                    = db.Organisations.Single(x => x.Id == contract.OrderOrganisation.Id);
+                contr.PerformOrganisation =
+                    db.Organisations.Single(x => x.Id == contract.PerformOrganisation.Id);
+                contr.Costs = null;
+                db.SaveChanges();
+                contr.Costs = contract.Costs;
+                db.SaveChanges();
             }
-            else
-                throw new Exception("Не верно введеные данные");
-
         }
 
         public List<Contract> GetData(Predicate<Contract> filter, Func<Contract, object> sort, bool descending = false)
@@ -127,6 +127,8 @@ namespace Lab6new.Controllers
                     .Include(x => x.OrderOrganisation)
                     .Include(x => x.PerformOrganisation)
                         .ThenInclude(x => x.Locality)
+                    .Include(x => x.PerformOrganisation)
+                        .ThenInclude(x => x.ContractPerformOrganisations)
                     .Include(x => x.Costs)
                         .ThenInclude(x => x.Locality)
                     .AsEnumerable()

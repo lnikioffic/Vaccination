@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Contracts;
+
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -55,14 +55,17 @@ namespace Lab6new.Forms
 
         private DateOnly startDate;
 
-        private Lab6new.Models.Contract Contract
+        private Contract Contract
         {
             get
             {
-                return Organisation
+                var contract = Organisation
                     .ContractPerformOrganisations
                     .OrderByDescending((x) => x.EndDate)
-                    .First();
+                    .FirstOrDefault();
+                if (contract == null)
+                    throw new Exception("Похоже ваша организация не имеет контрактов на вакцинацию");
+                return contract;
             }
         }
 
@@ -72,23 +75,30 @@ namespace Lab6new.Forms
 
         private void VaccinationForm_Load(object sender, EventArgs e)
         {
-            animalTextBox.Text = animal.ToString();
-            userTextBox.Text = user.ToString();
-            contractTextBox.Text = Contract.ToString();
-            localityTextBox.Text = Locality.ToString();
-            startDateTextBox.Text = startDate.ToString();
-            if (act != null)
+            try
             {
-                durationTextBox.Text = (act.EndDate.DayNumber - act.StartDate.DayNumber).ToString();
-                serialNumbTextBox.Text = act.SerialNumber.ToString();
-                typeTextBox.Text = act.Type.ToString();
-                addButton.Visible = false;
-                changeButton.Visible = true;
+                animalTextBox.Text = animal.ToString();
+                userTextBox.Text = user.ToString();
+                contractTextBox.Text = Contract.ToString();
+                localityTextBox.Text = Locality.ToString();
+                startDateTextBox.Text = startDate.ToString();
+                if (act != null)
+                {
+                    durationTextBox.Text = (act.EndDate.DayNumber - act.StartDate.DayNumber).ToString();
+                    serialNumbTextBox.Text = act.SerialNumber.ToString();
+                    typeTextBox.Text = act.Type.ToString();
+                    addButton.Visible = false;
+                    changeButton.Visible = true;
+                }
+                else
+                {
+                    addButton.Visible = true;
+                    changeButton.Visible = false;
+                }
             }
-            else
-            {
-                addButton.Visible = true;
-                changeButton.Visible = false;
+            catch(Exception ex) {
+                MessageBox.Show(ex.Message, "Ошибка");
+                this.Dispose();
             }
         }
 

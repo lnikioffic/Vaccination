@@ -34,6 +34,7 @@
             choseFolderButton = new Button();
             fileName = new TextBox();
             label1 = new Label();
+            pathLabel = new Label();
             SuspendLayout();
             // 
             // exportButton
@@ -72,11 +73,20 @@
             label1.TabIndex = 4;
             label1.Text = "Введите название файла";
             // 
+            // pathLabel
+            // 
+            pathLabel.AutoSize = true;
+            pathLabel.Location = new Point(44, 104);
+            pathLabel.Name = "pathLabel";
+            pathLabel.Size = new Size(0, 20);
+            pathLabel.TabIndex = 5;
+            // 
             // ExportForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(451, 270);
+            Controls.Add(pathLabel);
             Controls.Add(label1);
             Controls.Add(fileName);
             Controls.Add(choseFolderButton);
@@ -94,5 +104,6 @@
         private Button choseFolderButton;
         private TextBox fileName;
         private Label label1;
+        private Label pathLabel;
     }
 }

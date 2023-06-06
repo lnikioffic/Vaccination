@@ -127,6 +127,11 @@ namespace Lab6new.Forms
             var exportForm = new ExportForm(new ExportController(PermissionManager, PermissionManager.User), data);
             exportForm.Show();
         }
+
+        private void AnimalForm_Activated(object sender, EventArgs e)
+        {
+            searchButton_Click(sender, e);
+        }
     }
 
 }

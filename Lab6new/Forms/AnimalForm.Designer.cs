@@ -308,6 +308,7 @@
             Controls.Add(animalTable);
             Name = "AnimalForm";
             Text = "";
+            Activated += AnimalForm_Activated;
             Load += AnimalForm_Load;
             Controls.SetChildIndex(animalTable, 0);
             Controls.SetChildIndex(localityFilter, 0);

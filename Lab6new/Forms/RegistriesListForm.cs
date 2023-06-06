@@ -27,7 +27,6 @@ namespace Lab6new.Forms
         {
             PermissionManager = permissionManager;
             InitializeComponent();
-            username.Text = permissionManager.User.ToString();
         }
 
         private void animalRegistryButton_Click(object sender, EventArgs e)
@@ -59,7 +58,11 @@ namespace Lab6new.Forms
 
         private void statisticButton_Click(object sender, EventArgs e)
         {
-
+            var actController = new ActController(PermissionManager, PermissionManager.User);
+            var statisticController = new StatisticController(PermissionManager, PermissionManager.User);
+            var statisticForm = new StatisticForm(actController, statisticController);
+            statisticForm.Show();
+            this.Hide();
         }
     }
 }
