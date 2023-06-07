@@ -12,18 +12,21 @@ namespace Lab6new.RepresentationAbstractFactory.Representations
     internal class StatisticItemTableRepresentation:ITableRepresentation
     {
         [DisplayName(@"Нас. пункт")]
-        public string Locality { get { return RepresentEntity.Locality.Locality1; } }
+        public string Locality { get; }
 
         [DisplayName(@"Количество поставленых вакцин")]
-        public string VaccinesCount { get { return RepresentEntity.VaccinesCount.ToString(); } }
+        public string VaccinesCount { get; }
 
         [DisplayName(@"Общая стоимость")]
-        public string TotalCost { get { return Math.Round(RepresentEntity.TotalCost, 2).ToString(); } }
+        public string TotalCost { get; }
 
         [Browsable(false)]
         public StatisticItem RepresentEntity { get; set; }
         public StatisticItemTableRepresentation(StatisticItem statisticItem) { 
             RepresentEntity = statisticItem;
+            Locality = RepresentEntity.Locality.Locality1;
+            VaccinesCount = RepresentEntity.VaccinesCount.ToString();
+            TotalCost = Math.Round(RepresentEntity.TotalCost, 2).ToString();
         }
     }
 }

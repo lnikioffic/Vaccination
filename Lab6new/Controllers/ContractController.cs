@@ -45,6 +45,9 @@ namespace Lab6new.Controllers
             if (contract.Number == "")
                 errors.Add("Номер не может быть путсым.");
 
+            if (contract.Acts.Where(x=>!contract.Costs.Select(x=>x.LocalityId).Contains(x.LocalityId)).Count() > 0)
+                errors.Add("В каких-то городах, по этому контракут уже есть акты");
+
             if (GetData((x) => (x.Number == contract.Number) && x.Id != contract.Id, (x) => true)
                 .FirstOrDefault() != null)
                 errors.Add("Поле номер должно быть уникальным");
@@ -127,6 +130,7 @@ namespace Lab6new.Controllers
                         .ThenInclude(x => x.Locality)
                     .Include(x => x.Costs)
                         .ThenInclude(x => x.Locality)
+                    .Include(x => x.Acts)//добавил это, проверять при удаление коста наличие актов
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)

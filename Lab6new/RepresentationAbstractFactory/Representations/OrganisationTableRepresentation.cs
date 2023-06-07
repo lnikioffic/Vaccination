@@ -12,19 +12,19 @@ namespace Lab6new.RepresentationFactory
     internal class OrganisationTableRepresentation : ITableRepresentation
     {
         [DisplayName("Название")]
-        public string FullName { get { return RepresentEntity.FullName; } }
+        public string FullName { get; }
 
         [DisplayName("ИНН")]
-        public string Inn { get { return RepresentEntity.Inn; } }
+        public string Inn { get; }
 
         [DisplayName("Тип")]
-        public string Type { get { { return RepresentEntity.Type; } } }
+        public string Type { get; }
 
         [DisplayName("Лицо")]
-        public string Entity { get { return RepresentEntity.Entity ? "Юридическое" : "Физической"; } }
+        public string Entity { get; }
 
         [DisplayName("Нас.пункт")]
-        public string Locality { get { return RepresentEntity.Locality.Locality1; } }
+        public string Locality { get; }
 
         [Browsable(false)]
         public Organisation RepresentEntity { get; }
@@ -32,6 +32,11 @@ namespace Lab6new.RepresentationFactory
         public OrganisationTableRepresentation(Organisation organisation)
         {
             RepresentEntity = organisation;
+            FullName = RepresentEntity.FullName;
+            Inn = RepresentEntity.Inn;
+            Type = RepresentEntity.Type;
+            Entity = RepresentEntity.Entity ? "Юридическое" : "Физической";
+            Locality = RepresentEntity.Locality.Locality1;
         }
     }
 }
