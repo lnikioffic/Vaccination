@@ -90,7 +90,6 @@ namespace Lab6new.Forms
                         new LocalityController(PermissionManager, PermissionManager.User),
                         new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric()),
                         new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric()),
-                        new CostController(PermissionManager, PermissionManager.User),
                         contractRep.RepresentEntity
                     );
                     card.Show();
@@ -107,8 +106,7 @@ namespace Lab6new.Forms
             var addForm = new ContractCardForm(
                 new LocalityController(PermissionManager, PermissionManager.User),
                 new OrganisationController(PermissionManager, PermissionManager.User, new OrganisationRepresentationFabric()),
-                new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric()),
-                new CostController(PermissionManager, PermissionManager.User)
+                new ContractController(PermissionManager, PermissionManager.User, new ContractRepresentationFabric())
                 );
             addForm.Show();
         }

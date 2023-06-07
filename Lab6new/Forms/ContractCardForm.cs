@@ -18,29 +18,25 @@ namespace Lab6new.Forms
 
         private OrganisationController OrganisationController { get; }
 
-        private ContractController ContractController { get; }
-
-        private CostController CostController { get; }
+        private ContractController ContractController { get; }        
 
         public ContractCardForm(LocalityController localityController,
             OrganisationController organisationController,
-            ContractController contractController, CostController costController)
+            ContractController contractController)
         {
             LocalityController = localityController;
             OrganisationController = organisationController;
             ContractController = contractController;
-            CostController = costController;
             InitializeComponent();
         }
 
         public ContractCardForm(LocalityController localityController,
             OrganisationController organisationController,
-            ContractController contractController, CostController costController, Contract contract)
+            ContractController contractController, Contract contract)
         {
             LocalityController = localityController;
             OrganisationController = organisationController;
             ContractController = contractController;
-            CostController = costController;
             Contract = contract;
             InitializeComponent();
         }

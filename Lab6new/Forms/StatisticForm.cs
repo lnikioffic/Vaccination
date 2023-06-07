@@ -19,13 +19,11 @@ namespace Lab6new.Forms
 {
     internal partial class StatisticForm : RegistriesListForm
     {
-        public ActController ActController { get; set; }
-
         public StatisticController StatisticController { get; set; }
-        public StatisticForm(ActController actController, StatisticController statisticController)
+
+        public StatisticForm(StatisticController statisticController)
         {
-            PermissionManager = actController.PermissionManager;
-            ActController = actController;
+            PermissionManager = statisticController.PermissionManager;
             StatisticController = statisticController;
             InitializeComponent();
         }

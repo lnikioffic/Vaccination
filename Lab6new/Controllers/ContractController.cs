@@ -1,4 +1,5 @@
-﻿using Lab6new.Models;
+﻿using Lab6new.Controllers.Interface;
+using Lab6new.Models;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class ContractController
+    internal class ContractController: IExportDataController<Contract>
     {
         public CRUDCardController<Contract> CRUDCardController
         {
@@ -130,7 +131,7 @@ namespace Lab6new.Controllers
                         .ThenInclude(x => x.Locality)
                     .Include(x => x.Costs)
                         .ThenInclude(x => x.Locality)
-                    .Include(x => x.Acts)//добавил это, проверять при удаление коста наличие актов
+                    .Include(x => x.Acts)
                     .AsEnumerable()
                     .Where(x => filter(x))
                     .OrderBy(sort)

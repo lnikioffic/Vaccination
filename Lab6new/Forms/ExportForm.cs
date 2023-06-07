@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Lab6new.RepresentationFactory.Representations;
+using Lab6new.Controllers.Interface;
+using Lab6new.Models.Interface;
+using Lab6new.Models;
 
 namespace Lab6new.Forms
 {
@@ -26,6 +29,14 @@ namespace Lab6new.Forms
             ExportController = exportController;
             InitializeComponent();
         }
+
+        public void SetControllerAndFabric<T>(IExportDataController<T> controller ,
+            IRepresentationFabric<T> fabric,Predicate<T> filter, Func<T,bool> sort,bool de)
+            where T : class,IModel
+        {
+
+        }
+
 
         private string folderPath = "";
 

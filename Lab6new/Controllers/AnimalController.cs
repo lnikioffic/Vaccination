@@ -1,4 +1,5 @@
-﻿using Lab6new.Models;
+﻿using Lab6new.Controllers.Interface;
+using Lab6new.Models;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory;
 using Lab6new.RepresentationFactory.Interface;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class AnimalController
+    internal class AnimalController:IExportDataController<Animal>
     {
 
         private CRUDCardController<Animal> CRUDCardController
@@ -108,7 +109,7 @@ namespace Lab6new.Controllers
                 return result;
             throw new Exception("Животное не найдено");
         }
-        private List<Animal> GetData(Predicate<Animal> filter, Func<Animal, object> sort, bool descending = false)
+        public List<Animal> GetData(Predicate<Animal> filter, Func<Animal, object> sort, bool descending = false)
         {
             using (var db = new Lab3newContext())
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab6new.Models.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Models
 {
-    internal class StatisticItem
+    internal class StatisticItem:IModel
     {
 
         public Locality Locality { get; set; } = null!;

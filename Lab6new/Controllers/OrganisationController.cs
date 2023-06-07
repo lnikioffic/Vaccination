@@ -1,4 +1,5 @@
-﻿using Lab6new.Models;
+﻿using Lab6new.Controllers.Interface;
+using Lab6new.Models;
 using Lab6new.PermissionManagers;
 using Lab6new.RepresentationFactory.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Lab6new.Controllers
 {
-    internal class OrganisationController
+    internal class OrganisationController: IExportDataController<Organisation>
     {
         public CRUDCardController<Organisation> CRUDCardController
         {

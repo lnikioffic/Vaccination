@@ -60,7 +60,7 @@ namespace Lab6new.Forms
         {
             var actController = new ActController(PermissionManager, PermissionManager.User);
             var statisticController = new StatisticController(PermissionManager, PermissionManager.User);
-            var statisticForm = new StatisticForm(actController, statisticController);
+            var statisticForm = new StatisticForm(statisticController);
             statisticForm.Show();
             this.Hide();
         }
