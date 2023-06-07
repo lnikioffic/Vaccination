@@ -46,6 +46,9 @@ namespace Lab6new.Controllers
             if (contract.Number == "")
                 errors.Add("Номер не может быть путсым.");
 
+            if(contract.Costs.Select(x=>x.Cost1).Where(x=>x<=0).Count()>0)
+                errors.Add("Цена не может быть меньше нуля.");
+
             if (contract.Acts.Where(x=>!contract.Costs.Select(x=>x.LocalityId).Contains(x.LocalityId)).Count() > 0)
                 errors.Add("В каких-то городах, по этому контракут уже есть акты");
 

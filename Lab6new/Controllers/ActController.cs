@@ -97,6 +97,7 @@ namespace Lab6new.Controllers
             using (var db = new Lab3newContext())
             {
                 return db.Acts
+                    .Include(x=>x.Locality)
                     .Include(x => x.User)
                         .ThenInclude(x => x.Organisation)
                             .ThenInclude(x => x.Locality)

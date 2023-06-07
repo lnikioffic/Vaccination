@@ -106,6 +106,8 @@ namespace Lab6new.Forms
         {
             get
             {
+                if (orderOrgCombobox.SelectedItem == null)
+                    throw new Exception("Неверные данные организации заказчика");
                 return OrganisationController
                     .GetOrganisations(
                     new List<Predicate<Organisation>> { x => x.FullName == orderOrgCombobox.SelectedItem.ToString() },
@@ -144,6 +146,8 @@ namespace Lab6new.Forms
         {
             get
             {
+                if (performOrgComboBox.SelectedItem == null)
+                    throw new Exception("Неверные данные организации исполнителя");
                 return OrganisationController
                     .GetOrganisations(
                     new List<Predicate<Organisation>> { x => x.FullName == performOrgComboBox.SelectedItem.ToString() },

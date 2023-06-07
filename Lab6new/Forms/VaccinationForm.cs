@@ -108,20 +108,30 @@ namespace Lab6new.Forms
             }
         }
 
-        private Act CreateAct()
+        private Act? CreateAct()
         {
-            var interval = new Interval(startDate, durationTextBox.Text);
-            return new Act
+            try
             {
-                AnimalId = animal.Id,
-                UserId = user.Id,
-                StartDate = interval.StartDate,
-                EndDate = interval.EndDate,
-                Type = typeTextBox.Text,
-                SerialNumber = serialNumbTextBox.Text,
-                LocalityId = (localityComboBox.SelectedItem as Locality).Id,
-                ContractId = Contract.Id
-            };
+                var interval = new Interval(startDate, durationTextBox.Text);
+                if (localityComboBox.SelectedItem == null)
+                    throw new Exception("Неверные данные нас. пункта");
+                return new Act
+                {
+                    AnimalId = animal.Id,
+                    UserId = user.Id,
+                    StartDate = interval.StartDate,
+                    EndDate = interval.EndDate,
+                    Type = typeTextBox.Text,
+                    SerialNumber = serialNumbTextBox.Text,
+
+                    LocalityId = (localityComboBox.SelectedItem as Locality).Id,
+                    ContractId = Contract.Id
+                };
+            }
+            catch (Exception ex){
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
+            return null;
         }
 
         private void Redirect()
@@ -149,6 +159,8 @@ namespace Lab6new.Forms
             {
                 if (act != null)
                 {
+                    if (localityComboBox.SelectedItem == null)
+                        throw new Exception("Неверные данные нас. пункта");
                     var interval = new Interval(startDate, durationTextBox.Text);
                     act.LocalityId = (localityComboBox.SelectedItem as Locality).Id;
                     act.EndDate = interval.EndDate;
@@ -171,6 +183,8 @@ namespace Lab6new.Forms
             try
             {
                 var act = CreateAct();
+                if (act == null)
+                    throw new Exception("неверные данные акта");
                 ActController.Add(act);
                 var message = MessageBox.Show("Животное успешно вакцинировано", "Сообщение", MessageBoxButtons.OK);
                 if (message == DialogResult.OK)

@@ -39,8 +39,13 @@ namespace Lab6new.Forms
 
             regNumb.Text = Animal.RegistrationNumber;
             category.SetDataToComboBox(new List<string> { "собака", "кошка" });
+            if (category.SelectedItem == null)
+                throw new Exception("Неверные данные категории");
             category.SelectedItem = Animal.Category ? "собака" : "кошка";
+
             sex.SetDataToComboBox(new List<string> { "самец", "самка" });
+            if (sex.SelectedItem == null)
+                throw new Exception("Неверные данные пола");
             sex.SelectedItem = Animal.Sex ? "самец" : "самка";
             birthYear.Text = Animal.BirthYear.ToString();
             chipNumb.Text = Animal.ChipNumber;
@@ -50,6 +55,8 @@ namespace Lab6new.Forms
                 (x => x.Locality1))
                 .Select((x) => x.Locality1)
                 .ToList();
+            if (locality.SelectedItem == null)
+                throw new Exception("Неверные данные нас. пункта");
             locality.SelectedItem = Animal.Locality.Locality1;
             specialSigns.Text = Animal.SpecialSigns;
             Act? lastAct = Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault();
@@ -64,14 +71,21 @@ namespace Lab6new.Forms
             try
             {
                 Animal.RegistrationNumber = regNumb.Text;
+                if (category.SelectedItem == null)
+                    throw new Exception("Неверные данные категории");
                 Animal.Category = category.SelectedItem.ToString() == "собака";
+                if (sex.SelectedItem == null)
+                    throw new Exception("Неверные данные пола");
                 Animal.Sex = sex.SelectedItem.ToString() == "самец";
+
                 Animal.Name = name.Text;
                 Animal.ChipNumber = chipNumb.Text;
                 var year = 0;
                 int.TryParse(birthYear.Text, out year);
                 Animal.BirthYear = year;
                 Animal.SpecialSigns = specialSigns.Text;
+                if (locality.SelectedItem == null)
+                    throw new Exception("Неверные данные нас. пункта");
                 Animal.Locality = LocalityController
                     .GetLocalities(new List<Predicate<Locality>> { x => x.Locality1 == locality.SelectedItem.ToString() },
                     (x) => true)
