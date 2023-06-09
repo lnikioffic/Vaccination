@@ -39,14 +39,16 @@ namespace Lab6new.Forms
 
             regNumb.Text = Animal.RegistrationNumber;
             category.SetDataToComboBox(new List<string> { "собака", "кошка" });
+        
+            category.SelectedItem = Animal.Category ? "собака" : "кошка";
             if (category.SelectedItem == null)
                 throw new Exception("Неверные данные категории");
-            category.SelectedItem = Animal.Category ? "собака" : "кошка";
 
             sex.SetDataToComboBox(new List<string> { "самец", "самка" });
+            
+            sex.SelectedItem = Animal.Sex ? "самец" : "самка";
             if (sex.SelectedItem == null)
                 throw new Exception("Неверные данные пола");
-            sex.SelectedItem = Animal.Sex ? "самец" : "самка";
             birthYear.Text = Animal.BirthYear.ToString();
             chipNumb.Text = Animal.ChipNumber;
             name.Text = Animal.Name;
@@ -55,9 +57,10 @@ namespace Lab6new.Forms
                 (x => x.Locality1))
                 .Select((x) => x.Locality1)
                 .ToList();
+            
+            locality.SelectedItem = Animal.Locality.Locality1;
             if (locality.SelectedItem == null)
                 throw new Exception("Неверные данные нас. пункта");
-            locality.SelectedItem = Animal.Locality.Locality1;
             specialSigns.Text = Animal.SpecialSigns;
             Act? lastAct = Animal.Acts.OrderByDescending(x => x.EndDate).FirstOrDefault();
             actType.Text = lastAct?.Type.ToString();
