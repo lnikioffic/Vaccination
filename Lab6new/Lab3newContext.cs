@@ -36,7 +36,7 @@ public partial class Lab3newContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.EnableSensitiveDataLogging();
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=lab3new;Username=postgres;Password=6776");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=lab3new;Username=postgres;Password=*******");
     } 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
